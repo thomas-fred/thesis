@@ -18,9 +18,32 @@
 %% \linenumbers
 
 %% main text
-\section{Introduction}
+\section{Outline}
 \label{S:1}
+
+% 
+
 This study utilises self-shielding factors as a means to optimise energy group structures for fusion activation calculations. Informed by an analysis of important fusion resonances and a survey of relevant incident particle spectra, we develop and test two new group structures designed to more accurately represent the physics of nuclear reactions. They are compared to group structures commonly used in fusion research \& analysis. When used in a JET activation foil scenario, the optimised group structures outperform reference group structures, such as CCFE-709, while requiring fewer bins.
+
+\section{Introduction}
+
+% Nuclear physics
+%   Cross-sections and their extreme range and non-linearity 
+%   Resonance theory / compound nuclei formation and decay
+%   Resonance parameter correlations (matrix, resonance widths, f(Z,E))
+
+% Representations of nuclear data
+%   Evaluated nuclear data (ENDFs) and their production
+%   Continuous (or near continuous) forms like PENDFs, ACE files
+%   Discretised formats like GENDF
+
+% Usage of nuclear data
+%   Radiation transport (stochastic & deterministic). Limitations?
+%   Transmutation and activation – why discrete? Limitations?
+
+% Self-shielding
+%   Flux depressions...
+%   ...
 
 Nuclear simulations for fusion devices are essential to determine material damage, activation-transmutation and to perform dose rate analyses. While continuous energy Monte Carlo modeling can be used to directly calculate reaction rates, due to the very large number (potentially tens of thousands) of possible reaction channels, it is impractical to compute all nuclear reactions of interest by this so-called point-wise approach. A separate inventory code, such as FISPACT-II \cite{fispact2015}, utilising a discretised incident particle spectrum is typically used to calculate all of these reaction rates, solve for the time-dependent nuclide inventory and provide various responses and source terms. This multi-group method is computationally efficient, but introduces self-shielding errors.
 
