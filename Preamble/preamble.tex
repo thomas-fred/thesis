@@ -77,6 +77,10 @@
 % ********************************** Tables ************************************
 \usepackage{booktabs} % For professional looking tables
 \usepackage{multirow}
+\usepackage{gensymb}
+\usepackage{amssymb}
+\usepackage{graphicx}	
+
 
 %\usepackage{multicol}
 %\usepackage{longtable}
@@ -136,6 +140,11 @@
 %\renewcommand{\listfigurename}{My List of Figures}
 %\renewcommand{\listtablename}{My List of Tables}
 
+\newcommand*{\figuretitle}[1]{%
+    {\centering%   <--------  will only affect the title because of the grouping (by the
+    \textbf{#1}%              braces before \centering and behind \medskip). If you remove
+    \par\medskip}%            these braces the whole body of a {figure} env will be centered.
+}
 
 % ********************** TOC depth and numbering depth *************************
 
