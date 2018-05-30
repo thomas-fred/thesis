@@ -22,17 +22,30 @@ The main sources of GHG emission that humans are responsible for are combustion 
 
 Low-carbon electricity production is currently produced from nuclear fission and renewables such as solar photovoltaic, solar thermal, wind, hydro, tidal, geothermal and biofuels. The acronym WWS (Wind, Water and Solar) summarises the renewable methods with greatest potential for widespread adoption. 
 
-While nuclear fission is very safe by the metric of energy produced per death caused \cite{} it has spawned several major accidents, suffers from issues of public acceptability, radioactive waste storage and, more recently, construction cost. Additionally, the current trend for an open fuel cycle where nuclear fuel is not reprocessed and then reused is wasteful and drastically limits the potential of nuclear fission at scale \cite{}. WWS have tremendous potential and are currently gaining market share, with costs falling rapidly. For instance, some utilities are now bidding to supply electricity for as little as 1.2p per $kW \cdot h$ \cite{}. For comparison, the Hinkley Point C nuclear fission plant will have a minimum supply price of 9.25p per $kW \cdot h$ \cite{}. Unfortunately, intermittancy is a significant problem for WWS, specifically wind and solar. Much work is required to fully exploit its potential: drastic improvements in energy storage methods, a commensurate deployment of such technology, intelligent demand optimisation and improved distribution networks. Even then, it is unclear if WWS and/or nuclear fission could provide enough electricity for our future society \cite{}. A potential future alternative to both WWS and nuclear fission is nuclear fusion, the process of combining nuclei by which stars shine.
+While nuclear fission is very safe by the metric of energy produced per death caused \cite{} it has spawned several major accidents, suffers from issues of public acceptability, radioactive waste storage and, more recently, construction cost. Additionally, the current trend for an open fuel cycle where nuclear fuel is not reprocessed and then reused is wasteful and drastically limits the potential of nuclear fission at scale \cite{}. WWS have tremendous potential and are currently gaining market share, with costs falling rapidly. For instance, some utilities are now bidding to supply electricity for as little as 1.2p per $kW \cdot h$ \cite{}. For comparison, the Hinkley Point C nuclear fission plant will have a minimum supply price of 9.25p per $kW \cdot h$ \cite{}. Unfortunately, intermittancy is a significant problem for WWS, specifically wind and solar. Much work is required to fully exploit its potential: drastic improvements in energy storage methods, a commensurate deployment of such technology, intelligent demand optimisation and improved distribution networks. Even then, it is unclear if WWS and/or nuclear fission could provide enough electricity for our future society \cite{}. 
 
 % Rebuttal to those Californian 100% WWS papers? 
 
 \section{Nuclear fusion}
-...
+A potential future alternative to both WWS and nuclear fission is nuclear fusion, the process of combining nuclei by which stars shine. Nuclear fusion power has several desirable attributes:
+
+\begin{itemize}
+  \item Low CO\textsubscript{2} emissions
+  \item High fuel energy density (reduced resource extraction burden)
+  \item Abundant fuel (or feedstock for the manufacture of fuel)
+  \item Dispatchable power generation
+  \item No criticality (runaway) risk, unlike nuclear fission power
+  \item High plant power density (GW scale facilities on the order of 1 km\textsuperscript{2}). 
+\end{itemize}
+
+However, to date the goal of electricity generation from nuclear fusion has eluded scientists and engineers.  
 
 \subsection{Discovery}
-Einstein's energy-mass equivalence, $E=mc^{2}$ led Arthur Eddington to hypothesise that the energy released by the sun was through the fusion of hydrogen nuclei into helium nuclei. Classical predictions of the temperature required for the sun's power output did not match observations. Indeed, the temperatures observed seemed too low for nuclei to overcome the Coulomb energy barrier - the repulsive force experienced by two nuclei. The development of a theory of quantum tunnelling in the late 1920s by Gamow and others, predicted thermonuclear temperatures in accordance with observations of the sun. 
+Einstein's energy-mass equivalence, $E=mc^{2}$ led Arthur Eddington to hypothesise that the energy released by the sun was through the fusion of hydrogen nuclei into helium nuclei. However, contemporary predictions of the temperature required for the sun's power output did not match observations. Indeed, the temperatures observed seemed too low for nuclei to overcome the Coulomb energy barrier - the repulsive force experienced by two nuclei. The development of a theory of quantum tunnelling in the late 1920s by Gamow and others, predicted thermonuclear temperatures in accordance with observations of the sun and resolved the problem of stellar temperatures.
 
-In the 1930s Mark Oliphant, Paul Harteck and Ernest Rutherford conducted particle beam experiments, bombarding various targets with deuterons. After several less interesting combinations, they observed ``on bombarding heavy hydrogen with diplons\footnote{Diplon was a contemporary name for what we now call deuterium} an enormous effect was produced`` \cite{}. This included the emission of high energy neutrons. %https://www.chemteam.info/Chem-History/Rutherford-1934b/Rutherford-1934b.html
+In the 1930s Mark Oliphant, Paul Harteck and Ernest Rutherford conducted particle beam experiments, bombarding various targets with deuterons. After several less interesting combinations, they observed ``on bombarding heavy hydrogen with diplons\footnote{Diplon was a contemporary name for what we now call a deuteron.} an enormous effect was produced'' \cite{oliphant1934}. This included the emission of high energy neutrons. Soon thereafter, plans for fusion weapons and controlled fusion power were developed.
+
+%https://www.chemteam.info/Chem-History/Rutherford-1934b/Rutherford-1934b.html
 
 \subsection{Possible reactions to harness}
 Trying to fuse nuclei is difficult, as scattering via the Coulomb force is far more likely than fusion for all potential reactants. This Coulomb barrier is proportional to the product of the charges of the reactants as shown in equation \ref{eq:coulomb}, where $k_{e}$ is the Coulomb constant, $Z_{i}$ the respective atomic numbers, $e$ the charge on the electron and $r$, the interaction radius.
@@ -46,11 +59,11 @@ Given this, it is only plausible to employ light nuclei for energy production. O
 
 \begin{table}[h]
 \centering
-\caption{Comparison of potential fusion fuels. The Q-value is the combined kinetic energy of the reaction products. {\sigma} is the cross-section of the reaction at a given energy, with centre-of-mass energies.}
+\caption{Comparison of potential fusion fuels. The Q-value is the combined kinetic energy of the reaction products. \sigma is the cross-section of the reaction at a given energy, with centre-of-mass energies.}
 \label{tab:fuels}
 \begin{tabular}{@{}lllll@{}}
 \toprule
-Fuel          & Products          & Q-value (MeV) & \sigma (10 keV) \mathrm{(barn)} & \sigma (100 keV) \mathrm{(barn)} \\ \midrule
+Fuel          & Products          & Q-value (MeV) & \sigma \mathrm{(10 keV) (barn)} & \sigma \mathrm{(100 keV) (barn)} \\ \midrule
 D + T         & \alpha + n        & 17.6          & $2.72\times10^{-2}$    & 3.43                    \\
 D + D         & T + p             & 4.04          & $2.81\times10^{-4}$    & $3.3\times10^{-2}$      \\
 D + D         & $^{3}$He + n      & 3.27          & $2.78\times10^{-4}$    & $3.7\times10^{-2}$      \\
@@ -59,39 +72,51 @@ p + $^{11}$B  & 3\alpha           & 8.68          & $4.6\times10^{-17}$    & $3\
 \end{tabular}
 \end{table}
 
-At an energy of 10 keV the D-T fusion reaction has a likelihood 100-fold of the next easiest reactions. It also has a large Q-value, with 17.6 MeV of binding energy released by the reconfiguration of the fuel nucleons. D-$^{3}$He and p-$^{11}$B fuels are aneutronic, with only charged products. These fuels would obviate several difficult problems associated with D-T fusion, arising from the energetic emitted neutrons. Unfortunately these aneutronic fuels require extraordinary temperatures to fuse. D-T fuel is currently envisioned for the majority of fusion concepts.
+At an energy of 10 keV the D-T fusion reaction has a likelihood 100-fold of the next easiest reactions. It also has a large Q-value, with 17.6 MeV of binding energy released by the reconfiguration of the fuel nucleons. This energy is split between the products such that they have equal momentum, with the \alpha-particle receiving $1/5 17.6 \mathrm{MeV} = 3.5 \mathrm{MeV}$ and the neutron the remaining 14.1 MeV. D-$^{3}$He and p-$^{11}$B fuels are aneutronic, with only charged products. These fuels would obviate several difficult problems associated with D-T fusion which arise from the energetic emitted neutrons. The principal benefit would be a reduced burden on materials science to develop radiation tolerant structural and plasma facing materials, qualified in time for usage in a reactor. There would also be a significant reduction in the quantity of radioactive waste generated, compared with a D-T fuelled reactor. Unfortunately, aneutronic fuels require extraordinary temperatures to fuse, far beyond anything achieved to date, or conceived as possible in a tokamak in the near future. D-T fuel is currently envisioned as the fuel mixture for nearly all government sponsored research programmes. Some private efforts are attempting to use other fuels, especially those aforementioned aneutronic reactions.
 
 \subsection{Development}
-The subsequent decade saw the invention and development of so-called `pinch` fusion concepts. As a current flows through a tube of conducting medium (such as a plasma) the magnetic field generated acts in tandem with the current to crush the material to a filament by a Lorentz, or $\mathbf{j \times B}$ force. This is a kind of confinement, momentarily holding plasma ions in an increased density state. By bending a tube into a toroidal shape, matter might be circulated about a device, permanently confined. In reality, the gradient of the electric field across the torus acts to break confinement and lose material. 
-
-In the 1950s, the pinch concept was developed by Soviet scientists Sakharov and Tamm, into the tokamak. This was similar to previous designs of toroidal pinch machines, such as the British ZETA, but the relative strength of fields was different. Rather than having the dominant field be produced by the plasma current, in a tokamak the dominant field is generated by the toroidal field coils which wrap around the toroidal plasma chamber. Over the coming decades this would prove to be a more stable confinement system than other approaches. 
+The 1950s saw the invention and development of so-called `pinch` fusion concepts. As a current flows through a tube of conducting medium (such as a plasma) the magnetic field generated acts in tandem with the current to crush the material to a filament by a Lorentz, or $\mathbf{j \times B}$ force. This is a kind of confinement, momentarily holding plasma ions in an increased density state. By bending a tube into a toroidal shape, matter might be circulated about a device, permanently confined. In reality, the gradient of the electric field across the torus acts to break confinement and lose material. The pinch concept was developed by Soviet scientists Sakharov and Tamm, into the tokamak. This was similar to previous designs of toroidal pinch machines, such as the British ZETA, but the relative strength of fields was different. Rather than having the dominant field be produced by the plasma current, in a tokamak the dominant field is generated by the toroidal field coils which wrap around the toroidal plasma chamber. Over the coming decades this would prove to be a more stable confinement system than other approaches. 
 
 Throughout the rest of the 20th century, the tokamak concept came to dominate magnetic confinement fusion research. Plasma physicists around the world continued to design devices and plasma scenarios which attempt to avoid plasma instabilities and maximise the plasma triple product, developed from Lawson's criterion \cite{lawson1955}. The triple product, $nT\tau_{E}$, is the product of the plasma density, temperature and energy confinement time, respectively. Figure \ref{fig:triple_product} shows a plot of this performance metric against time. One can see the progress in relation to the well known Moore's Law in computing performance per unit cost and the beam energy of various particle colliders. Viewed in this way, fusion power has achieved remarkable progress across the decades (logarithmic and temporal).
 
 \begin{figure}
 %  \figuretitle{}
-  \includegraphics[width=0.47\textwidth]{triple_product.png}
+  \centering
+  \includegraphics[width=0.8\textwidth]{triple_product.png}
   \caption{Fusion triple product achieved plotted against time. Similar progress measures for computing and particle physics are also shown. }
   \label{fig:triple_product}
 \end{figure}
 
 \subsection{Future plans}
+There are many aspects of nuclear fusion power which require significant work before an electricity producing reactor could be constructed. In the field of plasma physics these include, improving energy and particle confinement, quelling various powerful emissions from the plasma (disruptions, ELMs, fast ions, runaway electrons) and increasing plasma temperatures. The ITER reactor under construction in the south of France will provide a test for plasma physics knowledge, through the equilibrium operation of a `burning' plasma. However, the plasma `core' is only one aspect of a functioning fusion reactor. The surrounding systems of an electricity producing reactor necessarily include:
+
+\begin{itemize}
+  \item Fuelling by gas or pellet injection
+  \item Diagnostics to determine the state of the plasma and the plant
+  \item Heating systems including micro and radiowaves and energetic particle beams
+  \item Plasma heat and particle exhaust (divertor)
+  \item Blanket for fuel breeding and capture of neutron energy
+  \item Electricity production with heat exchangers, gas turbines and generators
+  \item Tritium extraction, storage and recycling
+  \item Cryoplant for the cooling of magnetic coils and other systems
+  \item Remote handling for the maintenance of the other systems
+\end{itemize}
+
+While ITER will advance our understanding and experience of several of these ancillary systems, additional devices will be required before fusion electricity can be realised. These might include one or several demonstration reactors. Progress is crucial in materials science, as the systems listed above must operate for years without being degraded by interactions with extreme temperatures, plasma etching and radiation. Consequently, it is commonly help that a device for the production of 14.1 MeV neutrons at a useful flux is also required for the development and testing of radiation tolerant materials.
 
 \section{Radiation-matter interactions}
-Nuclear fusion gives rise to various energetic particles. The reaction most likely to result in the first fusion reactors is D + T \rightarrow $^{4}$He + n + 17.6 MeV. The neutrons are emitted with $\frac{4}{5}$ of the total energy liberated, to give 14.1 MeV of kinetic energy. 
-
-Photons are constantly generated in a tokamak plasma. Low energy photons are of characteristic energy are created through the excitation and de-excitation of atomic electrons, while Bremsstrahlung radiation arised from the acceleration of charged particles.
-
-This mixed radiation field is then further complicated by numerous interaction process, as neutrons and photons from the plasma interact with the device. What follows is a short primer on the possible interaction processes.
+Nuclear fusion gives rise to various energetic particles. The neutrons are emitted with $\frac{4}{5}$ of the total energy liberated, to give 14.1 MeV of kinetic energy. Photons are constantly generated in a tokamak plasma. Low energy photons are of characteristic energy are created through the excitation and de-excitation of atomic electrons, while Bremsstrahlung radiation arised from the acceleration of charged particles. This mixed radiation field is then further complicated by numerous interaction process, as neutrons and photons from the plasma interact with the device. What follows is a short primer on the possible interaction processes.
 
 \subsection{Neutron}
 The neutron is a sub-atomic particle of mass $1.674927471(21)\times10^{-27}$kg \cite{}, composed of three quarks. It can exist as part of a nucleus or unbound, where it has a mean lifetime of $881.5(15)$s \cite{}. While it is itself uncharged it can produce ionising radiation through interactions with other matter. These reactions are via the strong, weak, graviational and electromagnetic\footnote{While the neutron has zero electric charge, it does have a magnetic moment, and is therefore acted upon by electromagnetic fields.} forces. 
 
-When neutrons undergo collisions, the ensuing process is strongly dependent on the combined energy of the reactants. Energies can theoretically range from ... to ... . Shown below is a diagram of the relevant processes across the energy domain.
+When neutrons undergo collisions, the ensuing process is strongly dependent on the combined energy of the reactants. Shown below is a diagram of the relevant processes across the energy domain.
 
 ... fig ...
 
-\subsubsection{Diffraction}
+\subsubsection{Bragg diffraction}
+
+\subsubsection{Nuclear spin incoherent scattering}
 
 \subsubsection{Elastic scattering}
 
