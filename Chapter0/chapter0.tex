@@ -169,6 +169,7 @@ One can see that lighter nuclei, of closer mass to neutrons more effectively mod
 % \end{equation}
 
 \subsubsection{Nuclear reactions}
+\label{sec:nuclear_reactions}
 Nuclear reactions are distinct from elastic scattering. Rather than solely redistributing energy and momentum, reactions reconfigure nuclei and create new particles. There are two principle ways this can happen:
 
 \begin{itemize}
@@ -187,7 +188,7 @@ An inelastic neutron scatter involves the target nucleus absorbing the incident 
 Radiative capture is similar to inelastic scattering, with an incident neutron also forming an excited compound nucleus. However, here a neutron is not re-emitted, only a gamma ray. This reaction is more likely at lower energies, given the slower relative velocity of reactants and therefore longer period for interaction. The reaction acts as a neutron `sink', removing neutrons from the system and is therefore an essential component of neutron shielding, along with moderating material and gamma-shielding.
 
 \paragraph{Fission}
-Inter-nucleon nuclear forces hold nucleons together in a spherical nucleus. With the addition of an extra nucleon (and its kinetic energy), this attraction can be overcome, distorting the nucleus into a dumbell shape, with two lobes. Sufficient energy will mean these lobes repel beyond the point of no return. As the electrostatic repulsion of the positively charged particles becomes greater in magnitude than the attractive nuclear force, the nucleus is fissioned. Nuclear fission is not normally associated with nuclear fusion reactors, however the fissioning of lithium in breeder blankets is an important process for the viability of fusion as an energy source. Uranium is present in beryllium containing ores and even after refining, some remains as an impurity. One variant of the proposed European fusion reactor design, DEMO is set to contain 560 t of beryllium. At 30 wppm uranium concentration (the ITER requirement) this results in 17 kg of uranium\cite{kolbasov2016}. A small amount is fissile as $^{235}$U, while the remaining $^{238}$U is fissionable by high energy neutrons. The daughter nuclei from actinide fission undoubtedly complicate the process of reactor component recycling\cite{cambi2010}.
+Inter-nucleon nuclear forces hold nucleons together in a spherical nucleus. With the addition of an extra nucleon (and its kinetic energy), this attraction can be overcome, distorting the nucleus into a dumbell shape, with two lobes. Sufficient energy will mean these lobes repel beyond the point of no return. As the electrostatic repulsion of the positively charged particles becomes greater in magnitude than the attractive nuclear force, the nucleus is fissioned. Nuclear fission is not normally associated with nuclear fusion reactors, however the fissioning of lithium in breeder blankets is an important process for the viability of fusion as an energy source. Also, uranium is present in beryllium containing ores and even after refining, some remains as an impurity. One variant of the proposed European fusion reactor design, DEMO is set to contain 560 t of beryllium. At 30 wppm uranium concentration (the ITER requirement) this results in 17 kg of uranium \cite{kolbasov2016}. A small amount is fissile as $^{235}$U, while the remaining $^{238}$U is fissionable by high energy neutrons. The daughter nuclei from actinide fission and bred transuranics will undoubtedly complicate the process of reactor component recycling \cite{cambi2010}.
 
 \paragraph{Multiplication}
 An incident neutron can result in multiple neutrons being emitted, a so-called multiplication reaction, (n,2n), (n,3n), etc. the reaction is always endothermic. Multiplication reactions are important in the context of tritium breeding in nuclear fusion blankets, increasing the neutron flux and therefore the production of tritium. Higher yield multiplication reactions have a greater energy requirement and thus a higher energy threshold. Materials such as beryllium and lead have high multiplication cross-sections, with beryllium having the lowest energy threshold for (n,2n) by some margin at approximately 2.7 MeV.
@@ -196,12 +197,20 @@ An incident neutron can result in multiple neutrons being emitted, a so-called m
 The photon is an elementary particle, indivisible by nature. Aggregated, photons provide one way of conceptualising an electromagnetic field. Photons travel in a vacuum at 299,792,458 ms$^{-1}$ and are created by various processes, across a wide spectrum of energies. The sources inside a fusion reactor include various plasma processes, neutron-matter interactions and radioactive decay amongst others. 
 
 \subsubsection{Radioactive decay}
-The gamma ray, or gamma photon, is a photon emitted by a nucleus. They can have energies from several keV to many MeV, overlapping in energy with X-rays\footnote{X-rays are produced by interactions with between and with electrons. These processes include bremsstrahlung radiation, or X-ray fluorescence.}. 
-Aside from an arbitrary energy and associated wavelength distinction, gamma photons and X-ray photons cannot be distinguished without knowledge of their source. The gamma ray is typically associated with...     Gamma photons are ionising radiation and thus biologically hazardous. 
+The gamma ray, or gamma photon, is a photon emitted by a nucleus. They can have energies from several keV to many MeV, overlapping in energy with X-rays\footnote{X-rays are produced by interactions with between and with electrons. These processes include bremsstrahlung radiation, or X-ray fluorescence. Aside from an arbitrary energy and associated wavelength distinction, gamma photons and X-ray photons cannot be distinguished without knowledge of their source.} The gamma ray is emitted from an excited nucleus, often preceded by $\alpha$ or $\beta$ decay. As stated in section \ref{sec:nuclear_reactions} gamma emission also occurs as a result of compound nucleus formation during radiative capture and inelastic scattering. Gamma photons are ionising radiation and thus biologically hazardous. 
 
 \subsubsection{Bremsstrahlung}
+Literally `braking radiation', bremsstrahlung is the process whereby photons are generated as a charged particle is decelerated. As the braking particle is slowed, the kinetic energy lost is conserved to become a new photon. The energy spectrum of the emitted photons is continuous and will move to higher frequencies as the bombarding particle energy is increased. Bremsstrahlung is an important process in the plasma physics of nuclear fusion power. Unfortunately, Coulomb scattering is significantly more likely than fusion and these ion-ion and especially electron-ion scattering events generate significant bremsstrahlung radiation, slowing the potential reactants and dissipating energy from the plasma. The expression for bremsstrahlung power loss in a plasma is given as equation \ref{eq:bremsstrahlung}. 
+
+\begin{equation}
+  \label{eq:bremsstrahlung}
+  P_{b} \propto T_{e}^{\frac{1}{2}} n_{e} \sum_{i} n_{i} <Z_{i}>^{2}
+\end{equation}
+
+It can be seen that the power is proportional to the square root of the electron temperature and the square of the average ion charge state \cite{schuster2017}. The latter relationship is one reason why so-called `advanced' fusion fuels such as p-$^{11}$B are so much more difficult to fuse than purely hydrogenous fuels \cite{rider1995}.
 
 \subsubsection{Photoelectric}
+The photoelectric effect is 
 
 \subsubsection{Compton scattering}
 
