@@ -105,7 +105,7 @@ There are many aspects of nuclear fusion power which require significant work be
 While ITER will advance our understanding and experience of several of these ancillary systems, additional devices will be required before fusion electricity can be realised. These might include one or several demonstration reactors. Progress is crucial in materials science, as the systems listed above must operate for years without being degraded by interactions with extreme temperatures, plasma etching and radiation. Consequently, it is commonly help that a device for the production of 14.1 MeV neutrons at a useful flux is also required for the development and testing of radiation tolerant materials.
 
 \section{Radiation-matter interactions}
-Nuclear fusion gives rise to various energetic particles. The neutrons are emitted with $\frac{4}{5}$ of the total energy liberated, to give 14.1 MeV of kinetic energy. Photons are constantly generated in a tokamak plasma. Low energy photons are of characteristic energy are created through the excitation and de-excitation of atomic electrons, while Bremsstrahlung radiation arised from the acceleration of charged particles. This mixed radiation field is then further complicated by numerous interaction process, as neutrons and photons from the plasma interact with the device. What follows is a short primer on the possible interaction processes.
+Nuclear fusion gives rise to various energetic particles. The neutrons are emitted with $\frac{4}{5}$ of the total energy liberated, to give 14.1 MeV of kinetic energy. Photons are constantly generated in a tokamak plasma. Low energy photons are created through the excitation and de-excitation of atomic electrons, while Bremsstrahlung radiation arised from the acceleration of charged particles. This mixed radiation field is then further complicated by numerous interaction process, as neutrons and photons from the plasma interact with the device. What follows is a short primer on the possible interaction processes for the principle particles, the neutron and photon.
 
 \subsection{Neutron}
 The neutron is a sub-atomic particle of mass $1.674927471(21)\times10^{-27}$kg \cite{}, composed of three quarks. It can exist as part of a nucleus or unbound, where it has a mean lifetime of $881.5(15)$s \cite{}. While it is itself uncharged it can produce ionising radiation through interactions with other matter. These reactions are via the strong, weak, graviational and electromagnetic\footnote{While the neutron has zero electric charge, it does have a magnetic moment, and is therefore acted upon by electromagnetic fields.} forces. 
@@ -114,26 +114,92 @@ When neutrons undergo collisions, the ensuing process is strongly dependent on t
 
 ... fig ...
 
-\subsubsection{Bragg diffraction}
-
-\subsubsection{Nuclear spin incoherent scattering}
+The neutron-matter interaction processes of interest for this work are outlined below.
 
 \subsubsection{Elastic scattering}
+Neutrons can scatter off nuclei. In the context of fusion neutronics an elastic scattering event is defined as a neutron-nucleus reaction where no kinetic energy is transferred into excitation of the nucleus. Both the kinetic energy and momentum of the reactants are conserved. Although scattering is a quantum-mechanical phenomenon, properly described by the interacting wave functions, in this case a 'billiard ball' treatment satisfactorily describes reactions. 
+
+The fast fusion ($> 1 \mathrm{MeV}$) neutrons are significantly more energetic than the nuclei in condensed matter ($\circa 1 \mathrm{eV}$), as such, the target nuclei may be thought of as at rest. In elastic scattering the energy lost by an incident neutron is gained by the target nucleus. The energy transferred is a function of the target nucleus mass, as shown below.
+
+\begin{equation}
+  \frac{1}{2}m_{n}v_{n,i}^{2} = \frac{1}{2}m_{n}v_{n,f}^{2} + \frac{1}{2}m_{a}v_{a,f}^{2}
+  \label{eq:conserve_energy}
+\end{equation}
+
+Where $m_{n}$ is the mass of the neutron, $m_{a}$ the mass of the target nucleus, $v_{n,i}$ is the initial velocity of the neutron, $v_{n,f}$ the final velocity of the neutron and $v_{a,f}$ the final velocity of the nucleus. Conservation of momentum can be written as below.
+
+% Conservation of energy, equation \ref{eq:conserve_energy} may be rewritten as the following.
+%
+% \begin{equation}
+% %  v_{n,i}^{2} - v_{n,f}^{2} = \frac{m_{a}}{m_{n}}v_{a,f}^{2}
+%   (v_{n,i} - v_{n,f})(v_{n,i} + v_{n,f}) = \frac{m_{a}}{m_{n}}v_{a,f}^{2}
+%   \label{eq:conserve_energy_2}
+% \end{equation}
+%
+% Given conservation of momentum the below also applies.
+%
+
+\begin{equation}
+  m_{n}v_{n,i} = m_{a}v_{a,f} - m_{n}v_{n,f}
+  \label{eq:conserve_momentum}
+\end{equation}
+
+With equations \ref{eq:conserve_energy} and \ref{eq:conserve_momentum} one can derive a quantity known as $\alpha$, the fraction of the initial energy retained by a neutron in a head on collision, as a function of target nucleus mass, A. For the derivation see \cite{harms1975}. The expression for $\alpha$ is as follows.
+
+\begin{equation}
+  \alpha(A) = (\frac{1-A}{1+A})^2
+  \label{eq:alpha}
+\end{equation}
+
+One can see that lighter nuclei, of closer mass to neutrons more effectively moderate the energy of neutrons. A collision with a single proton will halt the incident neutron, $\alpha(1) = 0$. Heavier nuclei such as $^{186}$W give $\alpha(186) = 0.9787$ so scattered neutrons retain almost all of their energy.
+
+%
+% Equivalently expressed as the following.
+%
+% \begin{equation}
+%   v_{n,i} + v_{n,f} = \frac{m_{a}}{m_{n}}v_{a,f}
+%   \label{eq:conserve_momentum_2}
+% \end{equation}
+%
+% Dividing equation \ref{eq:conserve_energy_2} by equation \ref{eq:conserve_momentum_2} results in the speed of the nucleus after the collision.
+%
+% \begin{equation}
+%   v_{a,f} = v_{n,i} - v{n,f}
+%   \label{}
+% \end{equation}
 
 \subsubsection{Nuclear reactions}
+Nuclear reactions are distinct from elastic scattering. Rather than solely redistributing energy and momentum, reactions reconfigure nuclei and create new particles. There are two principle ways this can happen:
+
+\begin{itemize}
+  \item Direct nuclear reactions - a single nucleon in the target particle interacts with the incident particle. The interaction time is very limited, around $10^{-21}\mathrm{s}$ (i.e. the incident energy is high). Direct reaction products are anisotropically distributed, typically forward focused.
+  \item Compound nucleus reactions - many nucleons interact together over a greater period of time, perhaps $10^{-18} - 10^{-16}\mathrm{s}$. The incident particle and the target nucleus coalesce into a new, excited nucleus. The collection of nucleons within the nucleus reach thermal equilibrium after a series of collisions. At some point, the excited compound nucleus will decay, but the mode of decay will not depend on the method of compound nucleus formation. Instead, the decay mode, or `exit channel' is dependent on the compound nucleus excitation energy and various nucleus-specific probabilities. 
+\end{itemize} 
+
+This dichotomy is not entirely accurate, as there is always some multiple internuclear interaction, but for so-called direct nuclear reactions, this is minor. Reactions can also be exothermic or endothermic, liberating or requiring energy to occur, respectively. This is recorded by the `Q-value' of a given reaction, say $^{208}$Pb(n,2n)$^{209}$Pb, where Q = -7.37 MeV. This neutron multiplying reaction is endothermic and requires an energy input to occur. A plot of cross-section against energy will clearly show this `threshold' behaviour, with zero probability of reaction until the minimum input energy is achieved. Exothermic reactions, by contrast can occur at any energy 
+
+% I need something on compound nuclei as resonances. Interaction cross-sections should have been introduced prior to this.
 
 \paragraph{Inelastic scattering}
-
-\paragraph{Fission}
+An inelastic neutron scatter involves the target nucleus absorbing the incident neutron, forming an excited, compound nucleus and then re-emitting the neutron. The nucleus remains excited and emits a gamma ray to dissipate excess energy and reach its ground state. Given this and radiative capture, neutron fields usually beget gamma fields.
 
 \paragraph{Radiative capture}
+Radiative capture is similar to inelastic scattering, with an incident neutron also forming an excited compound nucleus. However, here a neutron is not re-emitted, only a gamma ray. This reaction is more likely at lower energies, given the slower relative velocity of reactants and therefore longer period for interaction. The reaction acts as a neutron `sink', removing neutrons from the system and is therefore an essential component of neutron shielding, along with moderating material and gamma-shielding.
+
+\paragraph{Fission}
+Inter-nucleon nuclear forces hold nucleons together in a spherical nucleus. With the addition of an extra nucleon (and its kinetic energy), this attraction can be overcome, distorting the nucleus into a dumbell shape, with two lobes. Sufficient energy will mean these lobes repel beyond the point of no return. As the electrostatic repulsion of the positively charged particles becomes greater in magnitude than the attractive nuclear force, the nucleus is fissioned. Nuclear fission is not normally associated with nuclear fusion reactors, however the fissioning of lithium in breeder blankets is an important process for the viability of fusion as an energy source. Uranium is present in beryllium containing ores and even after refining, some remains as an impurity. One variant of the proposed European fusion reactor design, DEMO is set to contain 560 t of beryllium. At 30 wppm uranium concentration (the ITER requirement) this results in 17 kg of uranium\cite{kolbasov2016}. A small amount is fissile as $^{235}$U, while the remaining $^{238}$U is fissionable by high energy neutrons. The daughter nuclei from actinide fission undoubtedly complicate the process of reactor component recycling\cite{cambi2010}.
 
 \paragraph{Multiplication}
+An incident neutron can result in multiple neutrons being emitted, a so-called multiplication reaction, (n,2n), (n,3n), etc. the reaction is always endothermic. Multiplication reactions are important in the context of tritium breeding in nuclear fusion blankets, increasing the neutron flux and therefore the production of tritium. Higher yield multiplication reactions have a greater energy requirement and thus a higher energy threshold. Materials such as beryllium and lead have high multiplication cross-sections, with beryllium having the lowest energy threshold for (n,2n) by some margin at approximately 2.7 MeV.
 
-\paragraph{Other reactions}
+\subsection{Photon}
+The photon is an elementary particle, indivisible by nature. Aggregated, photons provide one way of conceptualising an electromagnetic field. Photons travel in a vacuum at 299,792,458 ms$^{-1}$ and are created by various processes, across a wide spectrum of energies. The sources inside a fusion reactor include various plasma processes, neutron-matter interactions and radioactive decay amongst others. 
 
-\subsection{Gamma}
-The gamma ray, or photon, is a 
+\subsubsection{Radioactive decay}
+The gamma ray, or gamma photon, is a photon emitted by a nucleus. They can have energies from several keV to many MeV, overlapping in energy with X-rays\footnote{X-rays are produced by interactions with between and with electrons. These processes include bremsstrahlung radiation, or X-ray fluorescence.}. 
+Aside from an arbitrary energy and associated wavelength distinction, gamma photons and X-ray photons cannot be distinguished without knowledge of their source. The gamma ray is typically associated with...     Gamma photons are ionising radiation and thus biologically hazardous. 
+
+\subsubsection{Bremsstrahlung}
 
 \subsubsection{Photoelectric}
 
