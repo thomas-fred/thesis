@@ -102,7 +102,7 @@ There are many aspects of nuclear fusion power which require significant work be
   \item Remote handling for the maintenance of the other systems
 \end{itemize}
 
-While ITER will advance our understanding and experience of several of these ancillary systems, additional devices will be required before fusion electricity can be realised. These might include one or several demonstration reactors. Progress is crucial in materials science, as the systems listed above must operate for years without being degraded by interactions with extreme temperatures, plasma etching and radiation. Consequently, it is commonly help that a device for the production of 14.1 MeV neutrons at a useful flux is also required for the development and testing of radiation tolerant materials.
+While ITER will advance our understanding and experience of several of these ancillary systems, additional devices will be required before fusion electricity can be realised. These might include one or several demonstration reactors. Progress is crucial in materials science, as the systems listed above must operate for years without being degraded by interactions with extreme temperatures, plasma etching and radiation. Consequently, it is commonly held that a device for the production of 14.1 MeV neutrons at a useful flux is also required for the development and testing of radiation tolerant materials.
 
 \section{Radiation-matter interactions}
 Nuclear fusion gives rise to various energetic particles. The neutrons are emitted with $\frac{4}{5}$ of the total energy liberated, to give 14.1 MeV of kinetic energy. Photons are constantly generated in a tokamak plasma. Low energy photons are created through the excitation and de-excitation of atomic electrons, while Bremsstrahlung radiation arised from the acceleration of charged particles. This mixed radiation field is then further complicated by numerous interaction process, as neutrons and photons from the plasma interact with the device. What follows is a short primer on the possible interaction processes for the principle particles, the neutron and photon.
@@ -210,15 +210,59 @@ Literally `braking radiation', bremsstrahlung is the process whereby photons are
 It can be seen that the power is proportional to the square root of the electron temperature and the square of the average ion charge state \cite{schuster2017}. The latter relationship is one reason why so-called `advanced' fusion fuels such as p-$^{11}$B are so much more difficult to fuse than purely hydrogenous fuels \cite{rider1995}.
 
 \subsubsection{Photoelectric}
-The photoelectric effect is 
+The photoelectric effect is the phenomenon where incident photons are absorbed by atomic electrons and the electron is rapidly dislodged from the atoms electrostatic attraction. The energy threshold for the ejection of the most loosely bound electrons is known as the elements's work function and is typically in the range 2--6 eV. It is in this low energy range where the photoelectric effect is most prevalent. An incident photon's energy can be described as $E=h\nu$ where $h$ is Planck's constant and $\nu$ is the photon frequency. If this energy is smaller in magnitude than the work function, no electron emission is observed, regardless of the photon flux. Larger incident photon energies can eject more tightly bound electrons, where energies in the MeV range may be required for photoelectric emission in some elements. The photoelectric effect is a major mechanism for the absorption and therefore `sinking' of photons.
 
 \subsubsection{Compton scattering}
+Compton scattering is a mid-energy range photon-matter interaction between photons and charged particles. Incident photons lose energy, transferring it to the recoiling charged particle, usually an electron. The reduced photon energy corresponds with an increase in photon wavelength. The relationship between initial and final wavelength and scattering angle is shown as equation \ref{eq:compton_scattering}, where $\lambda$ is the initial wavelength, $\lambda'$ is the scattered wavelength, $h$ is Planck's constant, $m_{e}$ the mass of the electron and $\theta$ the scatter angle.
+
+\begin{equation}
+  \label{eq:compton_scattering}
+  \lambda' - \lambda = \frac{h}{m_{e}c}(1-cos\theta)
+\end{equation}
 
 \subsubsection{Pair production}
+Pair production is the general term for the creation of a particle and its antiparticle from an electrically neutral boson. In the context of photon interactions it is typically understood as the creation of an electron and positron from an energetic photon i.e., $\gamma \rightarrow e^- + e^+$. The photon is destroyed in the interaction. The particles are created from the incoming photon energy, which therefore must be at least equal to the rest mass of the particle pair, $2 \times 0.511 \mathrm{MeV} = 1.022 \mathrm{MeV}$. The process is the dominant high-energy photon-matter interaction. 
 
 \section{Sources of uncertainty in fusion neutronics}
-The sources of uncertainty in fusion neutronics are many and varied. Currently envisioned fusion reactors such as ITER rank as some of the most complex machines ever. Their multitude of components, diversity of materials and range of scales make simulating their operation challenging. While the devices themselves are large and difficult to model, introducing uncertainties into calculations, other kinds of uncertainty are inherent in the practice of neutronics more generally. Knowledge of nuclear physics, colloquially referred to as `nuclear data' (ND) is incomplete and uncertain for a variety of reasons. These include:  
+The sources of uncertainty in fusion neutronics are many and varied. Currently envisioned fusion reactors such as ITER rank as some of the most complex machines ever. Their multitude of components, diversity of materials and range of temporal and spatial scales make simulating their operation challenging. This complexity requires immense computational resources to model with a high fidelity. It is not currently possible to model any engineering system \textit{ab initio}, solving the Schr{\"o}dinger equation for each nucleon. Instead, approximations at each distance and time scale are made and fidelity traded off against simulation time. Examples of various modelling approximations commonly employed in fusion neutronics analyses follow below. These practices enable the solution of otherwise unsoluble problems.  
+
+\begin{itemize}
+\item Omission of material impurities. These are important for calculating expected activation of materials.
+\item Omission of small components. If mass is not conserved this could be deleterious for shielding analyses.
+\item Omission of fluid flow. Important for modelling $\gamma$ dose from $^{16}$N generated in water cooling systems.
+\item Spatial homogenisation of complex geometries. This very common practice combines adjacent volumes of differing materials to a mixture, altering the neutron spectrum and therefore nuclear responses.
+\item Discretisation of the spatial domain. When particle fields and associated nuclear responses are computed using a stochastic, Monte Carlo approach, there is no functional description and instead the results are binned spatially. The bin resolution therefore has an impact on the result. 
+\item Discretisation of the particle energy domain. This can result in so-called self-shielding errors as discussed in a later chapter, the coarser the energy binning the more potentially erroneous the result.
+\item Assuming temporal invariance of plasma neutron source. This neglects the variability of plasma neutron emission from turblence and other plasma physics effects.
+\item Assuming temporal invariance of material compositions. While some studies explicitly model material changes, others do not due to the additional complexity and computational burden involved.
+\item Assuming plasma neutron source axisymmetry. This is despite notable toroidal heterogeneity due to neutral beam on thermal plasma interactions.
+\item No multiphysics feedback with thermal processes. Example processes include Doppler broadening of materials' neutron cross-sections and thermalisation of neutron spectra.
+\end{itemize}
+
+While the devices themselves are large and difficult to model, introducing uncertainties into calculations, other kinds of uncertainty are inherent in the practice of neutronics more generally. Knowledge of nuclear physics, colloquially referred to as `nuclear data' (ND) is not precisely known for two main reasons. These are:  
+
+\begin{itemize}
+  \item Uncertainty in experimentally derived data. These uncertainties can be energy specific as with poor statistics for certain energy bins, or more general, such as `normalisation uncertainties' like poor knowledge of sample mass or target geometry.
+  \item Uncertainty in nuclear physics model parameters. Where experimental data does not exist, theoretical models are used to estimate nuclear behaviour. These models require input parameters that can are either experimentally measured themselves--with some uncertainty--or are interpolated or extrapolated from other experimental information. 
+\end{itemize}
 
 \section{Implications of current uncertainties}
 
 \section{Thesis outline}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
