@@ -82,8 +82,8 @@ Throughout the rest of the 20th century, the tokamak concept came to dominate ma
 \begin{figure}
 %  \figuretitle{}
   \centering
-  \includegraphics[width=0.8\textwidth]{triple_product.png}
-  \caption{Fusion triple product achieved plotted against time. Similar progress measures for computing and particle physics are also shown. }
+  \includegraphics[width=0.7\textwidth]{triple_product.png}
+  \caption{Fusion triple product achieved plotted against time. Similar progress measures for computing and particle physics are also shown.}
   \label{fig:triple_product}
 \end{figure}
 
@@ -268,21 +268,17 @@ The above discussion has provided a series of motivations for quantifying and re
 % Shielding of electronics in ITER
 
 \section{Thesis outline}
-This introductory chapter has described...
+This introductory chapter has described the motivations for the development of controlled nuclear fusion energy. There was a discussion of the historical development of our nuclear physics understanding and the engineering development of magnetic confinement fusion. Following this, a breif review of radiation-matter interactions and their relevance. Some examples of uncertain phenomena in fusion technology were given, along with their implications for the realisation of a fusion power plant. 
 
-% Do this, then send for review
+% TMC
+The next chapter is an exploration of Total Monte Carlo (TMC) \nomenclature[z]{TMC}{Total Monte Carlo} applied to TBR simulations. Starting with a review of ND forms, this piece of work identifies potential contributions to TBR uncertainty and attempts to estimate the uncertainty due to lead nuclear data. The results highlight the capability of TMC in determining the distribution of uncertainty and how distribution skewness should be considered an important factor in risk analysis.
 
+% Spatial homogenisation
+Chapter 3 details an investigation into the practice of spatial homogenisation for radiation transport. First, a review of relevant literature is presented. Then, homogenisation within the ITER reinforced concrete bioshield is used to determine how significantly this approximation diverges from physical behaviour. Estimates of over and under-estimates of dose to workers are given for on-load and shut-down (activated) scenarios. Finally, advice on the appropriateness of this practice is given for various shielding scenarios and further work recommended.
 
+% Group structure optimisation
+Chapter 4 describes the development and testing of an algorithm to optimise the discretisation of the energy domain for activation and transmutation calculations. It begins with a discussion of relevant nuclear physics, developing an understanding of nuclear resonances and their distribution in the $\{E, Z, A\}$ space of interaction energy, nucleus proton number and mass. This information is used to develop a method for the targeting of energy resolution where it is most valuable. A series of tests are presented where optimised and logarithmically spaced Multi-Group (MG) \nomenclature[z]{MG}{Multi-Group} results are compared with Point-Wise (PW) \nomenclature[z]{PW}{Point-Wise} values. Opportunities for improvement and further testing of the algorithm are presented.
 
-
-
-
-
-
-
-
-
-
-
-
+% Drawing conclusions
+The final chapter draws conclusions on the implications of the previously discussed sources of uncertainty. Their interrelated and compounded nature is discussed along with recommended future work in this area.
 
