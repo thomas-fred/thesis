@@ -21,17 +21,35 @@
 \section{Introduction}
 
 \label{introduction}
-A handful of different fusion fuels were discussed in the opening chapter. The cross-section and Q-value of the D-T reaction make a burning plasma the most easily realisable. However, sustainably liberating energy from the D-T fusion reaction requires a reliable supply of tritium fuel. Given tritium is not naturally occuring, with a $t_{\frac{1}{2}}=12.3y$ \nomenclature[a]{$t_{\frac{1}{2}}$}{Half-life} it must be artificially produced. It is worth considering whether this could be outsourced to a third party given the complexity of `grow-your-own'. The HWR reactors of Canada, Romania and the Republic of Korea produce small amounts of tritium each year, but significantly less than is required for the operation of a fusion power plant. In fact, these facilities will struggle to provide the relatively small amounts of tritium necessary for the start-up of a device \cite{Kovari2018}. Given that, future plant must be tritium self-sufficient. This is to be achieved by breeding their own. Neutrons will initiate tritium producing reactions in $^{6,7}$Li contained within a blanket. Depending on the blanket design, the tritium will either be purged or natually `outgas' before filtration and storage. The ratio of tritium produced to tritium consumed, or Tritium Breeding Ratio (TBR), is required to have some margin over unity to compensate for various losses: absorption in materials, leakage in the tritium extraction system and radioactive decay. An equation for the TBR is given as equation~\ref{eq:tbr} where $T_{prod}$ is tritons produced, $T_{cons}$ tritons consumed, N ...
+A handful of different fusion fuels were discussed in the opening chapter. The cross-section and Q-value of the D-T reaction make a burning plasma the most easily realisable. However, sustainably liberating energy from the D-T fusion reaction requires a reliable supply of tritium fuel. Given tritium is not naturally occuring, with a $t_{\frac{1}{2}}=12.3y$ \nomenclature[a]{$t_{\frac{1}{2}}$}{Half-life} it must be artificially produced. It is worth considering whether this could be outsourced to a third party given the complexity of `grow-your-own'. The HWR reactors of Canada, Romania and the Republic of Korea produce small amounts of tritium each year, but significantly less than is required for the operation of a fusion power plant. In fact, these facilities will struggle to provide the relatively small amounts of tritium necessary for the start-up of a device \cite{Kovari2018}. Given that, future plant must be tritium self-sufficient. This is to be achieved by breeding their own. Neutrons will initiate tritium producing reactions in $^{6,7}$Li contained within a blanket. Depending on the blanket design, the tritium will either be purged or natually `outgas' before filtration and storage. The ratio of tritium produced to tritium consumed is known as the Tritium Breeding Ratio (TBR). An equation for the TBR is given as equation~\ref{eq:tbr} where $T_{prod}$ is tritons produced, $T_{cons}$ tritons consumed in the plasma, $N_{s}$ the number density of each nuclide, $\sigma_{r}$ the tritium producing reaction cross-sections for that nuclide and $\phi(E)$ the neutron flux as a function of energy. 
 
 \begin{equation}
   \label{eq:tbr}
-  \mathrm{TBR} = \frac{T_{prod}}{T_{cons}} = \frac{N}{T_{cons}} \int \phi(E) \sigma_{x}(E) dE
-
-  % include different T producing reactions? different nuclear species? finish description above
-
+  \mathrm{TBR} = \frac{T_{prod}}{T_{cons}} = \frac{\sum_{s=1}^{S} N_{s}}{T_{cons}} \int_{0}^{\infty} \phi(E) \sum_{r=1}^{R} \sigma_{r}(E) dE
 \end{equation}
 
-There is a constraint on the maximum allowable tritium inventory at a given facility on the order of kilograms. The window of adequate tritium supply is therefore relatively narrow and TBR should be precisely known and/or adjustable to keep within this window. Unfortunately there are many sources of uncertainty within TBR calculations. These can broadly be categorised as: poor/missing nuclear data, modelling simplifications and Monte-Carlo statistical uncertainty. Nuclear data often contributes the greatest uncertainty to TBR \cite{El-Guebaly2009}. However, the effect of these uncertainties is rarely reported alongside calculated TBR values. This is in large part due to the difficulty of propagating uncertainty data through a Monte-Carlo radiation transport simulation to the uncertainty on integral quantities of interest. Any uncertainties that are propagated are generally based on a simplified uncertainty treatment that does not include full energy, emitted double-differential and channel-to-channel correlations. 
+Two reactions in lithium produce the majority of tritium in the blanket:
+
+\begin{equation}
+\begin{split}
+  ^{6}\mathrm{Li} + \mathrm{n} & \rightarrow \alpha + \mathrm{T} + 4.8\mathrm{MeV} \\
+  ^{7}\mathrm{Li} + \mathrm{n} & \rightarrow \alpha + \mathrm{T} + \mathrm{n} - 2.5\mathrm{MeV}
+\end{split}
+\end{equation}
+
+However there are other reactions for creating tritons:
+
+\begin{equation}
+\begin{split}
+  ^{3}\mathrm{He} + \mathrm{n} & \rightarrow \mathrm{^{1}H} + \mathrm{T} \\
+  ^{10}\mathrm{B} + \mathrm{n} & \rightarrow 2\alpha + \mathrm{T}
+\end{split}
+\end{equation}
+
+There are also a variety of multi-step pathways which produce tritium via the creation of other intermediate nuclides. 
+
+There are a variety of tritium loss mechanisms within all proposed breeding systems: absorption in materials, leakage in the tritium extraction system and radioactive decay. To accommodate these losses and still retain a TBR in excess of unity a margin, $M$ is employed: $\mathrm{TBR} = 1 + M$. There is a constraint on the maximum allowable tritium inventory at a given facility on the order of kilograms. The window of adequate tritium supply is therefore relatively narrow and TBR should be precisely known and/or adjustable to keep within this window. Unfortunately there are many sources of uncertainty within TBR calculations. These can broadly be categorised as: poor/missing nuclear data, modelling simplifications and Monte-Carlo statistical uncertainty. Nuclear data often contributes the greatest uncertainty to TBR \cite{El-Guebaly2009}. However, the effect of these uncertainties is rarely reported alongside calculated TBR values. This is in large part due to the difficulty of propagating uncertainty data through a Monte-Carlo radiation transport simulation to the uncertainty on integral quantities of interest. Any uncertainties that are propagated are generally based on a simplified uncertainty treatment that does not include full energy, emitted double-differential and channel-to-channel correlations. 
+% ^^ needs cleaning up - does it flow in terms of concepts?
 
 % equation for TBR: N int phi(E) * sig(E) dE
 
