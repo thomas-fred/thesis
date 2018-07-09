@@ -30,7 +30,7 @@ The ratio of tritium produced to tritium consumed is known as the Tritium Breedi
   \mathrm{TBR} = \frac{T_{prod}}{T_{cons}} = \frac{\sum_{s=1}^{S} N_{s}}{T_{cons}} \int_{0}^{\infty} \phi(E) \sum_{r=1}^{R} \sigma_{r}(E) dE
 \end{equation}
 
-Two reactions in lithium produce the majority of tritium in the blanket:
+Two reactions in lithium produce the majority of tritium in the blanket and are shown below. Both naturally occuring lithium isotopes have an anomolously low nuclear binding energy per nucleon. This is why \textsuperscript{6}Li can exothermically fission despite being such a light nuclide. With the reaction being exothermic, its likelihood gains with decreasing interaction energy, meaning neutrons of all energies may potentially contribute to tritium production. Conversely, the tritium producing \textsuperscript{7}Li reaction is endothermic, with a threshold interaction energy of approximately 2.47 MeV. Natural lithium is $\approx 7.5\%$ \textsuperscript{6}Li with the remainder \textsuperscript{7}Li. Fusion breeding blankets will need their \textsuperscript{6}Li to be isotopically enriched to achieve an acceptable TBR.
 
 \begin{equation}
 \begin{split}
@@ -39,7 +39,7 @@ Two reactions in lithium produce the majority of tritium in the blanket:
 \end{split}
 \end{equation}
 
-However there are other reactions for creating tritons. For instance, the tritium decay product, $^{3}\mathrm{He}$ has an affinity for thermal neutrons and can be transmuted back to tritium by them. There is also a small chance of neutron capture leading to tritium production in $^{10}\mathrm{B}$.
+There are other reactions for creating tritons. For instance, the tritium decay product, $^{3}\mathrm{He}$ has an affinity for thermal neutrons and can be transmuted back to tritium by them. There is also a small chance of neutron capture leading to tritium production in $^{10}\mathrm{B}$.
 
 \begin{equation}
 \begin{split}
@@ -50,12 +50,10 @@ However there are other reactions for creating tritons. For instance, the tritiu
 
 There also a variety of multi-step pathways which produce tritium via the creation of other intermediate nuclides. 
 
-Within all proposed breeding systems there are a variety of tritium loss mechanisms: absorption in materials, leakage in the tritium extraction system and radioactive decay. To accommodate these losses and still retain a TBR in excess of unity a margin, $M$ is employed: $\mathrm{TBR} = 1 + M$. There is a constraint on the maximum allowable tritium inventory at a given facility on the order of kilograms. The window of adequate tritium supply is therefore relatively narrow and TBR should be precisely known and/or adjustable to keep within this window. Unfortunately there are many sources of uncertainty within TBR calculations. These can broadly be categorised as: poor/missing nuclear data, modelling simplifications and Monte-Carlo statistical uncertainty. Nuclear data often contributes the greatest uncertainty to TBR \cite{El-Guebaly2009}. However, the effect of these uncertainties is rarely reported alongside calculated TBR values. This is in large part due to the difficulty of propagating uncertainty data through a Monte-Carlo radiation transport simulation to the uncertainty on integral quantities of interest. Any uncertainties that are propagated are generally based on a simplified uncertainty treatment that does not include full energy, emitted double-differential and channel-to-channel correlations. 
+Within all proposed breeding systems there are a variety of tritium loss mechanisms: absorption in materials, leakage in the tritium extraction system and radioactive decay. To accommodate these losses and still retain a TBR in excess of unity, a margin, $M$ is employed: $\mathrm{TBR} = 1 + M$. There is a constraint on the maximum allowable tritium inventory at a given facility on the order of kilograms. The window of adequate tritium supply is therefore relatively narrow and TBR should be precisely known and/or adjustable to keep within this window. Unfortunately there are many sources of uncertainty within TBR calculations. These can broadly be categorised as: poor/missing nuclear data, modelling simplifications and Monte-Carlo statistical uncertainty. Nuclear data often contributes the greatest uncertainty to TBR \cite{El-Guebaly2009}. However, the effect of these uncertainties is rarely reported alongside calculated TBR values. This is in large part due to the difficulty of propagating uncertainty data through a Monte-Carlo radiation transport simulation to the uncertainty on integral quantities of interest. Any uncertainties that are propagated are generally based on a simplified uncertainty treatment that does not include full energy, emitted double-differential and channel-to-channel correlations. 
 % ^^ needs cleaning up - does it flow in terms of concepts?
 
-% equation for TBR: N int phi(E) * sig(E) dE
-
-A sensitivity analysis of HCLL type breeder blankets for the ITER Test Blanket Modules (TBMs) has identified $^{6}$Li, $^{56}$Fe and the Pb cross-sections as the most important for TBR uncertainty \cite{Leichtle2011}. This chapter quantifies the TBR uncertainty introduced by Pb nuclear data on the HCLL DEMO blanket design by employing the TMC methodology.
+A sensitivity analysis of Helium Cooled Lithium Lead (HCLL) \nomenclature[z]{HCLL}{Helium Cooled Lithium Lead} type breeder blankets for the ITER Test Blanket Modules (TBM) \nomenclature[z]{TBM}{Test Blanket Module} has identified $^{6}$Li, $^{56}$Fe and the Pb cross-sections as the most important for TBR uncertainty \cite{Leichtle2011}. This chapter quantifies the TBR uncertainty introduced by Pb nuclear data on the HCLL DEMO blanket design by employing the Total Monte Carlo (TMC) \nomenclature[z]{TMC}{Total Monte Carlo} uncertainty propagation methodology.
 
 % \begin{figure}
 % %  \figuretitle{}
