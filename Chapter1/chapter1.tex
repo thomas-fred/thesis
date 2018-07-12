@@ -62,12 +62,72 @@ A sensitivity analysis of Helium Cooled Lithium Lead (HCLL) \nomenclature[z]{HCL
 %   \label{fig:lead_by_library}
 % \end{figure}
 
+% Read through section, decide on underlying topics
+% Generate sub headings 
+% Find papers
+% Summarise and write
+
+% HEADINGS
+% Nuclear data description incl. ENDF MT, MAT, GENDF, PENDF etc. terminology
+%   Cross-sections 
+%   Energy distributions
+%   Angular distributions
+%   Decay 
+%   Covariances
+% Uncertainty propagation (see Michael Rising)
+%   ? Conventional ?
+%   Total Monte Carlo
+% Uncertainty in fusion relevant nuclear data
+%   Example - DT cross-section?
+%   Example - Be multiplicity? O-16 scatter?
+%   Example - Lead multiplicity
+% END HEADINGS
+
+\subsection{Literature review}
+\subsubsection{Nuclear data}
+Nuclear data (ND) is the general term for nuclear physics quantified and recorded for later retrieval. Once experimental nuclear interaction findings are produced, they are typically submitted to and stored in the EXFOR database. This is a publically queryable dataset of experiments to date. While the EXFOR dataset covers many nuclides, reaction channels and energies, this parameter space is very large and expensive to explore with nuclear physics experiments. In some instances, for example with short-lived radioisotopes such as metastables, it is not possible to peform the appropriate experiment. In this case, any exant experimental data is augmented with information derived from theoretical nuclear physics models. These data, from experiment and theory are used to develop or `evaluate' a bundle of nuclear data typically grouped by incident projectile and target nuclide. The evaluated files include likelihoods of interaction for various reactants (cross-sections) but also reaction product energy spectra, angular distributions, decay data, uncertainty information and more. There is a globally standard format known as Evaluated Nuclear Data File (ENDF) \nomenclature[z]{ENDF}{Evaluated Nuclear Data File} which specifies the scope, layout and precision of these files. As well as the reaction information listed above and detailed below, the files also contain information on contributing experiments and modifications which occurred during data evaluation. There are a series of different nuclear data libraries which constitute different attempts to capture and record the nuclear behaviour of a variety of nuclides. These may be general purpose (e.g. the confusingly named ENDF/B \cite{brown2018} \nomenclature[z]{ENDF/B}{Evalulated Nuclear Data File B}, JENDL \cite{shibata2011} \nomenclature[z]{JENDL}{Japanese Evaluated Nuclear Data Library} and TENDL \cite{Rochman2016} \nomenclature[z]{TENDL}{TALYS-based Evalulated Nuclear Data Library} ) or more specialist (e.g. EAF \cite{packer2011} \nomenclature[z]{EAF}{European Activation File}). Many of the nuclear states have developed their own nuclear data libraries over time. 
+
+ENDF type files are typically stored as ASCII \nomenclature[z]{ASCII}{American Standard Code for Information Interchange} text. They are arranged hierarchically as displayed in figure~\ref{fig:endf}. The MAT or material is typically but not exclusively a nuclide, it can also be elemental or even compound in nature. A MAT code is a unique reference for a material, such as 125 for \textsuperscript{1}H or 7443 for \textsuperscript{186}W. Each material contains several `files' referred to by an MF number. These contain the data listed in the sections below. Each MF, or file, is split into MTs. 
+
+\begin{figure}[ht]
+%  \figuretitle{}
+  \includegraphics[width=\textwidth]{endf_architecture}
+  \caption{The layout of an ENDF `tape', containing materials (typically only one material per tape), which contain files, which contain sections, which contain records.}
+  \label{fig:endf}
+\end{figure}
+
+\paragraph{Resonance parameters}
+The cross-section as a function of interaction energy is often an irregular, unsmooth shape due to the presence of nuclear resonances, where compound nucleus formation at a given energy is radically favoured over adjacent energies. Rather than trying to record the cross-section for all interaction energies in a tabulated way, it is easier to reconstruct cross-sections from some ($\sigma$, E) tuples and a series of summed resonance curves. These curves have a functional description, dependent on energy with various parameters determining their shape. These parameters are stored within the MF=2 file of an ENDF formatted entry. Given the  
+
+% This section is also important for later, so give it some depth
+% Nuclear physics of compound nucleus formation
+% Breit-Wigner formula
+% Other methods for resonance parameterisation
+% Temperature effects
+
+\paragraph{Cross-sections}
+Interaction likelihood, or cross-section information is recorded in MF=3 with a single MT for each open reaction channel. For instance, MF=3, MT=102 is \textsuperscript{i}X(n,$\gamma$)\textsuperscript{i}X for nuclide \textsuperscript{i}X. It is given as a function of interaction energy 
+\paragraph{Differential distributions}
+\paragraph{Decay}
+\paragraph{Covariances}
+\subsubsection{Uncertainty propagation}
+\paragraph{Covariance manipulation}
+\paragraph{Total Monte Carlo}
+\subsubsection{Uncertainty in fusion relevant data}
+  \cite{Forrest2011}
+\paragraph{Deuterium-Tritium}
+\paragraph{\textsuperscript{16}O scattering}
+\paragraph{Lead multiplicity}
+
+
+Cross-section uncertainties can be represented as single values for a given energy and reaction channel. As an example, the $^{208}$Pb(n,2n)$^{207}$Pb reaction at 14MeV is shown in Table \ref{tab:lead_by_lib} for a variety of nuclear data libraries. Information on how uncertainty for a given energy affects other energies is quantified in energy covariance matrices, but these are not available for the majority of reaction channels in standard nuclear data libraries.
+
 \begin{table}[ht]
   \footnotesize
   \centering
-  \begin{tabular}{llll}
+  \begin{tabularx}{\textwidth}{XXXX}
     \toprule
-    Source & E [MeV] & $\sigma_{n,2n}$ [b] & $\pm\%\Delta\sigma_{n,2n}$ \\
+    Source & Energy [MeV] & $\sigma_{n,2n}$ [b] & $\pm\%\Delta\sigma_{n,2n}$ \\
     \midrule
     BROND 2.2 & 14.0 & 1.97 & - \\
     CENDL 3.1 & 14.0 & 2.08 & - \\
@@ -79,16 +139,10 @@ A sensitivity analysis of Helium Cooled Lithium Lead (HCLL) \nomenclature[z]{HCL
     EXFOR: Simakov & 14.1 & 2.38 & 5.88 \\
     EXFOR: J. Frehaut & 14.28 & 1.97 & 8.57 \\
     \bottomrule
-  \end{tabular}
+  \end{tabularx}
   \caption{Cross-section values for the n,2n reaction channel, $\sigma_{n,2n}$ around 14 MeV for various libraries and experiments. The ENDF utility code Inter \cite{inter} was used to extract the values for each library. The two experimental results were retreived from the online EXFOR database \cite{exfor2017}. The uncertainties, $\Delta\sigma_{n,2n}$ are presented as percentages above and below the reported value.}
   \label{tab:lead_by_lib}
 \end{table}
-
-\subsection{Literature review}
-
-% \cite{Forrest2011}
-
-Cross-section uncertainties can be represented as single values for a given energy and reaction channel. As an example, the $^{208}$Pb(n,2n)$^{207}$Pb reaction at 14MeV is shown in Table \ref{tab:lead_by_lib} for a variety of nuclear data libraries. Information on how uncertainty for a given energy affects other energies is quantified in energy covariance matrices, but these are not available for the majority of reaction channels in standard nuclear data libraries.
 
 The TENDL-2015 library is a comprehensive, general-purpose nuclear data library which contains data on interactions between 7 projectiles and over 2,800 target nuclides. The library is produced by a suite of codes known as T6 and an adherance to a strict methodology of reproducability \cite{Rochman2016}. It uses the TALYS nuclear reaction code to model reactions and predict nuclear data. The inputs are fundamental parameters, including data from the RIPL-3 database \cite{RIPL3}, each with their own probability distributions that reflect their uncertainties. For the TENDL libraries, the distribution of nuclear data contained in the files with sampled input parameters can give more information on nuclear data uncertainty than is contained in a traditional evaluated nuclear data file. The shape of the distribution are captured and need not necessarily be simple Gaussian.
 
