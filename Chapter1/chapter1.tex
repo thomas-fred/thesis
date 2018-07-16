@@ -4,6 +4,7 @@
 %*******************************************************************************
 
 \chapter{Total Monte Carlo propagation of nuclear data uncertainties to nuclear fusion engineering parameters} %Title of first chapter
+\label{chap:tmc}
 
 \ifpdf
     \graphicspath{{Chapter1/Figs/Raster/}{Chapter1/Figs/PDF/}{Chapter1/Figs/}}
@@ -85,7 +86,7 @@ A sensitivity analysis of Helium Cooled Lithium Lead (HCLL) \nomenclature[z]{HCL
 
 \subsection{Literature review}
 \subsubsection{Nuclear data}
-Nuclear data (ND) is the general term for nuclear physics quantified and recorded for later retrieval. Once experimental nuclear interaction findings are produced, they are typically submitted to and stored in the EXFOR database. This is a publically queryable dataset of experiments to date. While the EXFOR dataset covers many nuclides, reaction channels and energies, this parameter space is very large and expensive to explore with nuclear physics experiments. In some instances, for example with short-lived radioisotopes such as metastables, it is not possible to peform the appropriate experiment. In this case, any exant experimental data is augmented with information derived from theoretical nuclear physics models. These data, from experiment and theory are used to develop or `evaluate' a bundle of nuclear data typically grouped by incident projectile and target nuclide. The evaluated files include likelihoods of interaction for various reactants (cross-sections) but also reaction product energy spectra, angular distributions, decay data, uncertainty information and more. There is a globally standard format known as Evaluated Nuclear Data File (ENDF) \nomenclature[z]{ENDF}{Evaluated Nuclear Data File} which specifies the scope, layout and precision of these files. As well as the reaction information listed above and detailed below, the files also contain information on contributing experiments and modifications which occurred during data evaluation. There are a series of different nuclear data libraries which constitute different attempts to capture and record the nuclear behaviour of a variety of nuclides. These may be general purpose (e.g. the confusingly named ENDF/B \cite{brown2018} \nomenclature[z]{ENDF/B}{Evalulated Nuclear Data File B}, JENDL \cite{shibata2011} \nomenclature[z]{JENDL}{Japanese Evaluated Nuclear Data Library} and TENDL \cite{Rochman2016} \nomenclature[z]{TENDL}{TALYS-based Evalulated Nuclear Data Library} ) or more specialist (e.g. EAF \cite{packer2011} \nomenclature[z]{EAF}{European Activation File}). Many of the nuclear states have developed their own nuclear data libraries over time. 
+Nuclear data (ND) is the general term for nuclear physics quantified and recorded for later retrieval. Once experimental nuclear interaction findings are produced, they are typically submitted to and stored in the EXFOR database. This is a publically queryable dataset of experiments to date. While the EXFOR dataset covers many nuclides, reaction channels and energies, this parameter space is very large and expensive to explore with nuclear physics experiments. In some instances, for example with short-lived radioisotopes such as metastables, it is not possible to peform the appropriate experiment. In this case, any exant experimental data is augmented with information derived from theoretical nuclear physics models. These data, from experiment and theory are used to develop or `evaluate' a bundle of nuclear data typically grouped by incident projectile and target nuclide. The evaluated files include likelihoods of interaction for various reactants (cross-sections) but also reaction product energy spectra, angular distributions, decay data, uncertainty information and more. There is a globally standard format known as Evaluated Nuclear Data File (ENDF) \nomenclature[z]{ENDF}{Evaluated Nuclear Data File} which specifies the scope, layout and precision of these files. The current version of the ENDF format is ENDF-6 \cite{}. As well as the reaction information listed above and detailed below, the files also contain information on contributing experiments and modifications which occurred during data evaluation. There are a series of different nuclear data libraries which constitute different attempts to capture and record the nuclear behaviour of a variety of nuclides. These may be general purpose (e.g. the confusingly named ENDF/B \cite{brown2018} \nomenclature[z]{ENDF/B}{Evalulated Nuclear Data File B}, JENDL \cite{shibata2011} \nomenclature[z]{JENDL}{Japanese Evaluated Nuclear Data Library} and TENDL \cite{Rochman2016} \nomenclature[z]{TENDL}{TALYS-based Evalulated Nuclear Data Library} ) or more specialist (e.g. EAF \cite{packer2011} \nomenclature[z]{EAF}{European Activation File}). Many countries with nuclear programmes have developed their own nuclear data libraries over time. 
 
 ENDF type files are typically stored as ASCII \nomenclature[z]{ASCII}{American Standard Code for Information Interchange} text. They are arranged hierarchically as displayed in figure~\ref{fig:endf}. The MAT or material is typically but not exclusively a nuclide, it can also be elemental or even compound in nature. A MAT code is a unique reference for a material, such as 125 for \textsuperscript{1}H or 7443 for \textsuperscript{186}W. Each material contains several `files' referred to by an MF number. These contain the data listed in the sections below. Each MF, or file, is split into MTs. 
 
@@ -96,17 +97,27 @@ ENDF type files are typically stored as ASCII \nomenclature[z]{ASCII}{American S
   \label{fig:endf}
 \end{figure}
 
-\paragraph{Resonance parameters}
-The cross-section as a function of interaction energy is often an irregular, unsmooth shape due to the presence of nuclear resonances, where compound nucleus formation at a given energy is radically favoured over adjacent energies. Rather than trying to record the cross-section for all interaction energies in a tabulated way, it is easier to reconstruct cross-sections from some ($\sigma$, E) tuples and a series of summed resonance curves. These curves have a functional description, dependent on energy with various parameters determining their shape. These parameters are stored within the MF=2 file of an ENDF formatted entry. Given the  
+Nuclear data `processing' is required to turn the contents of an ENDF formatted file into a form that radiation transport and activation-transmutation codes can use. This is accomplished with a code such as NJOY \cite{} or PREPRO \cite{}.
 
-% This section is also important for later, so give it some depth
-% Nuclear physics of compound nucleus formation
-% Breit-Wigner formula
-% Other methods for resonance parameterisation
-% Temperature effects
+\paragraph{Resonance parameters}
+The cross-section as a function of interaction energy is often an irregular, unsmooth shape due to the presence of nuclear resonances. These resonances are compound nuclei. That is, compound nuclear reactions where a compound nucleus is temporarily formed. These nuclear resonances occur because the nucleus is a quantum mechanical system, with certain, discrete energy levels permitted. Methods for predicting nuclear reactions based on forces within the nucleus remain a work in progress as the inter-nucleon forces inside the nucleus are too complex to currently model, especially for larger nuclei. Insights can however still be gained from `black-box' models of the nucleus, where internal understanding is not assumed. One such approach is the R-Matrix interaction framework. In the this method, unknown internal properties are parameters which can be deduced by comparison with experimental results. It can be performed to varying degrees of complexity, with or without particle spin dependence, multiple reaction channels, etc. Other resonance formalisms are typically simplifications of the R-Matrix approach.
+
+Rather than trying to record the cross-section for all interaction energies in a tabulated way, it is easier to reconstruct cross-sections from some `background' ($\sigma$, E) tuples and a series of summed resonance curves parameterised by resonance theory. These curves have a functional description, dependent on energy with various parameters determining their shape. This Breit-Wigner distribution is shown as equation~\ref{eq:breit-wigner}. 
+
+\begin{equation}
+  \sigma(E) = \frac{4\pi\lambdabar^{2}(2J + 1)}{(2s_{a} + 1)(2s_{b} + 1)}  \frac{\Gamma^{2}/4}{[(E-E_{R})^{2} + \Gamma^{2}/4]}
+  \label{eq:breit-wigner}
+\end{equation}
+
+Along with the independent variable energy, $E$, the parameters include resonance `widths', $\Gamma$; resonance energy, $E_{R}$; angular momentum, $J$, and spin, $s_{a}$ and $s_{b}$ \cite{}. Consider a neutron field of a given energy incident on a block of material, the interaction energy distribution is dependent on the temperature of this material (higher temperatures act to widen the spread of interaction energies). As such, resonances are Doppler broadened as material temperature increases. An advantage of reconstructing cross-sections from resonance parameters is that the temperature dependence of cross-sections can be handled in an elegant way. 
+
+While many resonances are detectable by experimental methods, at higher energies it becomes difficult to distinguish between neighbouring resonances. This is the transition from the Resolved Resonance Range (RRR) \nomenclature[z]{RRR}{Resolved Resonance Range} to the Unresolved Resonance Range (URR) \nomenclature[z]{URR}{Unresolved Resonance Range}. However resonances in this region are still important for self-shielding effects (see chapter~\ref{chap:group_structure}). As such, in the URR distributions of expected resonance widths and energies are given instead of experimentally derived data.
+
+Resonance parameters are stored within the MF=2 file of an ENDF formatted entry. 
 
 \paragraph{Cross-sections}
-Interaction likelihood, or cross-section information is recorded in MF=3 with a single MT for each open reaction channel. For instance, MF=3, MT=102 is \textsuperscript{i}X(n,$\gamma$)\textsuperscript{i}X for nuclide \textsuperscript{i}X. It is given as a function of interaction energy 
+As explored above, it is beneficial to encode the cross-sections of resonant reactions in a parameterised way. Compared with a simple list of ($\sigma$, E) tuples it is more insightful and permits the reconstruction of cross-sections from resonance data for different material temperatures. However, past a certain point, resonances overlap to form a continuum and this schema is no longer practical or useful. For this high energy range then, where cross-sections change relatively slowly as a function of energy, simple tabulated data is used. This cross-section information is recorded in MF=3 with a single MT for each open reaction channel. For instance, MF=3, MT=102 is \textsuperscript{i}X(n,$\gamma$)\textsuperscript{i}X for nuclide \textsuperscript{i}X. Where cross-sections reconstructed from resonance parameters do not match, corrections are also recorded here.
+
 \paragraph{Differential distributions}
 \paragraph{Decay}
 \paragraph{Covariances}
@@ -118,7 +129,6 @@ Interaction likelihood, or cross-section information is recorded in MF=3 with a 
 \paragraph{Deuterium-Tritium}
 \paragraph{\textsuperscript{16}O scattering}
 \paragraph{Lead multiplicity}
-
 
 Cross-section uncertainties can be represented as single values for a given energy and reaction channel. As an example, the $^{208}$Pb(n,2n)$^{207}$Pb reaction at 14MeV is shown in Table \ref{tab:lead_by_lib} for a variety of nuclear data libraries. Information on how uncertainty for a given energy affects other energies is quantified in energy covariance matrices, but these are not available for the majority of reaction channels in standard nuclear data libraries.
 
