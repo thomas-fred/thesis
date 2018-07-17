@@ -1,4 +1,5 @@
 thesis.pdf
+build.txt
 *.tdo*
 .DS_Store*
 *.aux*
