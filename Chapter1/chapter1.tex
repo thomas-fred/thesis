@@ -69,12 +69,6 @@ A sensitivity analysis of Helium Cooled Lithium Lead (HCLL) \nomenclature[z]{HCL
 % Summarise and write
 
 % HEADINGS
-% Nuclear data description incl. ENDF MT, MAT, GENDF, PENDF etc. terminology
-%   Cross-sections 
-%   Energy distributions
-%   Angular distributions
-%   Decay 
-%   Covariances
 % Uncertainty propagation (see Michael Rising)
 %   ? Conventional ?
 %   Total Monte Carlo
@@ -84,85 +78,34 @@ A sensitivity analysis of Helium Cooled Lithium Lead (HCLL) \nomenclature[z]{HCL
 %   Example - Lead multiplicity
 % END HEADINGS
 
-\subsection{Nuclear data}
-Nuclear data (ND) is the general term for nuclear physics quantified and recorded for later retrieval. The behaviour of nuclei, in particular when under bombardment by nucleons and light nuclei can be probed by a variety of experiments. These typically utilise monoenergetic beams of particles and arrays of detectors to determine reaction likelihood (cross-section) and information on the reaction products (emitted energy \& angle). These experiments are then repeated through the energy spectrum, from meV to the MeV range. Once experimental nuclear interaction findings are generated, they are typically submitted to and stored in the EXFOR database. This is a publically queryable dataset of experiments to date. While the EXFOR dataset covers many nuclides, reaction channels and energies, this parameter space is very large and expensive to explore with nuclear physics experiments. In some instances, for example with short-lived radioisotopes such as metastables, it is not possible to peform the appropriate experiment. In this case, any exant experimental data is augmented with information derived from theoretical nuclear physics models. These data, from experiment and theory are used to develop or `evaluate' a bundle of nuclear data typically grouped by incident projectile and target nuclide. The evaluated files include likelihoods of interaction for various reactants (cross-sections) but also reaction product energy spectra, angular distributions, decay data, uncertainty information and more. There is a globally standard format known as Evaluated Nuclear Data File (ENDF) \nomenclature[z]{ENDF}{Evaluated Nuclear Data File} which specifies the scope, layout and precision of these files. The current version of the ENDF format is ENDF-6 \cite{Herman2010}. As well as the reaction information listed above and detailed below, the files also contain information on contributing experiments and modifications which occurred during data evaluation. There are a series of different nuclear data libraries which constitute different attempts to capture and record the nuclear behaviour of a variety of nuclides. These may be general purpose (e.g. JENDL \cite{shibata2011}, \nomenclature[z]{JENDL}{Japanese Evaluated Nuclear Data Library} TENDL \cite{Rochman2016} \nomenclature[z]{TENDL}{TALYS-based Evalulated Nuclear Data Library} and the confusingly named ENDF/B \cite{brown2018}\nomenclature[z]{ENDF/B}{Evalulated Nuclear Data File B}) or more specialist (e.g. EAF\cite{packer2011} \nomenclature[z]{EAF}{European Activation File}). Many countries with nuclear programmes have developed their own nuclear data libraries over time. 
-
-ENDF type files are typically stored as ASCII \nomenclature[z]{ASCII}{American Standard Code for Information Interchange} text. They are arranged hierarchically as displayed in figure~\ref{fig:endf}. The MAT or material is typically but not exclusively a nuclide, it can also be elemental or even compound in nature. A MAT code is a unique reference for a material, such as 125 for \textsuperscript{1}H or 7443 for \textsuperscript{186}W. Each material contains several `files' referred to by an MF number. These contain the data listed in the sections below. Each MF, or file, is split into MTs. 
-
-\begin{figure}[ht]
-%  \figuretitle{}
-  \includegraphics[width=\textwidth]{endf_architecture}
-  \caption{The layout of an ENDF `tape', containing materials (typically only one material per tape), which contain files, which contain sections, which contain records.}
-  \label{fig:endf}
-\end{figure}
-
-Nuclear data `processing' is required to turn the contents of an ENDF formatted file into a form that radiation transport and activation-transmutation codes can use. This is accomplished with a code such as NJOY \cite{MacFarlane2010} or PREPRO \cite{cullen2017}. A brief introduction to the different types and uses of ND is given below.
-
-\subsubsection{Resonance parameters}
-The cross-section as a function of interaction energy is often an irregular, unsmooth shape due to the presence of nuclear resonances. These resonances are compound nuclei. That is, compound nuclear reactions where a compound nucleus is temporarily formed. These nuclear resonances occur because the nucleus is a quantum mechanical system, with certain, discrete energy levels permitted. Methods for predicting nuclear reactions based on forces within the nucleus remain a work in progress as the inter-nucleon forces inside the nucleus are too complex to currently model, especially for larger nuclei. Insights can however still be gained from `black-box' models of the nucleus, where internal understanding is not assumed. One such approach is the R-Matrix interaction framework. In the this method, unknown internal properties are parameters which can be deduced by comparison with experimental results. It can be performed to varying degrees of complexity, with or without particle spin dependence, multiple reaction channels, etc. Other resonance formalisms are typically simplifications of the R-Matrix approach.
-
-Rather than trying to record the cross-section for all interaction energies in a tabulated way, it is easier to reconstruct cross-sections from some `background' ($\sigma$, E) tuples and a series of summed resonance curves parameterised by resonance theory. These curves have a functional description, dependent on energy with various parameters determining their shape. A simple Breit-Wigner distribution is shown as equation~\ref{eq:breit-wigner}. This form is appropriate for non-overlapping resonances. The more sophisticated R-Matrix approach is required with overlapping resonances. 
-
-\begin{equation}
-  \sigma(E) = \frac{4\pi\lambdabar^{2}(2J + 1)}{(2s_{a} + 1)(2s_{b} + 1)}  \frac{\Gamma^{2}/4}{[(E-E_{R})^{2} + \Gamma^{2}/4]}
-  \label{eq:breit-wigner}
-\end{equation}
-
-Along with the independent variable energy, $E$, the parameters include: $\Gamma$, resonance `widths'; $\lambdabar$, the reduced particle wavelength; resonance energy, $E_{R}$; angular momentum, $J$, and spin, $s_{a}$ and $s_{b}$ \cite{Libby2005}. 
-
-Consider a neutron field of a given energy incident on a block of material, the interaction energy distribution is dependent on the temperature of this material (higher temperatures act to widen the spread of interaction energies). As such, resonances are Doppler broadened as material temperature increases. An advantage of reconstructing cross-sections from resonance parameters is that the temperature dependence of cross-sections can be handled in an elegant and flexible way. 
-
-While resonances at lower energies are detectable by experimental methods, at higher energies it becomes difficult to distinguish between neighbouring resonances. This is because the average spacing between nuclear levels, $\left<D\right>$, decreases with energy while the average resonance width, $\left<\Gamma\right>$, increases. Where $\left<D\right> \approx \left<\Gamma\right>$ there exist bunches of partially overlapping resonant cross-section peaks. This is the transition from the Resolved Resonance Range (RRR) \nomenclature[z]{RRR}{Resolved Resonance Range} to the Unresolved Resonance Range (URR). \nomenclature[z]{URR}{Unresolved Resonance Range} An overview of the cross-section from thermal to MeV energies for a heavy nucleus is shown as figure~\ref{au-197_sigma_tot}. Resonances in the URR region are still important for self-shielding effects (see chapter~\ref{chap:group_structure}). As such, while no experimental data is available on resonance locations in the URR, distributions of expected resonance widths and energies are given. These distributions are known as probability tables. 
-
-% \cite{Brown2017} for introductory information on probability tables
-
-\begin{figure}[ht]
-%  \figuretitle{}
-  \includegraphics[width=\textwidth]{au-197_sigma_tot}
-  \caption{The total cross-section as a function of energy for \textsuperscript{197}Au. Note the smooth $1/v$ region where the probability of interaction decreases with energy (interactions are more likely to happen with greater time). Subsequently, resonances are the dominant phenomenon from eV--keV energies. As the level density increases past the energy resolution achievable in experiments, the RRR becomes the URR. Past this, a continuum region is obtained and methods other than resonance theory must be used to predict behaviour. Figure from \cite{Cacuci2010}.}
-  \label{fig:au-197_sigma_tot}
-\end{figure}
-
-Resonance parameters are stored within the MF=2 file of an ENDF formatted entry. 
-
-\subsubsection{Cross-sections}
-As explored above, it is beneficial to encode the cross-sections of resonant reactions in a parameterised way. Compared with a simple list of ($\sigma$, E) tuples it is more insightful and permits the reconstruction of cross-sections from resonance data for different material temperatures. However, past a certain point, resonances overlap because the aforementioned average resonance widths become much greater than the average level spacing, i.e. $\left<\Gamma\right> \gg \left<D\right>$ and so the combined, overlapping resonances form a continuum (see figure~\ref{fig:au-197_sigma_tot}). Any scheme based on describing individual resonances is no longer practical. 
-
-For this high energy range then, where cross-sections change relatively slowly as a function of energy, simple tabulated data is used. This data can be obtained experimentally and with the aid of theoretical frameworks such as the `optical' model. This cross-section information is recorded in MF=3 with a single MT for each open reaction channel. For instance, MF=3, MT=102 is \textsuperscript{i}X(n,$\gamma$)\textsuperscript{i}X for nuclide \textsuperscript{i}X. Where cross-sections reconstructed from resonance parameters do not match, corrections are also recorded here.
-
-\subsubsection{Differential distributions}
-Both energy and angular distributions are important for the accurate simulation of radiation transport through matter. For simple interactions such as elastic scattering, the scattered angle and energy of a particular interaction can be calculated kinematically if the particle masses and incident energy are known. Repeating this process for a population of particles at low energies, one can deduce elastic scattering is isotropic. However, nuclear reactions are not necessarily isotropic in the distribution of their products. Especially for direct nuclear reactions, where the energy is high, emitted particles may be forward biased. This is because at high energies, the wavelength of an incident particle is similar to the size of the scattering nucleus and so diffraction occurs. As with a light wave diffracting around a sphere, there is a peak directly behind the sphere. Forward biasing is of particular importance in fusion systems given the 14.1 MeV `birth' energy of D-T fusion neutrons. The angular distributions of nuclear reaction products can be well represented by Legendre polynomials. For higher energies, higher order Legendre polynomials are required. The Rodrigues formula for generating Legendre polynomials is shown below as equation~\ref{eq:rodrigues}. An example angular distribution for elastic scattering off \textsuperscript{186}W is shown as figure~\ref{fig:tungsten_scatter}.
-
-\begin{equation}
-  P_{n}(x) = \frac{1}{2^{n}n!} \frac{\mathrm{d}^{n}}{\mathrm{d}x^{n}} (x^{2} - 1)^{2}
-  \label{eq:rodrigues}
-\end{equation}
-
-\begin{figure}[ht]
-%  \figuretitle{}
-  \includegraphics[width=0.7\textwidth]{tungsten_scatter}
-  \caption{The angular distribution of elastically scattered neutrons off \textsuperscript{186}W. The probability is normalised by the cosine of the scattered angle. Note the isotropic nature at low energies, moving to a more anisotropic behaviour for greater energies. This plot was produced with NJOY \cite{MacFarlane2010} and released as part of the TENDL2017 library \cite{Rochman2016}.}
-  \label{fig:tungsten_scatter}
-\end{figure}
-
-Energy and angular distributions are found in MF=4,5,6 depending on the age and type of evaluation.
-
-\subsubsection{Decay}
-Unstable nuclei decay, that is, change by the emission of particles or by internal conversion of one nucleon to another. Radionuclides may be primordial, that is, manufactured in stars and supernovae or activated/transmuted in the present, into radionuclides from a stable parent nuclide. The process of attaining stability through decay is also described by ND. Half-lives, $\gamma$-photon and other particle emission probabilities and energies are recorded along with fission product yield data in MF=8. 
-
-\subsubsection{Covariances}
-% ENDF-6 formats §29.1 very useful as overview material
-
-Uncertainty in ND is often represented with covariance matrices.
-
 \subsection{Uncertainty propagation}
-\subsubsection{Covariance manipulation}
+% Rising pg 90, ref 83,84
+The uncertainty in ND only has intrinsic interest for ND specialists. After all, these uncertainties are a result of our lack of knowledge, they are not a physical quantity. Those in the nuclear engineering field who use this data are more concerned with how `integral' quantities such as heating rates, neutron fluences, TBRs, etc. are impacted by ND uncertainties. To estimate this, one must `propagate' the uncertainty from data to integral quantities. The main approaches are pertubation theory / sensitivty analysis and sampling methods. Perturbatory approaches were developed first, with sampling methods only becoming available with the increases in computing power achieved in the 21\textsuperscript{st} century. Both methods are detailed below.
+\subsubsection{Perturbation theory}
+Perturbation theory is widely applied in many branches of the sciences, and generally consists of substituting an unsoluble equation for a related, soluble one plus some perturbatory series of terms. These increasing order terms have less and less impact on the result and the series is truncated at some point. 
+
+Work on applying this approach to reactor physics problems was undertaken by Wigner on the first nuclear pile \cite{Rising2012}. A more sophisticated framework was developed by Gandini, the Generalised Perturbation Theory (GPT) \cite{Gandini1967} and subsequently into the Equivalent Generalised Perturbation Theory (EGPT) \cite{Gandini1986}. These efforts require obtaining the forward and adjoint solutions to the Boltzmann transport equation such that one can identify the magnitude of responses to any input perturbation. This means GPT and EGPT naturally lend themselves to deterministic methods for radiation transport, where full solutions to the Boltzmann equation are obtained, rather than a subsection of its phase space sampled (as in stochastic methods). This was overcome relatively recently with the TSUNAMI-3D code by Rearden, which can calculate sensitivity coefficients with multigroup Monte Carlo methods \cite{Rearden2004}. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% START WEDNESDAY 25TH JULY HERE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% How does it work... write that HERE!
+% \cite{Rochman2010} explains how to apply perturbation approach and what the covariance data is for... 
+Further detail on perturbation theory applied to radiation transport systems can be found in \cite{Sabouri2013}.
+
+A disadvantage of perturbation theory methods is that they are only valid for `small' perturbiations in input quantities, which is unfortunate if some nuclear data evaluation is particularly poorly known and so of most importance to propagate. Another disadvantage is perturbation approaches may yield the variance in some integral quantity due to a varied input, but not the higher-order moments of any distribution. Hence the skewness or kurtosis cannot be known, even if the underlying distribution is non-normal.
+
+\nomenclature[z]{GPT}{Generalised Perturbation Theory} 
+\nomenclature[z]{EGPT}{Equivalent Generalised Perturbation Theory} 
+\nomenclature[z]{TSUNAMI-3D}{Tools for Sensitivty and Uncertainty Analysis Methodology Implementation in three Dimensions}
+
 \subsubsection{Total Monte Carlo}
-\subsubsection{Uncertainty in fusion relevant data}
+
+\subsection{Uncertainty in fusion relevant data}
   \cite{Forrest2011}
-\paragraph{Deuterium-Tritium}
-\paragraph{\textsuperscript{16}O scattering}
-\paragraph{Lead multiplicity}
+\subsubsection{Deuterium-Tritium}
+\subsubsection{\textsuperscript{16}O scattering}
+\subsubsection{Lead multiplicity}
 
 Cross-section uncertainties can be represented as single values for a given energy and reaction channel. As an example, the $^{208}$Pb(n,2n)$^{207}$Pb reaction at 14MeV is shown in Table \ref{tab:lead_by_lib} for a variety of nuclear data libraries. Information on how uncertainty for a given energy affects other energies is quantified in energy covariance matrices, but these are not available for the majority of reaction channels in standard nuclear data libraries.
 
@@ -192,9 +135,29 @@ The TENDL-2015 library is a comprehensive, general-purpose nuclear data library 
 
 The Total Monte-Carlo (TMC) method utilises nuclear data generated from these sampled fundamental parameters to quantify uncertainties on integral quantities. With a given ensemble of sampled nuclear data, a radiation transport simulation is performed and an observable recorded. The process is repeated hundreds of times to produce a distribution of the observable of interest, with the uncertainty in the fundamental parameters used in the genration of self-consistent nuclear data files, propagating the fully-correlated variations to the observable PDF \cite{Koning2008}.
 
+\section{Method}
+
 \subsection{Input nuclear data}
 \label{sec:data}
-It is instructive to inspect the nuclear data used as input for this TMC simulation. In an unmoderated fusion neutron spectrum the dominant reaction channels for Pb are neutron multiplication (n,2n) and elastic scattering, at approximately 2 and 3 barns respectively.
+It is instructive to inspect the nuclear data used as input for this TMC simulation. The sampled nuclear data files were downloaded in both ACE (293K) and ENDF format from the TENDL-2015 website \cite{TENDL2015}. Figure \ref{fig:tendl_lead} shows the (n,2n) cross-sections as a function of energy for $^{208}$Pb. 
+
+
+% \begin{figure}
+% %  \figuretitle{}
+%   \includegraphics[width=0.48\textwidth]{pb208_tendl_n2n}
+%   \caption{Shown here are 300 `random' TENDL2015 n,2n cross-sections as a function of energy for the most abundant lead isotope, $^{208}$Pb.}
+%   \label{fig:tendl_lead}
+% \end{figure}
+
+\begin{figure}
+%  \figuretitle{}
+  \centering
+  \includegraphics[width=\textwidth]{pb208_n2n_tendl_exfor.png}
+  \caption{Shown here are $^{208}$Pb (n,2n) cross-sections as a function of energy. The plot shows the TENDL `random' data extracted from ACE files. Additionally, the few available experimental results in EXFOR are plotted for comparison.}
+  \label{fig:tendl_lead}
+\end{figure}
+
+In an unmoderated fusion neutron spectrum the dominant reaction channels for Pb are neutron multiplication (n,2n) and elastic scattering, at approximately 2 and 3 barns respectively. The ENDF utility code Inter was used to extract cross-section values at a given energy from the ENDF files. The resulting distributions and correlations were plotted as figures \ref{fig:tendl_n2n}, \ref{fig:tendl_nel} \& \ref{fig:pb_el_n2n_corr}. Figures \ref{fig:tendl_n2n} and \ref{fig:tendl_nel} were examined for their first 3 statistical moments. 
 
 \begin{table}[ht]
   \footnotesize
@@ -252,26 +215,6 @@ The elastic scattering data shown in Figure \ref{fig:tendl_nel} and Table \ref{t
   \caption{Shown here are scatter plots of the relationship between the scattering and n,2n cross-sections in the TENDL data. The two channels are clearly anti-correlated. A least squares fit has been applied and the resulting linear relationship plotted.}
 	\label{fig:pb_el_n2n_corr}
 \end{figure}
-
-\section{Method}
-The sampled nuclear data files were downloaded in both ACE (293K) and ENDF format from the TENDL-2015 website \cite{TENDL2015}. Figure \ref{fig:tendl_lead} shows the (n,2n) cross-sections as a function of energy for $^{208}$Pb. 
-
-% \begin{figure}
-% %  \figuretitle{}
-%   \includegraphics[width=0.48\textwidth]{pb208_tendl_n2n}
-%   \caption{Shown here are 300 `random' TENDL2015 n,2n cross-sections as a function of energy for the most abundant lead isotope, $^{208}$Pb.}
-%   \label{fig:tendl_lead}
-% \end{figure}
-
-\begin{figure}
-%  \figuretitle{}
-  \centering
-  \includegraphics[width=\textwidth]{pb208_n2n_tendl_exfor.png}
-  \caption{Shown here are $^{208}$Pb (n,2n) cross-sections as a function of energy. The plot shows the TENDL `random' data extracted from ACE files. Additionally, the few available experimental results in EXFOR are plotted for comparison.}
-  \label{fig:tendl_lead}
-\end{figure}
-
-The ENDF utility code Inter was used to extract cross-section values at a given energy from the ENDF files. The resulting distributions and correlations were plotted as figures \ref{fig:tendl_n2n}, \ref{fig:tendl_nel} \& \ref{fig:pb_el_n2n_corr}. Figures \ref{fig:tendl_n2n} and \ref{fig:tendl_nel} were examined for their first 3 statistical moments. 
 
 An 11.25\degree \ 2014 DEMO HCLL MCNP model was modified to tally TBR. The particle count was set to $3\cdot10^{6}$ giving a TBR relative standard deviation, RSD $\approx 0.002$ for each simulation. This is negligible compared to the total (nuclear data \& statistics) accumulated RSD and so the variance of the observable is assumed to be entirely due to variance in the nuclear data. While other TMC analyses have separated out the Monte-Carlo statistical variations to limit the computational cost \cite{Rochman2014a}, in this work the statistical variation has been strictly limited to avoid this issue. Whilst the Pb nuclear data employed was from TENDL-2015, FENDL3.1b data was used for the neutron transport of other elements present in the reactor model. A series of simple Bash and Python scripts were used to select different Pb TENDL-2015 ACE files for different runs, before creating and submitting jobs to the local cluster.
 

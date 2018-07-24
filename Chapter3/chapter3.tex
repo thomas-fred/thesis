@@ -28,14 +28,8 @@ This study utilises self-shielding factors as a means to optimise energy group s
 
 \section{Introduction}
 
-% Nuclear physics
-%   Cross-sections and their extreme range and non-linearity 
-%   Resonance theory / compound nuclei formation and decay
 %   Resonance parameter correlations (matrix, resonance widths, f(Z,E))
-
-% Representations of nuclear data
-%   Evaluated nuclear data (ENDFs) and their production
-%   Continuous (or near continuous) forms like PENDFs, ACE files
+%   Continuous (or near continuous) ND forms like PENDFs, ACE files
 %   Discretised formats like GENDF
 
 % Usage of nuclear data
@@ -48,7 +42,8 @@ This study utilises self-shielding factors as a means to optimise energy group s
 
 Nuclear simulations for fusion devices are essential to determine material damage, activation-transmutation and to perform dose rate analyses. While continuous energy Monte Carlo modeling can be used to directly calculate reaction rates, due to the very large number (potentially tens of thousands) of possible reaction channels, it is impractical to compute all nuclear reactions of interest by this so-called point-wise approach. A separate inventory code, such as FISPACT-II \cite{fispact2015}, utilising a discretised incident particle spectrum is typically used to calculate all of these reaction rates, solve for the time-dependent nuclide inventory and provide various responses and source terms. This multi-group method is computationally efficient, but introduces self-shielding errors.
 
-\subsection{Literature review}
+\subsection{Group structure optimisation}
+% Greatly expand this...
 
 There have been several previous efforts to optimise neutron energy group structures. Certain applications lend themselves to highly targeted group structures. For example, fission reactor lattice physics calculations are typically interested in determining a few reaction rates to very high accuracy. The Studsvik team who develop the CASMO-5 lattice physics code employ a neutron group structure with very fine resolution around the principal $^{238}\mathrm{U}$ and $^{240}\mathrm{Pu}$ resonances \cite{Rhodes2006}. Covering these areas with a fine energy grid results in a more accurate estimate of key reaction rates and hence calculation of the neutrons absorbed and consequently lost from the system. Particle Swarm Optimisation (PSO) has been used multiple times to improve bin bound placement for multi-group libraries used for reactor physics applications \cite{Yi2013}\cite{Akbari2012}\cite{Akbari2013}\cite{Fleming2016}. \citet{Morgan2013} have explored hyperfine multi-group (MG) data as an alternative to the interpolation of point-wise (PW) data as typically employed by particle transport codes such as MCNP6.1 \cite{goorley2012}. Some attention has been directed towards the refinement of reaction rate calculation for specific elements and nuclides in fusion scenarios. For instance, work on the spatial heterogeneity of tungsten transmutation has been undertaken by \citet{Gilbert2016} who used the CCFE 709 bin group structure and careful application of self-shielding factors to accurately determine reaction rates.
 
@@ -63,9 +58,6 @@ The self-shielding of resonant materials other than tungsten has yet to receive 
 \caption{Shown in the upper plot is a $^{186}$W radiative capture reaction rate, both unshielded and shielded. The incident particle spectrum in this case is a power function of energy, i.e. $\phi(E) = E^{x}$ where $x$ is some constant. The second plot shows the calculated self-shielding factors as a function of energy for this reaction, given an elemental material composition. The third and fourth plots are derived quantities used for group structure optimisation. See section \ref{sec:opt} for more details.}
 \end{figure}
 
-\subsection{Nuclear data}
-% The underlying nuclear physics of compound nucleus formation and resonances
-% How that physics is encoded in nuclear data 
 
 The likelihood of interaction between an incident particle and a nucleus is a highly non-linear function of energy in the resonant energy region. The cross-section, $\sigma(\mathrm{E})$ and the associated reaction rate, RR(E), may vary by several orders of magnitude within a few electron-volts. The number of bins that the energy domain is discretised over has a strong influence on the accuracy of the result. While increasing the number of bins increases the accuracy it also increases the time required to converge an input spectrum and the memory required to record this information\footnote{A concern for simulations with millions of voxels, common in activation-dose calculations.}. In addition to the number of bins, their bound locations have a strong relationship to the result accuracy. The integer bin count number and bound locations energy vector are together known as an energy group structure. This paper presents results from a novel method for optimising energy group structures given a selection of materials and a guessed spectrum.
 
