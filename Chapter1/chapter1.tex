@@ -100,7 +100,9 @@ A disadvantage of perturbation theory methods is that they are only valid for `s
 \nomenclature[z]{TSUNAMI-3D}{Tools for Sensitivty and Uncertainty Analysis Methodology Implementation in three Dimensions}
 
 \subsubsection{Total Monte Carlo}
-TMC, or Total Monte Carlo, takes a different approach to perturbation theory. Rather than calculate sensitivity profiles for various minor changes to input data, here a calculation is run many times, each calculation sampling from specially prepared `random' ND libraries which encompass the distribution likely values. Assuming quality data can be generated, and computing power is not scarce, this offers several benefits. 
+The Total Monte-Carlo (TMC) method utilises nuclear data generated from these sampled fundamental parameters to quantify uncertainties on integral quantities. With a given ensemble of sampled nuclear data, a radiation transport simulation is performed and an observable recorded. The process is repeated hundreds of times to produce a distribution of the observable of interest, with the uncertainty in the fundamental parameters used in the genration of self-consistent nuclear data files, propagating the fully-correlated variations to the observable PDF \cite{Koning2008}.
+
+This has a variety of benefits...
 
 \subsection{Uncertainty in fusion relevant data}
   \cite{Forrest2011}
@@ -132,14 +134,15 @@ Cross-section uncertainties can be represented as single values for a given ener
   \label{tab:lead_by_lib}
 \end{table}
 
-The TENDL-2015 library is a comprehensive, general-purpose nuclear data library which contains data on interactions between 7 projectiles and over 2,800 target nuclides. The library is produced by a suite of codes known as T6 and an adherance to a strict methodology of reproducability \cite{Rochman2016}. It uses the TALYS nuclear reaction code to model reactions and predict nuclear data. The inputs are fundamental parameters, including data from the RIPL-3 database \cite{RIPL3}, each with their own probability distributions that reflect their uncertainties. For the TENDL libraries, the distribution of nuclear data contained in the files with sampled input parameters can give more information on nuclear data uncertainty than is contained in a traditional evaluated nuclear data file. The shape of the distribution are captured and need not necessarily be simple Gaussian.
-
-The Total Monte-Carlo (TMC) method utilises nuclear data generated from these sampled fundamental parameters to quantify uncertainties on integral quantities. With a given ensemble of sampled nuclear data, a radiation transport simulation is performed and an observable recorded. The process is repeated hundreds of times to produce a distribution of the observable of interest, with the uncertainty in the fundamental parameters used in the genration of self-consistent nuclear data files, propagating the fully-correlated variations to the observable PDF \cite{Koning2008}.
+\subsection{DEMO}
+% Should this be here? Perhaps it doesn't need a whole bit...
 
 \section{Method}
 
-\subsection{Input nuclear data}
+\subsection{Nuclear data}
 \label{sec:data}
+The TENDL-2015 library is a comprehensive, general-purpose nuclear data library which contains data on interactions between 7 projectiles and over 2,800 target nuclides. The library is produced by a suite of codes known as T6 and an adherance to a strict methodology of reproducability \cite{Rochman2016}. It uses the TALYS nuclear reaction code to model reactions and predict nuclear data. The inputs are fundamental parameters, including data from the RIPL-3 database \cite{RIPL3}, each with their own probability distributions that reflect their uncertainties. For the TENDL libraries, the distribution of nuclear data contained in the files with sampled input parameters can give more information on nuclear data uncertainty than is contained in a traditional evaluated nuclear data file. The shape of the distribution are captured and need not necessarily be simple Gaussian.
+
 It is instructive to inspect the nuclear data used as input for this TMC simulation. The sampled nuclear data files were downloaded in both ACE (293K) and ENDF format from the TENDL-2015 website \cite{TENDL2015}. Figure \ref{fig:tendl_lead} shows the (n,2n) cross-sections as a function of energy for $^{208}$Pb. 
 
 
@@ -217,11 +220,11 @@ The elastic scattering data shown in Figure \ref{fig:tendl_nel} and Table \ref{t
 	\label{fig:pb_el_n2n_corr}
 \end{figure}
 
+\subsection{Radiation transport}
 An 11.25\degree \ 2014 DEMO HCLL MCNP model was modified to tally TBR. The particle count was set to $3\cdot10^{6}$ giving a TBR relative standard deviation, RSD $\approx 0.002$ for each simulation. This is negligible compared to the total (nuclear data \& statistics) accumulated RSD and so the variance of the observable is assumed to be entirely due to variance in the nuclear data. While other TMC analyses have separated out the Monte-Carlo statistical variations to limit the computational cost \cite{Rochman2014a}, in this work the statistical variation has been strictly limited to avoid this issue. Whilst the Pb nuclear data employed was from TENDL-2015, FENDL3.1b data was used for the neutron transport of other elements present in the reactor model. A series of simple Bash and Python scripts were used to select different Pb TENDL-2015 ACE files for different runs, before creating and submitting jobs to the local cluster.
 
-Python scripts were used to plot TBR convergence as a function of simulation count (see figure \ref{fig:convergence}) and the distributions of simulated TBR (see figure \ref{fig:tbr_distribution}).
-
 \section{Results \& discussion}
+Python scripts were used to plot TBR convergence as a function of simulation count (see figure \ref{fig:convergence}) and the distributions of simulated TBR (see figure \ref{fig:tbr_distribution}).
 
 The TMC simulation was run for a total of 1559 MCNP simulations, each 84 core-minutes across 32 cores. The total wall-clock time was 3 days, 15 hours.
 
