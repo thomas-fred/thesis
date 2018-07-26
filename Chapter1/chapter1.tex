@@ -81,17 +81,17 @@ A sensitivity analysis of Helium Cooled Lithium Lead (HCLL) \nomenclature[z]{HCL
 \subsection{Uncertainty propagation}
 % Rising pg 90, ref 83,84
 The uncertainty in ND only has intrinsic interest for ND specialists. After all, these uncertainties are a result of our lack of knowledge, they are not a physical quantity. Those in the nuclear engineering field who use this data are more concerned with how `integral' quantities such as heating rates, neutron fluences, TBRs, etc. are impacted by ND uncertainties. To estimate this, one must `propagate' the uncertainty from data to integral quantities. The main approaches are pertubation theory / sensitivty analysis and sampling methods. Perturbatory approaches were developed first, with sampling methods only becoming available with the increases in computing power achieved in the 21\textsuperscript{st} century. Both methods are detailed below.
-\subsubsection{Perturbation theory}
+\subsubsection{Perturbation and sensitivity}
 Perturbation theory is widely applied in many branches of the sciences, and generally consists of substituting an unsoluble equation for a related, soluble one plus some perturbatory series of terms. These increasing order terms have less and less impact on the result and the series is truncated at some point. 
 
-Work on applying this approach to reactor physics problems was undertaken by Wigner on the first nuclear pile \cite{Rising2012}. A more sophisticated framework was developed by Gandini, the Generalised Perturbation Theory (GPT) \cite{Gandini1967} and subsequently into the Equivalent Generalised Perturbation Theory (EGPT) \cite{Gandini1986}. These efforts require obtaining the forward and adjoint solutions to the Boltzmann transport equation such that one can identify the magnitude of responses to any input perturbation. This means GPT and EGPT naturally lend themselves to deterministic methods for radiation transport, where full solutions to the Boltzmann equation are obtained, rather than a subsection of its phase space sampled (as in stochastic methods). This was overcome relatively recently with the TSUNAMI-3D code by Rearden, which can calculate sensitivity coefficients with multigroup Monte Carlo methods \cite{Rearden2004}. 
+Work on applying this approach to reactor physics problems was undertaken by Wigner on the first nuclear pile \cite{Rising2012}. A more sophisticated framework was developed by Gandini, the Generalised Perturbation Theory (GPT) \cite{Gandini1967} and subsequently into the Equivalent Generalised Perturbation Theory (EGPT) \cite{Gandini1986}. These efforts require obtaining the forward and adjoint solutions to the Boltzmann transport equation such that one can identify the magnitude of responses to any input perturbation. This means GPT and EGPT naturally lend themselves to deterministic methods for radiation transport, where full solutions to the Boltzmann equation are obtained, rather than a subsection of its phase space sampled (as in stochastic methods). This was overcome relatively recently for fission with codes like TSUNAMI-3D by Rearden, which can calculate uncertainties in $k_{\mathrm{eff}}$ with deterministic or Monte Carlo methods \cite{Rearden2004}. An alternative method, not specific to fission problems, is to couple a radiation transport code such as MCNP \cite{} with the SUSD or SUS-3D codes \cite{}. MCNP is used with perturbed cross-sections to determine how sensitive, $S$, a response parameter, $R$, is to changes, $\delta \sigma_{g}$, in a cross-section group, $\sigma_{g}$, as shown in equation~\ref{eq:sensitivity}.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% START WEDNESDAY 25TH JULY HERE
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% How does it work... write that HERE!
-% \cite{Rochman2010} explains how to apply perturbation approach and what the covariance data is for... 
-Further detail on perturbation theory applied to radiation transport systems can be found in \cite{Sabouri2013}.
+\begin{equation}
+  \label{eq:sensitivity}
+  S = \frac{(\delta R)/R}{(\delta \sigma_{g}) / \sigma_{g}}
+\end{equation}
+
+SUSD can be used to combine processed covariance information with these sensitivity profiles to determine the uncertainty in various response parameters. Further detail on perturbation theory applied to radiation transport systems can be found in \cite{Sabouri2013}.
 
 A disadvantage of perturbation theory methods is that they are only valid for `small' perturbiations in input quantities, which is unfortunate if some nuclear data evaluation is particularly poorly known and so of most importance to propagate. Another disadvantage is perturbation approaches may yield the variance in some integral quantity due to a varied input, but not the higher-order moments of any distribution. Hence the skewness or kurtosis cannot be known, even if the underlying distribution is non-normal.
 
@@ -100,6 +100,7 @@ A disadvantage of perturbation theory methods is that they are only valid for `s
 \nomenclature[z]{TSUNAMI-3D}{Tools for Sensitivty and Uncertainty Analysis Methodology Implementation in three Dimensions}
 
 \subsubsection{Total Monte Carlo}
+TMC, or Total Monte Carlo, takes a different approach to perturbation theory. Rather than calculate sensitivity profiles for various minor changes to input data, here a calculation is run many times, each calculation sampling from specially prepared `random' ND libraries which encompass the distribution likely values. Assuming quality data can be generated, and computing power is not scarce, this offers several benefits. 
 
 \subsection{Uncertainty in fusion relevant data}
   \cite{Forrest2011}
