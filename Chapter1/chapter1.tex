@@ -15,13 +15,14 @@
 %\nomenclature[g-pi]{$\pi$}{ $\simeq 3.14\ldots$}
 
 \section{Outline}
+This chapter describes the two principal methods for uncertainty propagation used in a nuclear engineering context, the sensitivity / perturbation theory approach and a sampling method known as Total Monte Carlo. The methods and their potential applications are described. Then, examples of uncertain nuclear fusion interaction data are given, before the TMC method is applied to propagate uncertainties from fundamental nuclear physics parameters to the Tritium Breeding Ratio in a proposed nuclear fusion reactor design, DEMO. The probability distribution function of the TBR is given, along with relationships between input parameters and the TBR, and the intermediate step (cross-sections) and the TBR. Finally, comment on the relevance and consequences of the skewed TBR distribution is given in the conclusion.
 
 %%%% OUTLINE GOES HERE
 
 %********************************** %First Section  **************************************
 \section{Introduction}
-
 \label{introduction}
+Prior to any discussion of uncertainty propagation techniques, it is worth giving some background on the problem to be studied, namely the process of producing hydrogen-3, or tritium, in a fusion device. This success of this process is crucial for the feasibility of nuclear fusion electricity, and the blanket systems which will contain the tritium producing materials and infrastructure are a significant projected fraction of any plant's capital cost. As such, reducing the uncertainty on any tritium breeding estimates is of great amenity to fusion's development as a future power source.
 
 \subsection{Tritium breeding}
 A handful of different fusion fuels were discussed in the opening chapter. The cross-section and Q-value of the D-T reaction make a burning plasma the most easily realisable. However, sustainably liberating energy from the D-T fusion reaction requires a reliable supply of tritium fuel. Given tritium is not naturally occuring, with a $t_{\frac{1}{2}}=12.3y$ \nomenclature[a]{$t_{\frac{1}{2}}$}{Half-life} it must be artificially produced. It is worth considering whether this could be outsourced to a third party given the complexity of `grow-your-own'. The HWR reactors of Canada, Romania and the Republic of Korea produce small amounts of tritium each year, but significantly less than is required for the operation of a fusion power plant. In fact, these facilities will struggle to provide the relatively small amounts of tritium necessary for the start-up of a device \cite{Kovari2018}. Given that, future plant must be tritium self-sufficient. Neutrons will initiate tritium producing reactions in $^{6,7}$Li contained within a blanket. Depending on the blanket design, the tritium will either be purged or natually `outgas' before filtration and storage. 
@@ -82,7 +83,7 @@ A sensitivity analysis of Helium Cooled Lithium Lead (HCLL) \nomenclature[z]{HCL
 
 \subsection{Uncertainty propagation}
 % Rising pg 90, ref 83,84
-The uncertainty in ND only has intrinsic interest for ND specialists. After all, these uncertainties are a result of our lack of knowledge, they are not a physical quantity. Those in the nuclear engineering field who use this data are more concerned with how `integral' quantities such as heating rates, neutron fluences, TBRs, etc. are impacted by ND uncertainties. To estimate this, one must `propagate' the uncertainty from data to integral quantities. The main approaches are pertubation theory / sensitivty analysis and sampling methods. Perturbatory approaches were developed first and applied with great effect to fission reactor systems. Sampling methods only becoming available with the increases in computing power achieved in the 21\textsuperscript{st} century. The basics of the methods and the merits and demerits are described below.
+The uncertainty in ND only has intrinsic interest for ND specialists. After all, these uncertainties are a result of our lack of precision in measurement, they do not in this context arise from fundamental limits to our knowledge such as Heisenberg's uncertainty principle, for instance. Those in the nuclear engineering field who use this data are more concerned with how `integral' quantities such as heating rates, neutron fluences, TBRs, etc. are impacted by ND uncertainties. To estimate this, one must `propagate' the uncertainty from data to integral quantities. The main approaches are pertubation theory / sensitivty analysis and sampling methods. Perturbatory approaches were developed first and applied with great effect to fission reactor systems. Sampling methods only becoming available with the increases in computing power achieved in the 21\textsuperscript{st} century. The basics of the methods and the merits and demerits are described below.
 
 \subsubsection{Perturbation and sensitivity}
 Perturbation theory is widely applied in many branches of the sciences, and generally consists of substituting an unsoluble equation for a related, soluble one plus some perturbatory series of terms. These increasing order terms have less and less impact on the result and the series is truncated at some point. 
@@ -103,7 +104,7 @@ A disadvantage of perturbation theory methods is that they are only valid for `s
 \nomenclature[z]{TSUNAMI-3D}{Tools for Sensitivty and Uncertainty Analysis Methodology Implementation in three Dimensions}
 
 \subsubsection{Total Monte Carlo}
-Koning and Rochman developed a new, integrated method of uncertainty propagation in the late 2000s \cite{Koning2008}. This approach, known as Total Monte Carlo (TMC), relies on repeated sampling of varied nuclear data. Whichever problem is being investigated is simulated multiple times with different data, building a distribution of outcomes. It is a fundementally different method to the sensitivity / perturbation approach. The foundation is a reliable methodology for generating nuclear interaction data. The software package T6 \cite{Koning2005} collects together various frameworks for analysing nuclear interactions:
+Koning and Rochman developed a new, integrated method of uncertainty propagation in the late 2000s \cite{Koning2008}. This approach, known as Total Monte Carlo (TMC), relies on repeated sampling of varied nuclear data. Whichever problem is being investigated is simulated multiple times with different data, building a distribution of outcomes. It is a fundementally different method to the sensitivity / perturbation approach. The foundation is a reliable methodology for generating nuclear interaction data. The software package T6 \cite{Koning2005} collects together various frameworks for analysing nuclear interactions. These are listed below:
 
 \begin{itemize}
   \item Optical model
@@ -115,6 +116,8 @@ Koning and Rochman developed a new, integrated method of uncertainty propagation
   \item R-Matrix theory
 \end{itemize}
 
+Using these tools, reaction likelihoods and outcomes can be simulated for a variety of incident particles: neutron, photons, protons, deuterons, tritons helions and alpha-particles and for a range of energies from $10^{-5}\mathrm{eV}$ to $200\mathrm{MeV}$. Each of these theoretical models has certain parameters which may be directly experimentally measured, or are estimated through fitting to other, robust experimental data such as total cross-sections, $\sigma_{t}$. The RIPL-3 nuclear parameter database \cite{Capote2009} contains reference values and confidence estimates for many of these parameters. These and other sources have been assimilated and parsed to provide default values for Talys, with variances. 
+
 % ND generation - INCLUDE DIAGRAM
 \begin{figure}
 %  \figuretitle{}
@@ -124,10 +127,32 @@ Koning and Rochman developed a new, integrated method of uncertainty propagation
   \label{fig:t6_overview}
 \end{figure}
 
-Using these tools, reaction likelihoods and outcomes can be simulated for a variety of incident particles: neutron, photons, protons, deuterons, tritons helions and alpha-particles and for a range of energies from $10^{-5}\mathrm{eV}$ to $200\mathrm{MeV}$. Each of these theoretical models has certain parameters which may be directly experimentally measured, or are estimated through fitting to other, robust experimental data such as total cross-sections, $\sigma_{t}$. The RIPL-3 nuclear parameter database \cite{Capote2009} contains reference values and confidence estimates for many of these parameters. These and other sources have been assimilated and parsed to provide default values for Talys, with variances. The nuclear parameters are used as input to T6 to generate complete ND libraries, with full cross-section, resonance, angular distribution, double-differential distribution, covariance, etc. information. These data are self-consistent. An example of this behaviour is where a total cross-section is well understood, it is to be expected that a reduction in one reaction channel cross-section, say elastic scattering, would correspond with an increase in another open reaction channel. This correlation is not reproduced with simple adjustment or perturbatory approaches to uncertainty propagation. Once the ND have been generated they are processed and formatted to the ENDF standard with the Tefal component of the T6 package, permitting use by all ENDF compliant codes \cite{Koning2012}. The ND generation process is shown as figure~\ref{fig:t6_overview}.
+The nuclear parameters are used as input to T6 to generate complete ND libraries, with full cross-section, resonance, angular distribution, double-differential distribution, covariance, etc. information. These data are self-consistent. An example of this behaviour is where a total cross-section is well understood, it is to be expected that a reduction in one reaction channel cross-section, say elastic scattering, would correspond with an increase in another open reaction channel. This correlation is not reproduced with simple adjustment or perturbatory approaches to uncertainty propagation. Once the ND have been generated they are processed and formatted to the ENDF standard with the Tefal component of the T6 package, permitting use by all ENDF compliant codes \cite{Koning2012}. The ND generation process is shown as figure~\ref{fig:t6_overview}.
+
+Using the above nuclear physics parameter database and models, a `library of libraries' is generated, containing amongst their variance the variance in the underlying nuclear physics parameters. This data is now used as input to whichever nuclear system is to be simulated. Numerous simulations are launched, each picking a new set of input data, sampling an evaluation from the library of libraries. Whichever reaction rates or spectral quantities can be tallied for inspection and subsequent analysis. As the number of simulations increases, any histogram of the observable variable will converge to a probability distribution function of the most likely value and its associated uncertainty. The PDF uncertainty is composed of two components: uncertainty from the simulation method and uncertainty from the nuclear data. So long as these variances are independent, they sum to give the total variance, as in equation~\ref{eq:variance_sum}. 
+
+\begin{equation}
+  \label{eq:variance_sum}
+  \sigma_{total}^{2} = \sigma_{ND}^{2} + \sigma_{stat.}^{2}
+\end{equation}
+
+Hence, if the variance due to nuclear data, $\sigma_{ND}^{2}$, is to be known, one must either enforce $\sigma_{stat.}^{2} = 0$, or otherwise find the difference between the total and `statistical' simulation variance. For this work, the system is simulated with a Monte Carlo radiation transport code (see section~\ref{subsec:monte_carlo} in chapter~\ref{chap:introduction}). This method of simulating particle behaviour is inherently uncertain as it depends on the Law of Large Numbers (LLN), using a large number of simulated particles to converge on some mean behaviour. Short of an infinite number of source particles, there is always an associated uncertainty. The relationship between the particle count and the Relative Standard Deviation\footnote{Also known as the Fractional Standard Deviation (FSD)}, $R = \frac{\sigma{stat.}}{\mu_{stat.}}$ is given below as equation~\ref{eq:monte_carlo_rsd}.
+
+\begin{equation}
+  \label{eq:monte_carlo_rsd}
+  \frac{\sigma_{stat.}}{\mu_{stat.}} \propto \frac{1}{\sqrt{N}}
+\end{equation}
+
+Where $\mu_{stat.}$ is the reported observable mean value and $N$ is the particle population count.
+
+If only one nuclide has its nuclear data varied, then the uncertainty on that nuclide 
 
 % description of rad transport and PDF assembly, probs stuff already written later, then fig below
+
 The general process is outlined in figure~\ref{fig:tmc_overview}.
+
+\nomenclature[z]{RSD}{Relative Standard Deviation}
+\nomenclature[z]{LLN}{Law of Large Numbers}
 
 \begin{figure}
 %  \figuretitle{}
@@ -183,8 +208,6 @@ Cross-section uncertainties can be represented as single values for a given ener
 This study used the TENDL-2015 library. It is a comprehensive, general-purpose nuclear data library which contains data on interactions between 7 projectiles and over 2,800 target nuclides. As described above, the library is produced by a suite of codes known as T6 and an adherance to a strict methodology of reproducability \cite{Rochman2016}. It uses the TALYS nuclear reaction code to model reactions and predict nuclear data. The inputs are fundamental parameters, including data from the RIPL-3 database \cite{RIPL3}, each with their own probability distributions that reflect their uncertainties. The TENDL-2015 release contains `average' or best-guess evaluations, but also a collection of `random' files, those generated using the sampling method. These have been pre-generated by the TENDL team. Information on the input parameters and plots of the ND are available online \cite{TENDL2015}.
 
 It is instructive to inspect the nuclear data used as input for this TMC simulation. The sampled nuclear data files were downloaded in both ACE (293K) and ENDF format from the TENDL-2015 website \cite{TENDL2015}. Figure \ref{fig:tendl_lead} shows the (n,2n) cross-sections as a function of energy for $^{208}$Pb. 
-
-
 
 % \begin{figure}
 % %  \figuretitle{}
