@@ -22,6 +22,9 @@
 
 % Add `customfont' in the document class option to use this section
 
+\usepackage{gensymb}
+\usepackage{amssymb}
+
 \ifsetCustomFont
   % Set your custom font here and use `customfont' in options. Leave empty to
   % load computer modern font (default LaTeX font).
@@ -73,13 +76,12 @@
 % This is for people stuck with older versions of texlive
 %\usepackage{sty/caption/subcaption}
 \usepackage{subcaption}
+\usepackage{placeins}
+\usepackage{graphicx}	
 
 % ********************************** Tables ************************************
 \usepackage{booktabs} % For professional looking tables
 \usepackage{multirow}
-\usepackage{gensymb}
-\usepackage{amssymb}
-\usepackage{graphicx}	
 \usepackage{tabularx}
 
 
@@ -115,6 +117,8 @@
 
 %\usepackage{cleveref} %Referencing without need to explicitly state fig /table
 
+\usepackage{hyperref}
+
 % Add `custombib' in the document class option to use this section
 \ifuseCustomBib
    \RequirePackage[square, sort, numbers, authoryear]{natbib} % CustomBib
@@ -128,8 +132,6 @@
 
 % changes the default name `Bibliography` -> `References'
 \renewcommand{\bibname}{References}
-
-\usepackage{hyperref}
 
 % ******************************************************************************
 % ************************* User Defined Commands ******************************
