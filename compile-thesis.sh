@@ -80,7 +80,6 @@ elif [ $1 = $compile ]; then
 	exit
 fi
 
-
 if test -z "$3"
 then
 	exit

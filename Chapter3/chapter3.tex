@@ -45,17 +45,17 @@ Nuclear simulations for fusion devices are essential to determine material damag
 \subsection{Group structure optimisation}
 % Greatly expand this...
 
-There have been several previous efforts to optimise neutron energy group structures. Certain applications lend themselves to highly targeted group structures. For example, fission reactor lattice physics calculations are typically interested in determining a few reaction rates to very high accuracy. The Studsvik team who develop the CASMO-5 lattice physics code employ a neutron group structure with very fine resolution around the principal $^{238}\mathrm{U}$ and $^{240}\mathrm{Pu}$ resonances \cite{Rhodes2006}. Covering these areas with a fine energy grid results in a more accurate estimate of key reaction rates and hence calculation of the neutrons absorbed and consequently lost from the system. Particle Swarm Optimisation (PSO) has been used multiple times to improve bin bound placement for multi-group libraries used for reactor physics applications \cite{Yi2013}\cite{Akbari2012}\cite{Akbari2013}\cite{Fleming2016}. \citet{Morgan2013} have explored hyperfine multi-group (MG) data as an alternative to the interpolation of point-wise (PW) data as typically employed by particle transport codes such as MCNP6.1 \cite{goorley2012}. Some attention has been directed towards the refinement of reaction rate calculation for specific elements and nuclides in fusion scenarios. For instance, work on the spatial heterogeneity of tungsten transmutation has been undertaken by \citet{Gilbert2016} who used the CCFE 709 bin group structure and careful application of self-shielding factors to accurately determine reaction rates.
+There have been several previous efforts to optimise neutron energy group structures. Certain applications lend themselves to highly targeted group structures. For example, fission reactor lattice physics calculations are typically interested in determining a few reaction rates to very high accuracy. The Studsvik team who develop the CASMO-5 lattice physics code employ a neutron group structure with very fine resolution around the principal $^{238}\mathrm{U}$ and $^{240}\mathrm{Pu}$ resonances \cite{Rhodes2006}. Covering these areas with a fine energy grid results in a more accurate estimate of key reaction rates and hence calculation of the neutrons absorbed and consequently lost from the system. Particle Swarm Optimisation (PSO) has been used multiple times to improve bin bound placement for multi-group libraries used for reactor physics applications \cite{Yi2013} \cite{Akbari2012} \cite{Akbari2013} \cite{Fleming2016}. \citet{Morgan2013} have explored hyperfine multi-group (MG) data as an alternative to the interpolation of point-wise (PW) data as typically employed by particle transport codes such as MCNP6.1 \cite{goorley2012}. Some attention has been directed towards the refinement of reaction rate calculation for specific elements and nuclides in fusion scenarios. For instance, work on the spatial heterogeneity of tungsten transmutation has been undertaken by \citet{Gilbert2016} who used the CCFE 709 bin group structure and careful application of self-shielding factors to accurately determine reaction rates.
 
 As indicated above, a resonant material of particular interest to fusion plant designers is tungsten, with $^{186}\mathrm{W}(n,\gamma)$ shown in figure \ref{fig:w_cross_section}. This figure highlights the difficulties of determining reaction rates to a high accuracy. $^{186}$W has a large resonance at 18 eV and the energy-integrated reaction rate within this resonance typically dominates the total reaction rate. With the coarse group structure shown in the figure, an unshielded approach to computing the reaction rate yields values several times the `true' point-wise value.
 
 The self-shielding of resonant materials other than tungsten has yet to receive much attention in nuclear analyses of fusion power systems. A robust approach for accurately determining reaction rates for any material composition would be a welcome tool for future analyses. The rest of this paper details the first results of one approach, namely the intelligent discretisation of spectra and nuclear data, applied to an activation foil problem.
 
-\begin{figure}[ht]
-\label{fig:w_cross_section}
-\centering
-\includegraphics[width=\linewidth]{W186_gamma.eps}
-\caption{Shown in the upper plot is a $^{186}$W radiative capture reaction rate, both unshielded and shielded. The incident particle spectrum in this case is a power function of energy, i.e. $\phi(E) = E^{x}$ where $x$ is some constant. The second plot shows the calculated self-shielding factors as a function of energy for this reaction, given an elemental material composition. The third and fourth plots are derived quantities used for group structure optimisation. See section \ref{sec:opt} for more details.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{W186_gamma}
+  \caption{Shown in the upper plot is a $^{186}$W radiative capture reaction rate, both unshielded and shielded. The incident particle spectrum in this case is a power function of energy, i.e. $\phi(E) = E^{x}$ where $x$ is some constant. The second plot shows the calculated self-shielding factors as a function of energy for this reaction, given an elemental material composition. The third and fourth plots are derived quantities used for group structure optimisation. See section \ref{sec:opt} for more details.}
+  \label{fig:w_cross_section}
 \end{figure}
 
 
@@ -175,8 +175,7 @@ $\rho(E)$ is an array of proposed local bin densities, on the input group struct
 
 The group structures tested in this study are listed in table \ref{tab:groups}. The two groups, 280 and 650, generated by our process were optimised for all stable nuclides of the following elements: Fe, W, Mo, Nd, Sn, Zr, Cu, Co and Ta. This means we performed the nuclide-wise integral of $\rho(E)$ for all naturally occurring isotopes of these elements. 
 
-\begin{table}[h!]
-  \label{tab:groups}
+\begin{table}[H]
   \centering
   \begin{tabular}{lllll}
     \toprule
@@ -190,6 +189,7 @@ The group structures tested in this study are listed in table \ref{tab:groups}. 
     \bottomrule
   \end{tabular}
   \caption{Comparison of group structures tested, noting their bin counts, n$_\mathrm{bins}$, the energy range over which they are defined and the bins per decade, bpd$_\mathrm{res}$ they employ in the resonant region.}
+  \label{tab:groups}
 \end{table}
 
 \subsection{Radiation transport}
@@ -201,56 +201,56 @@ In order to compare the performance of the different group structures, incident 
 
 A set of sample LTIS spectra are as shown in figure \ref{fig:spectrum}. These particular spectra are from within the tungsten foil. Resonances both within the tungsten and the surrounding materials have resulted in flux depressions. An expanded view of the $^{186}$W 18 eV resonance is shown as figure \ref{fig:spectrum_detail}. The degree to which the resonances are resolved by the different group structures is a function of the bin resolution around the resonance. The 709 group, with a standard 50 bins per decade reaches down into the 18 eV resonance, recording a fluence of 3.5E-9 whilst the optimised group structures, 280 and 650 record 2.32E-9 and 1.26E-9. The standard group structures 175 and 315 which are much coarser in this region record a minimum fluence more than an order of magnitude greater than the 650 group structure.
 
-\begin{figure}[ht!]
-\label{fig:spectrum}
-\centering
-\includegraphics[width=\linewidth]{W186_spectra_diff_groups.eps}
-\caption{Typical DT neutron spectrum within the LTIS activation foil holder. The fluence of each bin has been divided by the lethargy width for that bin, $\Delta U$. The spectrum is hard, with little thermalisation as a consequence the foil's proximity to the plasma. The same neutrons have been binned according to various group structures, from 175 to 709 groups.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{W186_spectra_diff_groups.eps}
+  \caption{Typical DT neutron spectrum within the LTIS activation foil holder. The fluence of each bin has been divided by the lethargy width for that bin, $\Delta U$. The spectrum is hard, with little thermalisation as a consequence the foil's proximity to the plasma. The same neutrons have been binned according to various group structures, from 175 to 709 groups.}
+  \label{fig:spectrum}
 \end{figure}
 
-\begin{figure}[ht!]
-\label{fig:spectrum_detail}
-\centering
-\includegraphics[width=\linewidth]{w_spectrum_detail}
-\caption{Magnified section of spectrum showing how progressively finer group structures resolve flux depressions in a neutron spectrum.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{w_spectrum_detail}
+  \caption{Magnified section of spectrum showing how progressively finer group structures resolve flux depressions in a neutron spectrum.}
+  \label{fig:spectrum_detail}
 \end{figure}
 
 Figure \ref{fig:tungsten-182} shows a comparison of collapsed cross-sections for $^{182}$W. The abscissa lists each group structure tested. A pair of data points exist for each group structure, one with the use of self-shielding factors (shielded) and one without (unshielded). The abscissa order is a sorted such that the unshielded values decrease from left to right. The left ordinate indicates the absolute cross-section value in barns, while the right ordinate gives the cross-section as a percentage change over the point-wise (reference) value, i.e. +100\% means the multi-group calculation has over-estimated the cross-section and therefore reaction rate by a factor of 2.
 
 As would be expected, in a simple, unshielded case having more groups and therefore a larger number of groups per energy decade tends to give multi-group results closer to the reference point-wise result. Flux depressions are better resolved with narrower groups and therefore the reaction rate resulting from resonances is not overestimated to the same degree. However, with the exception of $^{181}$Ta, the 650 optimised group, and even the 280 optimised group perform better than the 709 group in the unshielded regime. Their narrow groups are targeted where most useful, around the resonances which were poorly described by a equal logarithmically spaced group structure.
 
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=\linewidth]{W-182.eps}
-\caption{Comparison of different calculation methods for radiative capture in $^{182}$W under JET neutron irradiation.}
-\label{fig:tungsten-182}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{W-182.eps}
+  \caption{Comparison of different calculation methods for radiative capture in $^{182}$W under JET neutron irradiation.}
+  \label{fig:tungsten-182}
 \end{figure}
 
 With regards to individual groups, the 175 group used unshielded performs very poorly, overestimating the reaction rate by at least a factor of 3 in all cases. The 650 optimised group is always within 50\% of the point-wise result and is the best performing group.
 
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=\linewidth]{W-186.eps}
-\caption{Comparison of different calculation methods for radiative capture in $^{186}$W under JET neutron irradiation.}
-\label{fig:tungsten-186}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{W-186.eps}
+  \caption{Comparison of different calculation methods for radiative capture in $^{186}$W under JET neutron irradiation.}
+  \label{fig:tungsten-186}
 \end{figure}
 
 As might be expected the shielded results show far less variation between groups. 280, 315, 650 \& 709 demonstrate largely similar behaviour when used in conjunction with self-shielding factors. 175 does again over-estimate, between 0\% and 120\% depending on the nuclide.
 
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=\linewidth]{Ta-181.eps}
-\caption{Comparison of different calculation methods for radiative capture in $^{181}$Ta under JET neutron irradiation.}
-\label{fig:tantalum-181}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{Ta-181.eps}
+  \caption{Comparison of different calculation methods for radiative capture in $^{181}$Ta under JET neutron irradiation.}
+  \label{fig:tantalum-181}
 \end{figure}
 
 The $^{181}$Ta (figure \ref{fig:tantalum-181}) and $^{95}$Mo (figure \ref{fig:molybdenum-95}) results indicate over-shielding, that is self-shielding factors over compensating for a poor description of the spectrum. This is particularly pronounced for the 315 group in $^{95}$Mo, where the shielded result is 40\% less than the point-wise result. This is due to the application of one set of self-shielding factors over the entirety of the foil depth. Although only 500 microns, the compound geometric effects are essential and are the subject of further work.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=\linewidth]{Mo-95.eps}
-\caption{Comparison of different calculation methods for radiative capture in $^{95}$Mo under JET neutron irradiation.}
-\label{fig:molybdenum-95}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{Mo-95.eps}
+  \caption{Comparison of different calculation methods for radiative capture in $^{95}$Mo under JET neutron irradiation.}
+  \label{fig:molybdenum-95}
 \end{figure}
 
 \section{Conclusions}
