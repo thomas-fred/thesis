@@ -51,7 +51,7 @@ As indicated above, a resonant material of particular interest to fusion plant d
 
 The self-shielding of resonant materials other than tungsten has yet to receive much attention in nuclear analyses of fusion power systems. A robust approach for accurately determining reaction rates for any material composition would be a welcome tool for future analyses. The rest of this paper details the first results of one approach, namely the intelligent discretisation of spectra and nuclear data, applied to an activation foil problem.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \label{fig:w_cross_section}
 \centering
 \includegraphics[width=\linewidth]{W186_gamma.eps}
@@ -92,7 +92,6 @@ Method 3 employs nuclear cross-section data with tens of thousands of points per
 The effective cross-sections calculated for this study were a series of radiative capture reactions in metals. These reactions often have a large fraction of their total reaction rate within the neutron slowing down region between thermal and fast energies. Hence, an accurate resonance treatment is required for accurate results. 
 
 \begin{table}[h]
-  \label{tab:reactions}
   \centering
   \begin{tabular}{lll}
     \toprule
@@ -107,6 +106,7 @@ The effective cross-sections calculated for this study were a series of radiativ
     \bottomrule
   \end{tabular}
   \caption{Shown above are the reactions simulated in this study. E$_\mathrm{first\ res.}$ indicates the energy of the first resonant peak in the interaction cross-section. E$_\mathrm{URR}$ defines the end of the resolved resonance range (RRR) and the start of the unresolved resonance range (URR) where experimental energy resolution is insufficient to resolve individual resonances.}
+  \label{tab:reactions}
 \end{table}
 
 The reaction channels chosen for study are listed in table \ref{tab:reactions}. The nuclides listed are found in the designs of fusion power systems; iron is the principal constituent of all steels, cobalt a steel impurity which dominates shut down dose rates at intermediate time scales, molybdenum an important steel alloying element, tantalum is being investigated for use in high-heat flux componentry and tungsten is a current first choice for a plasma facing high-heat flux material.
@@ -201,14 +201,14 @@ In order to compare the performance of the different group structures, incident 
 
 A set of sample LTIS spectra are as shown in figure \ref{fig:spectrum}. These particular spectra are from within the tungsten foil. Resonances both within the tungsten and the surrounding materials have resulted in flux depressions. An expanded view of the $^{186}$W 18 eV resonance is shown as figure \ref{fig:spectrum_detail}. The degree to which the resonances are resolved by the different group structures is a function of the bin resolution around the resonance. The 709 group, with a standard 50 bins per decade reaches down into the 18 eV resonance, recording a fluence of 3.5E-9 whilst the optimised group structures, 280 and 650 record 2.32E-9 and 1.26E-9. The standard group structures 175 and 315 which are much coarser in this region record a minimum fluence more than an order of magnitude greater than the 650 group structure.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \label{fig:spectrum}
 \centering
 \includegraphics[width=\linewidth]{W186_spectra_diff_groups.eps}
 \caption{Typical DT neutron spectrum within the LTIS activation foil holder. The fluence of each bin has been divided by the lethargy width for that bin, $\Delta U$. The spectrum is hard, with little thermalisation as a consequence the foil's proximity to the plasma. The same neutrons have been binned according to various group structures, from 175 to 709 groups.}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \label{fig:spectrum_detail}
 \centering
 \includegraphics[width=\linewidth]{w_spectrum_detail}
@@ -219,7 +219,7 @@ Figure \ref{fig:tungsten-182} shows a comparison of collapsed cross-sections for
 
 As would be expected, in a simple, unshielded case having more groups and therefore a larger number of groups per energy decade tends to give multi-group results closer to the reference point-wise result. Flux depressions are better resolved with narrower groups and therefore the reaction rate resulting from resonances is not overestimated to the same degree. However, with the exception of $^{181}$Ta, the 650 optimised group, and even the 280 optimised group perform better than the 709 group in the unshielded regime. Their narrow groups are targeted where most useful, around the resonances which were poorly described by a equal logarithmically spaced group structure.
 
-\begin{figure}[h]
+\begin{figure}[ht!]
 \centering
 \includegraphics[width=\linewidth]{W-182.eps}
 \caption{Comparison of different calculation methods for radiative capture in $^{182}$W under JET neutron irradiation.}
@@ -228,7 +228,7 @@ As would be expected, in a simple, unshielded case having more groups and theref
 
 With regards to individual groups, the 175 group used unshielded performs very poorly, overestimating the reaction rate by at least a factor of 3 in all cases. The 650 optimised group is always within 50\% of the point-wise result and is the best performing group.
 
-\begin{figure}[h]
+\begin{figure}[ht!]
 \centering
 \includegraphics[width=\linewidth]{W-186.eps}
 \caption{Comparison of different calculation methods for radiative capture in $^{186}$W under JET neutron irradiation.}
@@ -237,7 +237,7 @@ With regards to individual groups, the 175 group used unshielded performs very p
 
 As might be expected the shielded results show far less variation between groups. 280, 315, 650 \& 709 demonstrate largely similar behaviour when used in conjunction with self-shielding factors. 175 does again over-estimate, between 0\% and 120\% depending on the nuclide.
 
-\begin{figure}[h]
+\begin{figure}[ht!]
 \centering
 \includegraphics[width=\linewidth]{Ta-181.eps}
 \caption{Comparison of different calculation methods for radiative capture in $^{181}$Ta under JET neutron irradiation.}
