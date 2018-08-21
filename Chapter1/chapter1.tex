@@ -210,14 +210,23 @@ The ease of application of the two methods is varied. While TMC is conceptually 
 
 \FloatBarrier
 \subsection{Uncertainty in fusion relevant data}
-A variety of nuclides of importance to nuclear fusion research and reactor design have uncertain behaviour. 
+There are many nuclides of importance in nuclear fusion studies whose behaviour are poorly known \cite{Forrest2011}. Nuclear technology development programmes for ITER \cite{Batistoni2008} and DEMO \cite{Abdou2015} have both identified the need for more widespread uncertainty estimates and more accurate nuclear data evaluations to reduce uncertainties. \citeauthor{Batistoni2008} cites conservative uncertainties for neutron fluence at the ITER pressure vessel ($\pm 15\%$) and superconducting Toroidal Field (TF) coil magnets ($\pm 30\%$) due to nuclear data uncertainties. 
 
-\cite{Forrest2011}
-Several examples of uncertain phenomena are given in the following sections.
+An improved uncertainty treatment has been advocated for tritium breeding since the early days of detailed reactor design \cite{Abdou1986}. \citeauthor{Youssef1986} performed a sensitivity / perturbation analysis on uncertainties in TBR due to ND for early blanket designs finding that ND contributed an uncertainty on TBR of between 2--6\% of the mean value depending on the specific design. A variety of different tritium breeding schemes are proposed for reactors. These have either solid (ceramic pebbles) or liquid (molten metal) breeding compounds which may or may not be accompanied by an additional multiplying material. The solid systems have some sort of additional coolant loop, typically employing He or H\textsubscript{2}O. For the liquid metal systems, the breeder also functions as the primary coolant. All systems are likely to have a secondary coolant loop for subsequent electricity generation. \citeauthor{Youssef1986} compared the TBR uncertainty due to ND for several of these systems. He found that Li\textsubscript{2}O ceramic systems typically have a large uncertainty contribution from \textsuperscript{16}O, followed by \textsuperscript{56}Fe and the lithium isotopes (their relative importance depending on the enrichment). Uncertainty in a LiAlO\textsubscript{2} system on the other hand was dominated by uncertainty in \textsuperscript{9}Be multiplicity cross-section data. For a Li-Pb, liquid metal system, the TBR uncertainty was dominated by variance in the lead multiplicity cross-sections, the (n,2n) and to a lesser extent (n,3n) reactions.
 
-\subsubsection{Deuterium-Tritium}
-\subsubsection{\textsuperscript{16}O scattering}
-\subsubsection{Lead multiplicity}
+As well as pure computation, work is available comparing simulation and experimentally determined values for important reaction reaction channels in HCPB tritium breeding systems \cite{Batistoni2007}. To my knowledge, less work has been undertaken to experimentally corroborate simulated nuclear responses in liquid metal blankets. This is not for lack of desire, these lithium-lead blankets are currently in development in tandem with the solid breeders and account for half of the Test Blanket Modules (TBM) to be tested in ITER \cite{Chuyanov2010}. There are good reasons to expect lithium-lead blankets to be further developed, including the greater resource availability (beryllium for ceramic blankets is in limited supply \cite{Bradshaw2011} \cite{Shimwell2014}), the facility for on-load lithium enrichment and thus TBR adjustment \cite{Ihli2008}, higher natural breeding ability \cite{Colling2012} and the comparative ease of extracting bred tritium from a liquid metal vs. porous pebbles. A more thorough discussion on the advantages and disadvantages of the different technologies can be found in \cite{Abdou2015}. 
+
+%\nomenclature[z]{HCPB}{Helium Cooled Pebble Bed}
+%\nomenclature[z]{HCLL}{Helium Cooled Lithium Lead}
+\nomenclature[z]{TBM}{Test Blanket Module}
+\nomenclature[z]{TF}{Toroidal Field}
+
+% The other examples seem strange to include if there's not going to be any TMC analysis...
+%\subsubsection{Deuterium-Tritium}
+%\subsubsection{\textsuperscript{16}O scattering}
+%\subsubsection{Lead multiplicity}
+
+As briefly mentioned previously, \citeauthor{Leichtle2011} has undertaken a recent study where nuclear data was adjusted to obtain the sensitivity of TBR in a modern HCLL system (the ITER HCLL TBM) to various nuclear reaction cross-sections \cite{Leichtle2011}. This work identified $^{6}$Li, $^{56}$Fe and the Pb cross-sections as the most important for TBR uncertainty from the a ND perspective. The analysis below looks at variation in lead nuclear data. 
 
 Cross-section uncertainties can be represented as single values for a given energy and reaction channel. As an example, the $^{208}$Pb(n,2n)$^{207}$Pb reaction at 14MeV is shown in Table \ref{tab:lead_by_lib} for a variety of nuclear data libraries. Information on how uncertainty for a given energy affects other energies is quantified in energy covariance matrices, but these are not available for the majority of reaction channels in standard nuclear data libraries.
 
@@ -244,7 +253,7 @@ Cross-section uncertainties can be represented as single values for a given ener
 \end{table}
 
 \FloatBarrier
-\subsection{DEMO}
+%\subsection{DEMO}
 % Should this be here? Perhaps it doesn't need a whole bit...
 
 \FloatBarrier
