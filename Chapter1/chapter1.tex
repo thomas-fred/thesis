@@ -383,40 +383,91 @@ Python scripts were used to plot TBR convergence as a function of simulation cou
 \begin{figure}[H]
 %  \figuretitle{}
 	\includegraphics[width=\textwidth]{hcll_convergence_1559}
-	\caption{The mean and standard deviation of the TBR distribution is presented as a function of the number of simulations. The TMC simulation can be seen to converge at approximately 400 MCNP runs. $\mu(400) \approx 1.02$ and $\sigma(400) \approx 1.14$.}
+	\caption{The simple mean and standard deviation of the TBR results is presented as a function of the number of simulations.}
 	\label{fig:convergence}
 \end{figure}
 
-The mean TBR value is 1.0193 whilst the median is 1.0200, with a one sigma standard deviation of 0.012 or 1.2\% of the mean. The TBR distribution is approximately normal, with a small skewness of -0.199, meaning the low-value TBR tail is longer than the high-value tail. Figure \ref{fig:tbr_n2n} shows the expected correlation between the n,2n cross-sections used in a given simulation and the TBR attained in that simulation.
+The TMC simulation can be seen to converge in figure~\ref{fig:convergence} at approximately 400 MCNP runs. $\mu(400) \approx 1.02$ and $\sigma(400) \approx 1.14$. The mean TBR value is 1.0193 whilst the median is 1.0200, with a one sigma standard deviation of 0.012 or 1.164\% of the mean value. The TBR distribution is shown as figure~\ref{fig:tbr_distribution}. The shape is somewhat Gaussian (see equation~\ref{eq:normal}) although it is fitted significantly better with the addition of a skewness parameter, $\gamma$ to give the `skew-normal distribution' as per equation~\ref{eq:skewed_normal}. 
+
+\begin{equation}
+  \label{eq:normal}
+  f(x) = \frac{1}{\omega \sqrt{2 \pi}} e^{-\frac{(x-\xi)^{2}}{2 \omega^{2}}}
+\end{equation}
+
+\begin{equation}
+  \label{eq:skewed_normal}
+  g(x) = f(x) \left[1 + \mathrm{erf} \left( \frac{\gamma(x - \xi)}{\omega \sqrt{2}} \right) \right]
+\end{equation}
+
+Equation~\ref{eq:skewed_normal} is the fit function plotted in figure~\ref{fig:tbr_distribution}. $\xi$ is the location parameter, $\omega$ the shape and $\gamma$ the skewness. If the data were symmetric, $\gamma = 0$. For these data, $\gamma = -1.432$, indicating the low-value TBR tail is longer than the high-value tail. One simulation result is omitted, where the TBR was exceptionally far from the mean value: $0.826 \approx \mu - 15\sigma$. This simulation used an erroneous \textsuperscript{207}Pb ACE file, created with unrealistic parameters.
+
+\begin{figure}[H]
+%  \figuretitle{}
+	\includegraphics[width=\textwidth]{hcll_hist_1559}
+	\caption{Histogram of 1559 TBR values computed with the TMC methodology. The fit is a skew-normal.}
+	\label{fig:tbr_distribution}
+\end{figure}
+
+Figure \ref{fig:tbr_n2n} shows the expected correlation between the n,2n cross-sections used in a given simulation and the TBR attained in that simulation. The n,2n cross-section is positively correlated with the TBR value as expected. There is less of a relationship between scattering and TBR.
 
 \begin{figure}[H]
 %  \figuretitle{}
   \centering
 	\includegraphics[width=\textwidth]{pb_tbr_n2n_el_corr}
-	\caption{Above are scatter plots of average cross-sections for the n,2n (left) and elastic (right) channels against resulting TBR value. As the cross-sections for each of the three lead isotopes were varied in every simulation, so the cross-sections plotted here are the elemental average values denoted as $\overline{\sigma}_{n,2n}$ or $\overline{\sigma}_{n,n'}$, i.e. all three varied Pb isotopes contribute, weighted by their relative natural abundances. The n,2n cross-section is positively correlated with the TBR value as expected. There is less of a relationship between scattering and TBR.}
+	\caption{Above are scatter plots of average cross-sections for the n,2n (left) and elastic (right) channels against resulting TBR value. As the cross-sections for each of the three lead isotopes were varied in every simulation, so the cross-sections plotted here are the elemental average values denoted as $\overline{\sigma}_{n,2n}$ or $\overline{\sigma}_{n,n'}$, i.e. all three varied Pb isotopes contribute, weighted by their relative natural abundances. The 14 MeV cross-sections were obtained with the Inter utility and a shell script. A linear least squares fit has been applied and the resulting line plotted in blue.}
 	\label{fig:tbr_n2n}
 \end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Let's compare the TBR with the parameter variations to see what it's most sensitive to! %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In figure~\ref{fig:tbr_n2n} we have plotted relationships between the cross-section values and the simulated TBR result, but it is possible to go one step further back in the TMC process and analyse for correlations between fundamental nuclear parameters and the observable of interest. Shown as figure~\ref{fig:pb208_rvadjust} is the relationship between one optical model parameter $r_{V}$, as applied to the generation of \textsuperscript{208}Pb data, to the resulting TBR values. The data have relatively little obvious relationship. A linear least squares fit is shown, with a positive slope of $m=0.058$. The r-squared value is very low at 0.117. This implies, as can be seen visually, that a great deal of variance in the data is left unexplained by the fit. However, this study has varied several nuclear parameters and nuclides simultaneously--were fewer inputs varied the relationship shown in figure~\ref{fig:pb208_rvadjust} might be clearer. 
 
-% Have TBR to job ID list (tbr_values files), but need something to couple job ID to xsdir and random file numbers
-% Check Culham machines, /home/fthomas/projects/tmc/sims/13-...
-% All optical model parameters mentioned in this Section can be adjusted, not only by means of a local §parameter file (see the optmodfileN keyword), but also via adjustable parameters through the v1adjust, v2adjust etc. keywords, with which the standard values can be multiplied. 
+\begin{figure}[H]
+%  \figuretitle{}
+	\includegraphics[width=\textwidth]{Pb208_rvadjust}
+	\caption{}
+	\label{fig:pb208_rvadjust}
+\end{figure}
+
+Performing a least-squares fit on all the varied nuclear parameters against the simulated TBR results, we can estimate which parameters TBR is most sensitive to. For \textsuperscript{208}Pb this is shown as figure~\ref{fig:pb208_param_correl}, with the ordinate displaying the slope of the fit line. The parameters have been normalised to their mean value so their absolute values do not bias the resulting line gradients. 
+
+\begin{figure}[H]
+%  \figuretitle{}
+	\includegraphics[width=\textwidth]{Pb208_param_correl}
+	\caption{}
+	\label{fig:pb208_param_correl}
+\end{figure}
+
+The distribution of the $r_{V}$ input parameter as sampled for the TBR simulations is shown as figure~\ref{fig:pb208_rvadjust}. It is not normally distributed, but rather positively skewed. It is unimodal.
+
+\begin{figure}[H]
+%  \figuretitle{}
+	\includegraphics[width=\textwidth]{rvadjust_param_Pb208_histogram}
+	\caption{}
+	\label{fig:pb208_rvadjust_hist}
+\end{figure}
+
+The TBR(parameter) correlations can be computed for \textsuperscript{206}Pb and \textsuperscript{207}Pb also, these are shown as figures~\ref{fig:pb206_param_correl} and \ref{fig:pb207_param_correl}.
+
+\begin{figure}[H]
+%  \figuretitle{}
+	\includegraphics[width=\textwidth]{Pb206_param_correl}
+	\caption{}
+	\label{fig:pb206_param_correl}
+\end{figure}
+
+\begin{figure}[H]
+%  \figuretitle{}
+	\includegraphics[width=\textwidth]{Pb207_param_correl}
+	\caption{}
+	\label{fig:pb207_param_correl}
+\end{figure}
 
 %%%%% WARNING ---->
 % Even energy dependent adjustment of the geometry is possible as a last resort to fit data, using the rvadjustF, etc. keywords.
 % Have we found a strong correlation between a fudge parameter and the TBR? Oh dear
 
-Uncertainty propagation in Monte-Carlo type radiation transport problems has often previously been computed using linear perturbation theory approaches. Unfortunately these are only applicable for small changes in the input data. They are also unable to reproduce probability distributions of the integral quantity of interest \cite{Rising2012}. Whilst figure \ref{fig:tbr_distribution} shows a TBR distribution that is not tremendously skewed, that is not to say other fusion quantities will not be. Koning \& Rochman have demonstrated that fast and accelerator driven fission systems can have significantly skewed $k_{eff}$ values, well described by an Extreme Value Fit (EVD) \cite{Koning2008}.
+The parameter correlation plots suggest that given the variance in input parameters, 
 
-\begin{figure}[H]
-%  \figuretitle{}
-	\includegraphics[width=\textwidth]{hcll_hist_1559}
-	\caption{Histogram of TBR values computed with the TMC methodology.}
-	\label{fig:tbr_distribution}
-\end{figure}
+Uncertainty propagation in Monte-Carlo type radiation transport problems has often previously been computed using linear perturbation theory approaches. Unfortunately these are only applicable for small changes in the input data. They are also unable to reproduce probability distributions of the integral quantity of interest \cite{Rising2012}. Whilst figure \ref{fig:tbr_distribution} shows a TBR distribution that is not tremendously skewed, that is not to say other fusion quantities will not be. Koning \& Rochman have demonstrated that fast and accelerator driven fission systems can have significantly skewed $k_{eff}$ values, well described by an Extreme Value Fit (EVD) \cite{Koning2008}.
 
 \section{Conclusion}
 TBR uncertainty has been computed with the TMC technique, investigating the contribution of uncertain nuclear data from the three major lead isotopes. The standard deviation is 1.2\% of the mean TBR. However, note that 5.8\% of the distribution is less than unity. While the average value may appear to be feasible, it should be stressed that there is a non-negligible probability of a value below a required limit. The TBR values are relatively low as this particular model has not been optimised for TBR and any practical design should have a TBR $\approx 1.1$ \cite{Fischer2015}, but in future design studies engineers should be aware of the probability of non-compliant operational parameters. 
@@ -426,4 +477,3 @@ The TENDL-2015 nuclear data investigated in section \ref{sec:data}, which is not
 Future work on TBR in HCLL could include the effect of other nuclides and elements which TBR is sensitive to including iron, as well as a completely correlated uncertainty propagation method employing lithium. 
 
 More generally, when solving for integral quantities in nuclear fusion systems, thought should be given to fully-correlated uncertainty propagation and the form of the resulting probability distributions. In particular, whether a non-normal distribution with increased likelihood of extreme behaviour would have engineering design or safety implications for TBR, nuclear heating, fast flux, gas production or damage terms. Moreover, in all analyses for design applications the non-negligible probability of operational parameters in unacceptable regimes should be borne in mind.
-
