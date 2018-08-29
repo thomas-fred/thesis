@@ -12,56 +12,105 @@
     \graphicspath{{Chapter3/Figs/Vector/}{Chapter3/Figs/}}
 \fi
 
+% INTRODUCTION
+%   Group structure optimisation literature review
+%     Include a simple convergence study result
+%   Self-shielding
+%   Resonance behaviour: parameter correlations (matrix, resonance widths, f(Z,E))
+%     Resonance Integrals, although structure, big resonances spread out over E-space
+% METHOD
+%   Nuclear data processing infrastructure
+%     Pointwise ENDF
+%     A Compact ENDF
+%     Groupwise ENDF
+%     Probability tables
+%     Self-shielding factors
+%   Energy group optimisation
+%     Building a bin density distribution: rho(E) = SSF_{eff} + bpd_min
+%     An iterative implementation
+%   Radiation transport
+%     Simple test case    # data on freia
+%     JET model           
+% RESULTS
+%   Single optimisation: JET activation foils
+%   Iterative optimisation: simple test case
+% CONCLUSIONS / FURTHER WORK
 
-%%
-%% Start line numbering here if you want
-%%
-%% \linenumbers
-
-%% main text
 \section{Outline}
-\label{S:1}
-
-% 
+\label{sec:outline}
 
 This study utilises self-shielding factors as a means to optimise energy group structures for fusion activation calculations. Informed by an analysis of important fusion resonances and a survey of relevant incident particle spectra, we develop and test two new group structures designed to more accurately represent the physics of nuclear reactions. They are compared to group structures commonly used in fusion research \& analysis. When used in a JET activation foil scenario, the optimised group structures outperform reference group structures, such as CCFE-709, while requiring fewer bins.
 
 \section{Introduction}
 
-%   Resonance parameter correlations (matrix, resonance widths, f(Z,E))
-%   Continuous (or near continuous) ND forms like PENDFs, ACE files
-%   Discretised formats like GENDF
-
-% Usage of nuclear data
-%   Radiation transport (stochastic & deterministic). Limitations?
-%   Transmutation and activation – why discrete? Limitations?
-
-% Self-shielding
-%   Flux depressions...
-%   ...
-
 Nuclear simulations for fusion devices are essential to determine material damage, activation-transmutation and to perform dose rate analyses. While continuous energy Monte Carlo modeling can be used to directly calculate reaction rates, due to the very large number (potentially tens of thousands) of possible reaction channels, it is impractical to compute all nuclear reactions of interest by this so-called point-wise approach. A separate inventory code, such as FISPACT-II \cite{fispact2015}, utilising a discretised incident particle spectrum is typically used to calculate all of these reaction rates, solve for the time-dependent nuclide inventory and provide various responses and source terms. This multi-group method is computationally efficient, but introduces self-shielding errors.
 
 \subsection{Group structure optimisation}
 % Greatly expand this...
+The likelihood of interaction between an incident particle and a nucleus is a a non-linear function of energy in the resonant energy region. The cross-section, $\sigma(\mathrm{E})$ and the associated reaction rate, RR(E), may vary by several orders of magnitude within a few electron-volts. The number of bins that the energy domain is discretised over has a strong influence on the accuracy of the result. While increasing the number of bins increases the accuracy it also increases the time required to converge an input spectrum and the memory required to record this information\footnote{A concern for simulations with millions of voxels, common in activation-dose calculations.}. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{gendf_convergence}
+  \caption{This figure shows the results from a series of calculations with increasingly fine energy discretisations, or group structures. The bins for all groups are equally log-spaced. The calculation is to determine the (n,$\gamma$) reaction rate in a shell of \textsuperscript{186}W due to some incident neutron flux. The dependent variable is the \% change on a point-wise (true) value calculated with MCNP.}
+  \label{fig:gendf_convergence}
+\end{figure}
+
+In addition to the number of bins, their bound locations have a strong relationship to the result accuracy. The integer bin count number and bound locations energy vector are together known as an energy group structure. This paper presents results from a novel method for optimising energy group structures given a selection of materials and a guessed spectrum.
 
 There have been several previous efforts to optimise neutron energy group structures. Certain applications lend themselves to highly targeted group structures. For example, fission reactor lattice physics calculations are typically interested in determining a few reaction rates to very high accuracy. The Studsvik team who develop the CASMO-5 lattice physics code employ a neutron group structure with very fine resolution around the principal $^{238}\mathrm{U}$ and $^{240}\mathrm{Pu}$ resonances \cite{Rhodes2006}. Covering these areas with a fine energy grid results in a more accurate estimate of key reaction rates and hence calculation of the neutrons absorbed and consequently lost from the system. Particle Swarm Optimisation (PSO) has been used multiple times to improve bin bound placement for multi-group libraries used for reactor physics applications \cite{Yi2013} \cite{Akbari2012} \cite{Akbari2013} \cite{Fleming2016}. \citet{Morgan2013} have explored hyperfine multi-group (MG) data as an alternative to the interpolation of point-wise (PW) data as typically employed by particle transport codes such as MCNP6.1 \cite{goorley2012}. Some attention has been directed towards the refinement of reaction rate calculation for specific elements and nuclides in fusion scenarios. For instance, work on the spatial heterogeneity of tungsten transmutation has been undertaken by \citet{Gilbert2016} who used the CCFE 709 bin group structure and careful application of self-shielding factors to accurately determine reaction rates.
+
+\subsection{Resonance distributions}
+
+% In terms of targeting group structure resolution, what can we learn from the distribution of resonance locations and widths?
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{nnprime_res_3d}
+  \caption{}
+  \label{fig:}
+\end{figure}
+
+% Need to introduce the concept of a resonance integral, refer back to BW description and describe our integration
+% Explain the correlations in the cor matrix
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{res_correlation}
+  \caption{}
+  \label{fig:}
+\end{figure}
+
+% So if we can determine which resonances are `biggest', how they are those ones inparticular distributed?
+% Which features are there? 
+% What causes them?
+% Is any of this information useful to us?
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{largest_res_width_scatter}
+  \caption{}
+  \label{fig:}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{largest_res_energy_scatter}
+  \caption{}
+  \label{fig:}
+\end{figure}
+
+\subsection{Self-shielding}
+% Describe phenomenon, giving examples as to where it's important, M. Gilbert, thermal fission plant, etc.
+% Curse, as in something to be minimised, but also an opportunity as a vector for attacking the problem
 
 As indicated above, a resonant material of particular interest to fusion plant designers is tungsten, with $^{186}\mathrm{W}(n,\gamma)$ shown in figure \ref{fig:w_cross_section}. This figure highlights the difficulties of determining reaction rates to a high accuracy. $^{186}$W has a large resonance at 18 eV and the energy-integrated reaction rate within this resonance typically dominates the total reaction rate. With the coarse group structure shown in the figure, an unshielded approach to computing the reaction rate yields values several times the `true' point-wise value.
 
 The self-shielding of resonant materials other than tungsten has yet to receive much attention in nuclear analyses of fusion power systems. A robust approach for accurately determining reaction rates for any material composition would be a welcome tool for future analyses. The rest of this paper details the first results of one approach, namely the intelligent discretisation of spectra and nuclear data, applied to an activation foil problem.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\linewidth]{W186_gamma}
-  \caption{Shown in the upper plot is a $^{186}$W radiative capture reaction rate, both unshielded and shielded. The incident particle spectrum in this case is a power function of energy, i.e. $\phi(E) = E^{x}$ where $x$ is some constant. The second plot shows the calculated self-shielding factors as a function of energy for this reaction, given an elemental material composition. The third and fourth plots are derived quantities used for group structure optimisation. See section \ref{sec:opt} for more details.}
-  \label{fig:w_cross_section}
-\end{figure}
+% Need a simple self-shielding figure here
 
-
-The likelihood of interaction between an incident particle and a nucleus is a highly non-linear function of energy in the resonant energy region. The cross-section, $\sigma(\mathrm{E})$ and the associated reaction rate, RR(E), may vary by several orders of magnitude within a few electron-volts. The number of bins that the energy domain is discretised over has a strong influence on the accuracy of the result. While increasing the number of bins increases the accuracy it also increases the time required to converge an input spectrum and the memory required to record this information\footnote{A concern for simulations with millions of voxels, common in activation-dose calculations.}. In addition to the number of bins, their bound locations have a strong relationship to the result accuracy. The integer bin count number and bound locations energy vector are together known as an energy group structure. This paper presents results from a novel method for optimising energy group structures given a selection of materials and a guessed spectrum.
-
-\subsection{JET}
+%\subsection{JET}
 
 \section{Method}
 \label{S:2}
@@ -76,7 +125,7 @@ The calculation of effective cross-sections were carried out using three differe
 
 Methods 1 \& 2 discretise the incident spectrum, over a  $\phi(E)$ and $\sigma(E)$, taking the inner product of two vectors of constants,
 $$\vec{\phi} \cdot \vec{\sigma} = \sum_i \phi(E_i , E_{i+1}) \sigma(E_i , E_{i+1}),$$
-as the sectrum-averaged, effective cross section. However, for each group interval, $(E_{i}, E_{i+1}]$ the true functions $\phi(E),\ \sigma(E)$ are not contant. Regions with resonances in the cross section cause local decreases in the neutron flux, resulting in significant `self-shielding' errors with the multi-group method. To address this, self-shielding factors, $\mathrm{SSF}(E_i)$, may be used to account for these resonance effects. 
+as the spectrum-averaged, effective cross section. However, for each group interval, $(E_{i}, E_{i+1}]$ the true functions $\phi(E),\ \sigma(E)$ are not contant. Regions with resonances in the cross section cause local decreases in the neutron flux, resulting in significant `self-shielding' errors with the multi-group method. To address this, self-shielding factors, $\mathrm{SSF}(E_i)$, may be used to account for these resonance effects. 
 
 An incident spectrum, material inventory and nuclear data are input to FISPACT-II. The spectrum and interaction nuclear data are then collapsed to generate one-group effective cross-sections. With the addition of probability table data generated with CALENDF-2010 \cite{sublet2011}, $\mathrm{SSF}(E_i)$ are calculated for both the resolved and unresolved resonance regions.
 
@@ -117,8 +166,6 @@ The reaction channels chosen for study are listed in table \ref{tab:reactions}. 
 This study tests various group structures against a point-wise reference. We have generated two of the test group structures, attempting to optimise them to accurately calculate reaction rates for a set of nuclides.
 
 To assemble a distribution for bin density we define several piecewise functions for identifying where, in the energy domain, self-shielding factor modifications are important and to indicate where resolution should be concentrated. 
-
-%%To generate self-shielding factors using FISPACT we require a spectrum. The spectrum shape guess was $\phi(E) = E^{0.192}$, or slightly harder than `flat' (see figure \ref{fig:spectrum} for an indication of the spectrum). 
 
 Equation \ref{eq:s} describes the cumulative differences between reaction rates for some energy group, ${E = (E_{0}, E_{1}, \dots, E_{N}})$. 
 
@@ -198,6 +245,17 @@ In order to compare the performance of the different group structures, incident 
 
 \section{Results \& Discussion}
 \label{sec:results}
+% Introduce general approach again, tall plot of SSF effect functions is to follow
+
+%%To generate self-shielding factors using FISPACT we require a spectrum. The spectrum shape guess was $\phi(E) = E^{0.192}$, or slightly harder than `flat' (see figure \ref{fig:spectrum} for an indication of the spectrum). 
+% Include this test spectrum plot, and the lin-log profile used to bias the SSFs
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{W186_gamma}
+  \caption{Shown in the upper plot is a $^{186}$W radiative capture reaction rate, both unshielded and shielded. The incident particle spectrum in this case is a power function of energy, i.e. $\phi(E) = E^{x}$ where $x$ is some constant. The second plot shows the calculated self-shielding factors as a function of energy for this reaction, given an elemental material composition. The third and fourth plots are derived quantities used for group structure optimisation.}
+  \label{fig:w_cross_section}
+\end{figure}
 
 A set of sample LTIS spectra are as shown in figure \ref{fig:spectrum}. These particular spectra are from within the tungsten foil. Resonances both within the tungsten and the surrounding materials have resulted in flux depressions. An expanded view of the $^{186}$W 18 eV resonance is shown as figure \ref{fig:spectrum_detail}. The degree to which the resonances are resolved by the different group structures is a function of the bin resolution around the resonance. The 709 group, with a standard 50 bins per decade reaches down into the 18 eV resonance, recording a fluence of 3.5E-9 whilst the optimised group structures, 280 and 650 record 2.32E-9 and 1.26E-9. The standard group structures 175 and 315 which are much coarser in this region record a minimum fluence more than an order of magnitude greater than the 650 group structure.
 
