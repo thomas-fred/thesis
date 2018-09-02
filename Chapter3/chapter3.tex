@@ -57,7 +57,7 @@ The likelihood of interaction between an incident particle and a nucleus is a a 
   \label{fig:gendf_convergence}
 \end{figure}
 
-In addition to the number of bins, their bound locations have a strong relationship to the result accuracy. The integer bin count number and bound locations energy vector are together known as an energy group structure. In the example shown in figure~\ref{fig:gendf_convergence} the bin boundaries have been uniformally logarithmically distributed. This is a very simple starting point (although many group structures largely adhere to it) and can clearly be improved upon, even if only to adopt one or two regions of different bin density.
+In addition to the number of bins, the bound locations have a strong relationship to the result accuracy. The integer bin count number and bound locations energy vector are together known as an energy group structure. In the example shown in figure~\ref{fig:gendf_convergence} the bin boundaries have been uniformally logarithmically distributed. This is a very simple starting point (and many group structures largely adhere to it) and can be improved upon, even if only to adopt one or two regions of different bin density.
 
 % Expand this section, giving detail on each method
 There have been several previous efforts to optimise neutron energy group structures. Certain applications lend themselves to highly targeted group structures. For example, fission reactor lattice physics calculations are typically interested in determining a few reaction rates to very high accuracy. The Studsvik team who develop the CASMO-5 lattice physics code employ a neutron group structure with very fine resolution around the principal $^{238}\mathrm{U}$ and $^{240}\mathrm{Pu}$ resonances \cite{Rhodes2006}. Covering these areas with a fine energy grid results in a more accurate estimate of key reaction rates and hence calculation of the neutrons absorbed and consequently lost from the system. Particle Swarm Optimisation (PSO) has been used multiple times to improve bin bound placement for multi-group libraries used for reactor physics applications \cite{Yi2013} \cite{Akbari2012} \cite{Akbari2013} \cite{Fleming2016}. \citet{Morgan2013} have explored hyperfine multi-group (MG) data as an alternative to the interpolation of point-wise (PW) data as typically employed by particle transport codes such as MCNP6.1 \cite{goorley2012}. Some attention has been directed towards the refinement of reaction rate calculation for specific elements and nuclides in fusion scenarios. For instance, work on the spatial heterogeneity of tungsten transmutation has been undertaken by \citet{Gilbert2016} who used the CCFE 709 bin group structure and careful application of self-shielding factors to accurately determine reaction rates.
@@ -67,18 +67,37 @@ There have been several previous efforts to optimise neutron energy group struct
 % In terms of targeting group structure resolution, what can we learn from the distribution of resonance locations and widths?
 It is clear that the placement of bin boundaries and the number of bins in an energy group structure has a significant effect on the potential accuracy of any calculation employing that group structure. The ideal location of these bin bounds is not some equal spacing, but more likely some complex result influenced by the kind of spectrum encountered and the nuclei present in the problem. This latter consideration can be explored by analysing the distributions of nuclear resonances for known nuclides within the \{A,E,j,$\Gamma$\} space, where A = atomic mass, $\mathrm{E}_{r}$ = interaction energy, j = nuclear spin and $\Gamma$ = resonance width. With knowledge of these distributions, especially in the mass and energy domains, perhaps energy bins might be targeted intelligently for a given problem.
 
-To undertake this study, a set of scripts were written to parse resonance parameter information from nuclear data libraries. These can read ENDF-6 formatted entries, including several resonance formalisms for maximum nuclide coverage. The nuclear data library chosen to study was ENDF/B-VII.1 \cite{}, the United States' reference nuclear data library. Figure~\ref{fig:res_energy_mass} is a scatter plot of all nuclear resonances from all nuclides contained within this libary. 
+To undertake this study, a set of scripts were written to parse resonance parameter information from nuclear data libraries. These can read ENDF-6 formatted entries, including several resonance formalisms for maximum nuclide coverage. The nuclear data library chosen to study was ENDF/B-VII.1 \cite{Chadwick2011}, the United States' reference nuclear data library. Figure~\ref{fig:res_energy_mass} is a scatter plot of all nuclear resonances from all nuclides contained within this libary. 
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{resonance_energy_atomic_mass}
-  \caption{}
+  \caption{This scatter plot shows the energy of resonances as a function of atomic mass, for the majority of resonances recorded in the ENDF/B-VII.1 nuclear data library. The data are coloured by density, with blue as lowest density, green medium and yellow highest. The density has been calculated in \{log\textsubscript{10}(E), A\} space with a Kernel Density Estimator (KDE) approach. The first resonance for each nuclide is marked by a red cross.}
   \label{fig:res_energy_mass}
 \end{figure}
 
+Figure~\ref{fig:res_energy_mass} shows the general trend for lower energy resonances with increasing atomic mass. This trend is most pronounced up to $\mathrm{A} \approx 150$. After this point, the relationship flattens off for very large mass nuclides ($\mathrm{A} > 220$) and is completely invalidated for nuclides with $\mathrm{A} \approx 210$, the region of Pb \& Bi. Nuclides in this range are especially stable, close to the `magic numbers' of stable nuclei predicted by the nuclear shell model \cite{Stone1997}. Here, nucleons are especially tightly bound and a large energy input is required to reconfigure the nucleus. The highest density region is that of the actinides, where each nucleus has very many nuclear resonances, at comparatively low energies. Looking more generally, it can be seen that resonances are typically present for perhaps as much as 5 orders of magnitude of the energy spectrum for a given mass, a very large window. Taking all nuclides into account, resonances appear within the $10^{-1}\mathrm{eV} < E_{r} < 10^{7}\mathrm{eV}$ range. If we assume that all resonances are equally important to consider when designing a group structure, then a fine grid might be required across this entire range, from practically thermal neutrons to unmoderated DT neutrons.
 
+\nomenclature[z]{KDE}{Kernel Density Estimator}
+\nomenclature[z]{RI}{Resonance Integral}
 
 % Need to introduce the concept of a resonance integral, refer back to BW description and describe our integration
+We can quantify the `size' of a particular resonance by integrating a relevant descriptive function across some characteristic energy range, this so-called Resonance Integral (RI) is calculated as in equation~\ref{eq:res_integral}. 
+
+\begin{equation}
+  \label{eq:res_integral}
+  RI = \int_{E_{r}-4\Gamma}^{E_{r}+4\Gamma} \frac{4\pi\lambdabar^{2}(2j + 1)}{(2s_{n} + 1)(2s_{t} + 1)}  \frac{\Gamma^{2}/4}{[(E-E_{r})^{2} + \Gamma^{2}/4]} dE
+\end{equation}
+
+Where $\Gamma$ is the resonance width, $\lambdabar$ the reduced particle wavelength, $E_{r}$ the resonance energy, $j$ the resonance spin, $s_{n}$ the neutron spin and $s_{t}$ the target spin \cite{Libby2005}. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{largest_res_energy_scatter}
+  \caption{}
+  \label{fig:}
+\end{figure}
+
 % Explain the correlations in the cor matrix
 
 \begin{figure}[H]
@@ -96,13 +115,6 @@ To undertake this study, a set of scripts were written to parse resonance parame
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{largest_res_width_scatter}
-  \caption{}
-  \label{fig:}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\linewidth]{largest_res_energy_scatter}
   \caption{}
   \label{fig:}
 \end{figure}
