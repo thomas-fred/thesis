@@ -72,39 +72,42 @@ To undertake this study, a set of scripts were written to parse resonance parame
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{resonance_energy_atomic_mass}
-  \caption{This scatter plot shows the energy of resonances as a function of atomic mass, for the majority of resonances recorded in the ENDF/B-VII.1 nuclear data library. The data are coloured by density, with blue as lowest density, green medium and yellow highest. The density has been calculated in \{log\textsubscript{10}(E), A\} space with a Kernel Density Estimator (KDE) approach. The first resonance for each nuclide is marked by a red cross.}
+  \caption{This scatter plot shows the energy of resonances as a function of atomic mass, for the majority of resonances recorded in the ENDF/B-VII.1 nuclear data library. The data are coloured by density, with blue as lowest density, green medium and yellow highest. The density has been calculated in \{log\textsubscript{10}(E), A\} space with a Kernel Density Estimator (KDE) approach. The first resonance for each nuclide is marked by a red cross for ease of identification.}
   \label{fig:res_energy_mass}
 \end{figure}
 
-Figure~\ref{fig:res_energy_mass} shows the general trend for lower energy resonances with increasing atomic mass. This trend is most pronounced up to $\mathrm{A} \approx 150$. After this point, the relationship flattens off for very large mass nuclides ($\mathrm{A} > 220$) and is completely invalidated for nuclides with $\mathrm{A} \approx 210$, the region of Pb \& Bi. Nuclides in this range are especially stable, close to the `magic numbers' of stable nuclei predicted by the nuclear shell model \cite{Stone1997}. Here, nucleons are especially tightly bound and a large energy input is required to reconfigure the nucleus. The highest density region is that of the actinides, where each nucleus has very many nuclear resonances, at comparatively low energies. Looking more generally, it can be seen that resonances are typically present for perhaps as much as 5 orders of magnitude of the energy spectrum for a given mass, a very large window. Taking all nuclides into account, resonances appear within the $10^{-1}\mathrm{eV} < E_{r} < 10^{7}\mathrm{eV}$ range. If we assume that all resonances are equally important to consider when designing a group structure, then a fine grid might be required across this entire range, from practically thermal neutrons to unmoderated DT neutrons.
+Figure~\ref{fig:res_energy_mass} shows the general trend for lower energy resonances with increasing atomic mass. This trend is most pronounced up to $\mathrm{A} \approx 150$. After this point, the relationship flattens off for very large mass nuclides ($\mathrm{A} > 220$) and is completely invalidated for nuclides with $\mathrm{A} \approx 210$, the region of Pb \& Bi. Nuclides in this range are especially stable, close to the `magic numbers' of stable nuclei predicted by the nuclear shell model \cite{Stone1997}. Here, nucleons are especially tightly bound and a large energy input is required to reconfigure the nucleus. The highest density region is that of the actinides, where each nucleus has very many nuclear resonances, at comparatively low energies. Looking more generally, it can be seen that resonances are typically present for perhaps as much as 5 orders of magnitude of the energy spectrum for a given mass, a very large window. Taking all nuclides into account, resonances appear within the $10^{-1} < E_{r}\mathrm{[eV]} < 10^{7}$ range. If we assume that all resonances are equally important to consider when designing a group structure, then a fine grid might be required across this entire range, from practically thermal neutrons to unmoderated DT neutrons. 
 
 \nomenclature[z]{KDE}{Kernel Density Estimator}
 \nomenclature[z]{RI}{Resonance Integral}
 
 % Need to introduce the concept of a resonance integral, refer back to BW description and describe our integration
-We can quantify the `size' of a particular resonance by integrating a relevant descriptive function across some characteristic energy range, this so-called Resonance Integral (RI) is calculated as in equation~\ref{eq:res_integral}. 
+We can quantify the `size' of a particular resonance by integrating a relevant descriptive function across some characteristic energy range, this so-called Resonance Integral (RI) is specified by equation~\ref{eq:res_integral}. 
 
 \begin{equation}
   \label{eq:res_integral}
-  RI = \int_{E_{r}-4\Gamma}^{E_{r}+4\Gamma} \frac{4\pi\lambdabar^{2}(2j + 1)}{(2s_{n} + 1)(2s_{t} + 1)}  \frac{\Gamma^{2}/4}{[(E-E_{r})^{2} + \Gamma^{2}/4]} dE
+  RI = \int_{E_{r}-4\Gamma}^{E_{r}+4\Gamma} \frac{\pi\lambdabar^{2}(2j + 1)}{(2s_{n} + 1)(2s_{t} + 1)}  \frac{\Gamma_{i}\Gamma_{f}}{[(E-E_{r})^{2} + \Gamma^{2}_{t}/4]} dE
 \end{equation}
+% Very useful reference: http://www-pnp.physics.ox.ac.uk/~barra/teaching/resonances.pdf
 
-Where $\Gamma$ is the resonance width, $\lambdabar$ the reduced particle wavelength, $E_{r}$ the resonance energy, $j$ the resonance spin, $s_{n}$ the neutron spin and $s_{t}$ the target spin \cite{Libby2005}. 
+Where $E$ is centre-of-mass energy of the system, $\Gamma_{i}$ is the partial resonance width to decay to the initial state, $\Gamma_{f}$ is the partial width to decay to the final state, $\Gamma_{t}$ is the total width, $\lambdabar$ the reduced particle wavelength, $E_{r}$ the rest mass energy of the resonance, $j$ the resonance spin, $s_{n}$ the neutron spin and $s_{t}$ the target spin \cite{Libby2005}. For formation of a compound nucleus by an incident neutron, leading to subsequent neutron emission, $\Gamma_{i}$ = $\Gamma_{f}$ = $\Gamma_{n}$, giving $\Gamma^{2}_{n}$ in the numerator. For radiative capture, it is instead $\Gamma_{n}\Gamma_{\gamma}$. 
+
+RIs give an indication of the resonance's contribution to reaction rate. Computing the RI for all the resonances parsed in ENDF/B-VII.1 we can identify the largest and thus the most important to correctly represent in any energy discretisation scheme. These largest resonances are plotted as a function of energy in figure~\ref{fig:largest_res_energy_scatter}. Given these data are a subset of those presented in figure~\ref{fig:res_energy_mass}, many of the same trends as visible, such as the inverse relationship between energy and atomic mass. These largest resonance data do tend to be at the lower energy of the complete set and indeed further analysis shows that 20\% of the lowest energy neutron scattering resonances are also those with the largest RI for that nuclide. For radiative capture resonances, this figure is 41\%\footnote{The difference is because neutron scattering partial widths are correlated with interaction energy, whereas partial gamma widths are roughly constant (see figure~\ref{fig:res_correlation}).}. As such, it is not the case that the lowest energy resonances for each nuclide have always or even more often the largest RI. Any energy group structure optimisation routine should not simply target these resonances.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{largest_res_energy_scatter}
-  \caption{}
-  \label{fig:}
+  \caption{The energy of the largest resonances for ENDF/V-BII.1 as a function of atomic mass. The `largest' is determined by the RI as defined in equation~\ref{eq:res_integral}. Two datasets are shown, RI calculated using widths for neutron emission, $\Gamma_{n}$ in blue and for gamma emission, $\Gamma_{\gamma}$ in green.}
+  \label{fig:largest_res_energy_scatter}
 \end{figure}
 
-% Explain the correlations in the cor matrix
+It is instructive to inspect the correlations between various parameters recorded in the assembled resonance database. A correlation matrix of selected parameters is shown as figure~\ref{fig:res_correlation}. 
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{res_correlation}
-  \caption{}
-  \label{fig:}
+  \caption{This correlation matrix is assembled from the resonance parameter data contained within the ENDF/B-VII.1 nuclear data library. It is constructed from the covariance matrix, showing how pairs of variables vary together, but normalised such that a meaningful comparison between relationships can be undertaken. The normalisation is given here \cite{numpy2018}.}
+  \label{fig:res_correlation}
 \end{figure}
 
 % So if we can determine which resonances are `biggest', how they are those ones inparticular distributed?
@@ -112,12 +115,12 @@ Where $\Gamma$ is the resonance width, $\lambdabar$ the reduced particle wavelen
 % What causes them?
 % Is any of this information useful to us?
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\linewidth]{largest_res_width_scatter}
-  \caption{}
-  \label{fig:}
-\end{figure}
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=\linewidth]{largest_res_width_scatter}
+%   \caption{}
+%   \label{fig:}
+% \end{figure}
 
 \subsection{Self-shielding}
 % Describe phenomenon, giving examples as to where it's important, M. Gilbert, thermal fission plant, etc.
