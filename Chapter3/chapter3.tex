@@ -67,7 +67,7 @@ There have been several previous efforts to optimise neutron energy group struct
 % In terms of targeting group structure resolution, what can we learn from the distribution of resonance locations and widths?
 It is clear that the placement of bin boundaries and the number of bins in an energy group structure has a significant effect on the potential accuracy of any calculation employing that group structure. The ideal location of these bin bounds is not some equal spacing, but more likely some complex result influenced by the kind of spectrum encountered and the nuclei present in the problem. This latter consideration can be explored by analysing the distributions of nuclear resonances for known nuclides within the \{A,E,j,$\Gamma$\} space, where A = atomic mass, $\mathrm{E}_{r}$ = interaction energy, j = nuclear spin and $\Gamma$ = resonance width. With knowledge of these distributions, especially in the mass and energy domains, perhaps energy bins might be targeted intelligently for a given problem.
 
-To undertake this study, a set of scripts were written to parse resonance parameter information from nuclear data libraries. These can read ENDF-6 formatted entries, including several resonance formalisms for maximum nuclide coverage. The nuclear data library chosen to study was ENDF/B-VII.1 \cite{Chadwick2011}, the United States' reference nuclear data library. Figure~\ref{fig:res_energy_mass} is a scatter plot of all nuclear resonances from all nuclides contained within this libary. 
+To undertake this study, a set of scripts were written to parse resonance parameter information from nuclear data libraries. These can read ENDF-6 formatted entries, including several resonance formalisms for maximum nuclide coverage. The nuclear data library chosen to study was ENDF/B-VII.1 \cite{Chadwick2011}, the United States' reference nuclear data library. Figure~\ref{fig:res_energy_mass} is a scatter plot of 41,112 nuclear resonances from nuclides contained within this libary. 
 
 \begin{figure}[H]
   \centering
@@ -86,11 +86,11 @@ We can quantify the `size' of a particular resonance by integrating a relevant d
 
 \begin{equation}
   \label{eq:res_integral}
-  RI = \int_{E_{r}-4\Gamma}^{E_{r}+4\Gamma} \frac{\pi\lambdabar^{2}(2j + 1)}{(2s_{n} + 1)(2s_{t} + 1)}  \frac{\Gamma_{i}\Gamma_{f}}{[(E-E_{r})^{2} + \Gamma^{2}_{t}/4]} dE
+  RI = \int_{E_{r}-4\Gamma}^{E_{r}+4\Gamma} \frac{\pi\lambdabar^{2}(2J + 1)}{(2s_{n} + 1)(2s_{t} + 1)}  \frac{\Gamma_{i}\Gamma_{f}}{[(E-E_{r})^{2} + \Gamma^{2}_{t}/4]} dE
 \end{equation}
 % Very useful reference: http://www-pnp.physics.ox.ac.uk/~barra/teaching/resonances.pdf
 
-Where $E$ is centre-of-mass energy of the system, $\Gamma_{i}$ is the partial resonance width to decay to the initial state, $\Gamma_{f}$ is the partial width to decay to the final state, $\Gamma_{t}$ is the total width, $\lambdabar$ the reduced particle wavelength, $E_{r}$ the rest mass energy of the resonance, $j$ the resonance spin, $s_{n}$ the neutron spin and $s_{t}$ the target spin \cite{Libby2005}. For formation of a compound nucleus by an incident neutron, leading to subsequent neutron emission, $\Gamma_{i}$ = $\Gamma_{f}$ = $\Gamma_{n}$, giving $\Gamma^{2}_{n}$ in the numerator. For radiative capture, it is instead $\Gamma_{n}\Gamma_{\gamma}$. 
+Where $E$ is centre-of-mass energy of the system, $\Gamma_{i}$ is the partial resonance width to decay to the initial state, $\Gamma_{f}$ is the partial width to decay to the final state, $\Gamma_{t}$ is the total width, $\lambdabar$ the reduced particle wavelength, $E_{r}$ the rest mass energy of the resonance, $J$ the total angular momentum of the resonance, $s_{n}$ the neutron spin and $s_{t}$ the target spin \cite{Libby2005}. For formation of a compound nucleus by an incident neutron, leading to subsequent neutron emission, $\Gamma_{i}$ = $\Gamma_{f}$ = $\Gamma_{n}$, giving $\Gamma^{2}_{n}$ in the numerator. For radiative capture, it is instead $\Gamma_{n}\Gamma_{\gamma}$. 
 
 RIs give an indication of the resonance's contribution to reaction rate. Computing the RI for all the resonances parsed in ENDF/B-VII.1 we can identify the largest and thus the most important to correctly represent in any energy discretisation scheme. These largest resonances are plotted as a function of energy in figure~\ref{fig:largest_res_energy_scatter}. Given these data are a subset of those presented in figure~\ref{fig:res_energy_mass}, many of the same trends as visible, such as the inverse relationship between energy and atomic mass. These largest resonance data do tend to be at the lower energy of the complete set and indeed further analysis shows that 20\% of the lowest energy neutron scattering resonances are also those with the largest RI for that nuclide. For radiative capture resonances, this figure is 41\%\footnote{The difference is because neutron scattering partial widths are correlated with interaction energy, whereas partial gamma widths are roughly constant (see figure~\ref{fig:res_correlation}).}. As such, it is not the case that the lowest energy resonances for each nuclide have always or even more often the largest RI. Any energy group structure optimisation routine should not simply target these resonances.
 
@@ -101,12 +101,12 @@ RIs give an indication of the resonance's contribution to reaction rate. Computi
   \label{fig:largest_res_energy_scatter}
 \end{figure}
 
-It is instructive to inspect the correlations between various parameters recorded in the assembled resonance database. A correlation matrix of selected parameters is shown as figure~\ref{fig:res_correlation}. 
+It is instructive to inspect the correlations between various parameters recorded in the assembled resonance database. A correlation matrix of selected parameters is shown as figure~\ref{fig:res_correlation}. As previously shown in figure~\ref{fig:res_energy_mass} resonance energy and atomic mass are inversely correlated. $\Gamma_{n}$ is correlated with energy, while $\Gamma_{\gamma}$ is not. Given $\Gamma_{t} = \Gamma_{n} + \Gamma_{\gamma} + \Gamma_{f}$ but $\Gamma_{\gamma}$ is largely constant and $\Gamma_{f}$ is only important for a few resonances in particular nuclides, $\Gamma_{t}$ displays largely the same relations as $\Gamma_{n}$. 
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{res_correlation}
-  \caption{This correlation matrix is assembled from the resonance parameter data contained within the ENDF/B-VII.1 nuclear data library. It is constructed from the covariance matrix, showing how pairs of variables vary together, but normalised such that a meaningful comparison between relationships can be undertaken. The normalisation is given here \cite{numpy2018}.}
+  \caption{This correlation matrix is assembled from the resonance parameter data contained within the ENDF/B-VII.1 nuclear data library. It is constructed from the covariance matrix, showing how pairs of variables vary together, but normalised such that a meaningful comparison between relationships can be undertaken. The normalisation is given here \cite{numpy2018}. $A$ is atomic mass, $E_{r}$ resonance centre-of-mass energy, $l$ neutron orbital angular momentum, $J$ the total angular momentum, $\Gamma_{t}$ the total width, $\Gamma_{f}$ the fission partial width, $\Gamma_{n}$ the neutron emission partial width, $\Gamma_{\gamma}$ the $\gamma$-ray emission partial width, $\int R_{n}(E)$ the resonance integral for $\Gamma_{n}$ and $\int R_{\gamma}(E)$ the resonance integral for $\Gamma_{\gamma}$.}
   \label{fig:res_correlation}
 \end{figure}
 
@@ -123,14 +123,18 @@ It is instructive to inspect the correlations between various parameters recorde
 % \end{figure}
 
 \subsection{Self-shielding}
-% Describe phenomenon, giving examples as to where it's important, M. Gilbert, thermal fission plant, etc.
-% Curse, as in something to be minimised, but also an opportunity as a vector for attacking the problem
+The phenomenon of self-shielding is that whereby a particle flux is depleted in certain energy regions through resonant absorption by the absorbing medium. This then `shields' the rest of the medium from those particle energies and decreases reaction rates. If this reduction in flux is not fed back then reaction rates will be overestimated. This effect is a particular problem where cross-sections and spectra are discretised into group-wise formats, as in deterministic radiation transport and activation-transmutation calculations. If energy groups are too large, flux depressions cannot be resolved.
 
-As indicated above, a resonant material of particular interest to fusion plant designers is tungsten, with $^{186}\mathrm{W}(n,\gamma)$ shown in figure \ref{fig:w_cross_section}. This figure highlights the difficulties of determining reaction rates to a high accuracy. $^{186}$W has a large resonance at 18 eV and the energy-integrated reaction rate within this resonance typically dominates the total reaction rate. With the coarse group structure shown in the figure, an unshielded approach to computing the reaction rate yields values several times the `true' point-wise value.
+% Explanation paraphrased from \cite{Dembia2013}
 
-The self-shielding of resonant materials other than tungsten has yet to receive much attention in nuclear analyses of fusion power systems. A robust approach for accurately determining reaction rates for any material composition would be a welcome tool for future analyses. The rest of this paper details the first results of one approach, namely the intelligent discretisation of spectra and nuclear data, applied to an activation foil problem.
 
-% Need a simple self-shielding figure here
+The calculation of reaction rates should incorporate the effects of self-shielding. As indicated above, a resonant material of particular interest to fusion plant designers is tungsten, with $^{186}\mathrm{W}(n,\gamma)$ shown in figure \ref{fig:w_cross_section}. This figure highlights the difficulties of determining reaction rates to a high accuracy. $^{186}$W has a large resonance at 18 eV and the energy-integrated reaction rate within this resonance typically dominates the total reaction rate. With the coarse group structure shown in the figure, an unshielded approach to computing the reaction rate yields values several times the `true' point-wise value. \citeauthor{Pampin2005} showed the importance of self-shielding for tungsten in fusion applications, finding that neglecting shielding effects can overestimate radiative capture in \textsuperscript{186}W by a factor of 6. \citeauthor{Gilbert2016}'s work built on this, sampling flux at multiple depths in first-wall tungsten to predict accurate rates of transmutation to rhenium and osmium. Even with this more sophisticated sampling, total unshielded reaction rates were sometimes twice their true value \cite{Gilbert2016}. Examples from the fission realm also abound, using a relatively coarse (but commonplace) 175 group structure \cite{Plechaty1978}, individual groups for \textsuperscript{232}Th cross-sections can be wrong by a factor of 50 \cite{Cacuci2010}. 
+
+The self-shielding of resonant materials other than tungsten has yet to receive much attention in nuclear analyses of fusion power systems. A robust approach for accurately determining reaction rates for any material composition would be a welcome tool for future analyses. 
+
+% Curse shielding, as in something to be minimised, but self-shielding theory and associated SSFs an opportunity for attacking the problem
+
+%The rest of this paper details the first results of one approach, namely the intelligent discretisation of spectra and nuclear data to narrow important groups and make S(E) constant with E. Any remaining errors taken account of with self-shielding factors.
 
 %\subsection{JET}
 
