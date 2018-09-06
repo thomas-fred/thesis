@@ -124,7 +124,7 @@ It is instructive to inspect the correlations between various parameters recorde
 
 \subsection{Self-shielding}
 \label{subsec:self-shielding}
-The phenomenon of self-shielding is that whereby a particle flux is depleted in certain energy regions through resonant absorption by the absorbing medium. This then `shields' the rest of the medium from those particle energies and decreases reaction rates. If this reduction in flux is not fed back then reaction rates will be overestimated. This effect is a particular problem where cross-sections and spectra are discretised into group-wise formats, as in deterministic radiation transport and activation-transmutation calculations. If energy groups are too large, flux depressions cannot be resolved.
+The phenomenon of self-shielding is that whereby a particle flux is depleted in certain energy regions through absorption by the containing medium. This then `shields' the rest of the medium from those particle energies and decreases reaction rates. If this reduction in flux is not fed back then reaction rates will be overestimated. This effect is a particular problem where cross-sections and spectra are discretised into group-wise formats, as in deterministic radiation transport and activation-transmutation calculations. If energy groups are too large, flux depressions cannot be resolved.
 
 Introducing \citeauthor{Bondarenko1964}'s self-shielding method exemplifies why a self-shielding treatment is necessary, how one can work and why it might be of interest for optimising group structures. 
 
@@ -169,11 +169,37 @@ If we let $S(E)$ be some smooth function, say a Maxwell-Boltzmann distribution o
 
 Equation~\ref{eq:group_xs_s} gives $\sigma_{g}^{m}$, the group cross-section for nuclide $m$, and can be used to generate all group cross-sections of interest for the problem if an appropriate $S(E)$ can be assumed. The macroscopic cross-sections on the right hand side of equation~\ref{eq:group_xs_s} are both total cross sections as any interaction will lower the flux. In the limiting case where the energy group width narrows to 0, $S(E)$ becomes constant, i.e. $\lim_{\Delta E \to 0} S(E) = k$ and $S(E)$ cancels from equation~\ref{eq:group_xs_s}. When energy group structures have a high bin density, they are reducing their reliance on this $S(E)$ function assumption.
 
-The background cross-section is a concept introduced by \citeauthor{Bondarenko1964}, it 
+The background cross-section is a concept introduced by \citeauthor{Bondarenko1964}. Cross-sections may belong to two mutually exclusive categories, they are either the cross-section of interest, or belong to a set `background' cross-sections which, if of sufficient magnitude act to depress the particle flux and shield the cross-section of interest. The macroscopic cross-section, $\Sigma_{t}(E)$ of equation~\ref{eq:macroscopic_xs} is then written as in equation~\ref{eq:background_xs}.
 
-Further detail on the above derivations is available in \cite{Dembia2013}.
+\begin{equation}
+  \label{eq:background_xs}
+  \Sigma_{t}(E) = N^{m} \sigma_{t}^{m}(E) + \sum_{n \neq m}^{M} N^{n} \sigma_{t}^{n}(E)
+\end{equation}
 
-% \cite{Bell1970} Bell and Glasstone reactor physics textbook
+We can factor out the number density for our nuclide of interest, $m$, to give equation~\ref{eq:background_factored}. 
+
+\begin{equation}
+  \label{eq:background_factored}
+  \Sigma_{t}(E) = N^{m} (\sigma_{t}^{m}(E) + \sigma_{0}^{m}(E))
+\end{equation}
+
+Here $\sigma_{0}^{m}(E)$ is not a cross-section of nuclide $m$ in the normal sense, but all the cross-sections that contribute to its `background'. It is defined as equation~\ref{eq:background_xs_def}.
+
+\begin{equation}
+  \label{eq:background_xs_def}
+  \sigma_{0}^{m}(E) = \frac{1}{N^{m}} \sum_{n \neq m}^{M} N^{n} \sigma_{t}^{n}(E)
+\end{equation}
+
+We can combine equations~\ref{eq:group_xs_s}, \ref{eq:background_factored} and \ref{eq:background_xs_def} to give equation~\ref{eq:group_xs_background}.
+
+\begin{equation}
+  \label{eq:group_xs_background}
+  \sigma_{g}^{m} = \frac{\int_{E_{g}}^{E_{g+1}} \sigma^{m}(E) \frac{S(E)}{\sigma_{t}^{m}(E) + \sigma_{0}^{m}(E)} dE}{\int_{E_{g}}^{E_{g+1}} \frac{S(E)}{\sigma_{t}^{m}(E) + \sigma_{0}^{m}(E)} dE}
+\end{equation}
+
+The group cross-section for a given nuclide, $\sigma_{g}^{m}$, is a function of the background cross-section. 
+
+Further detail on the above derivations are available in \cite{Dembia2013} \cite{Bell1970}. 
 
 The calculation of reaction rates should incorporate the effects of self-shielding. As indicated above, a resonant material of particular interest to fusion plant designers is tungsten, with $^{186}\mathrm{W}(n,\gamma)$ shown in figure \ref{fig:w_cross_section}. This figure highlights the difficulties of determining reaction rates to a high accuracy. $^{186}$W has a large resonance at 18 eV and the energy-integrated reaction rate within this resonance typically dominates the total reaction rate. With the coarse group structure shown in the figure, an unshielded approach to computing the reaction rate yields values several times the `true' point-wise value. \citeauthor{Pampin2005} showed the importance of self-shielding for tungsten in fusion applications, finding that neglecting shielding effects can overestimate radiative capture in \textsuperscript{186}W by a factor of 6. \citeauthor{Gilbert2016}'s work built on this, sampling flux at multiple depths in first-wall tungsten to predict accurate rates of transmutation to rhenium and osmium. Even with this more sophisticated sampling, total unshielded reaction rates were sometimes twice their true value \cite{Gilbert2016}. Examples from the fission realm also abound, using a relatively coarse (but commonplace) 175 group structure \cite{Plechaty1978}, individual groups for \textsuperscript{232}Th cross-sections can be wrong by a factor of 50 \cite{Cacuci2010}. 
 
