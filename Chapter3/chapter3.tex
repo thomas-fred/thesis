@@ -123,10 +123,57 @@ It is instructive to inspect the correlations between various parameters recorde
 % \end{figure}
 
 \subsection{Self-shielding}
+\label{subsec:self-shielding}
 The phenomenon of self-shielding is that whereby a particle flux is depleted in certain energy regions through resonant absorption by the absorbing medium. This then `shields' the rest of the medium from those particle energies and decreases reaction rates. If this reduction in flux is not fed back then reaction rates will be overestimated. This effect is a particular problem where cross-sections and spectra are discretised into group-wise formats, as in deterministic radiation transport and activation-transmutation calculations. If energy groups are too large, flux depressions cannot be resolved.
 
-% Explanation paraphrased from \cite{Dembia2013}
+Introducing \citeauthor{Bondarenko1964}'s self-shielding method exemplifies why a self-shielding treatment is necessary, how one can work and why it might be of interest for optimising group structures. 
 
+Here we define an energy group, $E = [E_{0}, E_{1}, \dots, E_{G}]$ with $G$ groups. The lowest energy is $E_{0}$ and the highest $E_{G}$. The groups are in ascending energy order, so $E_{g+1} > E_{g}$, with the width of group $g$ given as $\Delta E = E_{g+1} - E_{g}$. To determine reaction rates, i.e. $RR(E) = N\sigma(E)\phi(E)$, where $N$ is the atomic density of the material, $\sigma(E)$ the cross-section and $\phi(E)$ the flux we need both the cross-section and the flux as a function of energy.
+
+The flux for some group, $\phi_{g}$ is given by equation~\ref{eq:group_flux}.
+
+\begin{equation}
+  \label{eq:group_flux}
+  \phi_{g} = \int_{E_{g}}^{E_{g+1}} \phi(E) dE
+\end{equation}
+
+We can define the group cross-section as equation~\ref{eq:group_cross_section}.
+
+\begin{equation}
+  \label{eq:group_cross_section}
+  \sigma_{g} = \frac{\int_{E_{g}}^{E_{g+1}} \sigma(E) \phi(E) dE}{\int_{E_{g}}^{E_{g+1}} \phi(E) dE}
+\end{equation}
+
+$\sigma_{g}$ must be defined in such a way that it accurately reproduces the RR when multiplied by the flux. Unfortunately, equations~\ref{eq:group_flux} and \ref{eq:group_cross_section} require knowledge of $\phi(E)$ within a group, the quantity sought. If $\phi(E)$ were constant, then equation~\ref{eq:group_cross_section} would reduce to $\sigma_{g} = \int_{g}^{g+1} \sigma(E) dE$. While this is sometimes a reasonable assumption, if resonances are present in the group it is not. 
+
+Looking for an expression to substitute for $\phi(E)$ we could first examine the total cross section of the system. Assuming a homogeneous mixture of M nuclides the total macroscopic cross section, $\Sigma_{t}$ is given by equation~\ref{eq:macroscopic_xs} where $N^{m}$ is the number density of nuclide $m$
+
+\begin{equation}
+  \label{eq:macroscopic_xs}
+  \Sigma_{t}(E) = \sum_{m}^{M} N^{m} \sigma_{t}^{m}(E)
+\end{equation}
+
+The product of the energy varying flux, $\phi(E)$ and total macroscopic cross-section, $\Sigma_{t}(E)$ is the `collision density', $\phi(E) \Sigma_{t}(E) = S(E)$, or expressed equivalently as equation~\ref{eq:collision_density}.
+
+\begin{equation}
+  \label{eq:collision_density}
+  \phi(E) = \frac{S(E)}{\Sigma_{t}(E)}
+\end{equation}
+
+If we let $S(E)$ be some smooth function, say a Maxwell-Boltzmann distribution or a 1/E particle slowing down spectrum, equation~\ref{eq:collision_density} shows us how the total cross-section impinges on the flux. A resonance within $\Sigma_{t}(E)$ causes $\phi(E)$ to drop, a flux depression. Substituting equation~\ref{eq:collision_density} into equation~\ref{eq:group_cross_section} gives the following:
+
+\begin{equation}
+  \label{eq:group_xs_s}
+  \sigma_{g}^{m} = \frac{\int_{E_{g}}^{E_{g+1}} \sigma(E)^{m} \frac{S(E)}{\Sigma_{t}(E)} dE}{\int_{E_{g}}^{E_{g+1}} \frac{S(E)}{\Sigma_{t}(E)} dE}
+\end{equation}
+
+Equation~\ref{eq:group_xs_s} gives $\sigma_{g}^{m}$, the group cross-section for nuclide $m$, and can be used to generate all group cross-sections of interest for the problem if an appropriate $S(E)$ can be assumed. The macroscopic cross-sections on the right hand side of equation~\ref{eq:group_xs_s} are both total cross sections as any interaction will lower the flux. In the limiting case where the energy group width narrows to 0, $S(E)$ becomes constant, i.e. $\lim_{\Delta E \to 0} S(E) = k$ and $S(E)$ cancels from equation~\ref{eq:group_xs_s}. When energy group structures have a high bin density, they are reducing their reliance on this $S(E)$ function assumption.
+
+The background cross-section is a concept introduced by \citeauthor{Bondarenko1964}, it 
+
+Further detail on the above derivations is available in \cite{Dembia2013}.
+
+% \cite{Bell1970} Bell and Glasstone reactor physics textbook
 
 The calculation of reaction rates should incorporate the effects of self-shielding. As indicated above, a resonant material of particular interest to fusion plant designers is tungsten, with $^{186}\mathrm{W}(n,\gamma)$ shown in figure \ref{fig:w_cross_section}. This figure highlights the difficulties of determining reaction rates to a high accuracy. $^{186}$W has a large resonance at 18 eV and the energy-integrated reaction rate within this resonance typically dominates the total reaction rate. With the coarse group structure shown in the figure, an unshielded approach to computing the reaction rate yields values several times the `true' point-wise value. \citeauthor{Pampin2005} showed the importance of self-shielding for tungsten in fusion applications, finding that neglecting shielding effects can overestimate radiative capture in \textsuperscript{186}W by a factor of 6. \citeauthor{Gilbert2016}'s work built on this, sampling flux at multiple depths in first-wall tungsten to predict accurate rates of transmutation to rhenium and osmium. Even with this more sophisticated sampling, total unshielded reaction rates were sometimes twice their true value \cite{Gilbert2016}. Examples from the fission realm also abound, using a relatively coarse (but commonplace) 175 group structure \cite{Plechaty1978}, individual groups for \textsuperscript{232}Th cross-sections can be wrong by a factor of 50 \cite{Cacuci2010}. 
 
@@ -168,7 +215,7 @@ This study tests various group structures against a point-wise reference. We hav
 
 To assemble a distribution for bin density we define several piecewise functions for identifying where, in the energy domain, self-shielding factor modifications are important and to indicate where resolution should be concentrated. 
 
-Equation \ref{eq:s} describes the cumulative differences between reaction rates for some energy group, ${E = (E_{0}, E_{1}, \dots, E_{N}})$. 
+Equation \ref{eq:s} describes the cumulative differences between reaction rates for an energy group as defined in section~\ref{subsec:self-shielding}. 
 
 \begin{equation}
 \label{eq:s}
