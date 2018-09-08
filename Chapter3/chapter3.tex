@@ -190,18 +190,39 @@ Here $\sigma_{0}^{m}(E)$ is not a cross-section of nuclide $m$ in the normal sen
   \sigma_{0}^{m}(E) = \frac{1}{N^{m}} \sum_{n \neq m}^{M} N^{n} \sigma_{t}^{n}(E)
 \end{equation}
 
-We can combine equations~\ref{eq:group_xs_s}, \ref{eq:background_factored} and \ref{eq:background_xs_def} to give equation~\ref{eq:group_xs_background}.
+We can combine equations~\ref{eq:group_xs_s}, \ref{eq:background_factored} and \ref{eq:background_xs_def} to give equation~\ref{eq:group_xs_background}, where energy dependence is omitted for readability.
 
 \begin{equation}
   \label{eq:group_xs_background}
-  \sigma_{g}^{m} = \frac{\int_{E_{g}}^{E_{g+1}} \sigma^{m}(E) \frac{S(E)}{\sigma_{t}^{m}(E) + \sigma_{0}^{m}(E)} dE}{\int_{E_{g}}^{E_{g+1}} \frac{S(E)}{\sigma_{t}^{m}(E) + \sigma_{0}^{m}(E)} dE}
+  %\sigma_{g}^{m} = \frac{\int_{E_{g}}^{E_{g+1}} \sigma^{m}(E) \frac{S(E)}{\sigma_{t}^{m}(E) + \sigma_{0}^{m}(E)} dE}{\int_{E_{g}}^{E_{g+1}} \frac{S(E)}{\sigma_{t}^{m}(E) + \sigma_{0}^{m}(E)} dE}
+  \sigma_{g}^{m} = \frac{\int_{E_{g}}^{E_{g+1}} \sigma^{m} \frac{S}{\sigma_{t}^{m} + \sigma_{0}^{m}} dE}{\int_{E_{g}}^{E_{g+1}} \frac{S}{\sigma_{t}^{m} + \sigma_{0}^{m}} dE}
 \end{equation}
 
-The group cross-section for a given nuclide, $\sigma_{g}^{m}$, is a function of the background cross-section. 
+The group cross-section for a given nuclide, $\sigma_{g}^{m}$, is a function of the background cross-section. Further detail on the above derivations are available in \cite{Dembia2013} \cite{Bell1970}. 
 
-Further detail on the above derivations are available in \cite{Dembia2013} \cite{Bell1970}. 
+If the background cross-section and the point-wise cross-section to be grouped are known, one can compute the $\sigma_{g}^{m}$, the shielded cross-section and go on to accurately compute reaction rates and other responses of interest. It is convenient to define a number which is the ratio of the unshielded and shielded cross-sections. This `self-shielding factor', or SSF, is of the range [0,1] where 1 indicates there is no self-shielding occuring, so any reaction rates are the simple multiplication of particle flux and unmodified cross-section. For values closer to 0, the cross-section is revised down, reducing the reaction rate. 
 
-The calculation of reaction rates should incorporate the effects of self-shielding. As indicated above, a resonant material of particular interest to fusion plant designers is tungsten, with $^{186}\mathrm{W}(n,\gamma)$ shown in figure \ref{fig:w_cross_section}. This figure highlights the difficulties of determining reaction rates to a high accuracy. $^{186}$W has a large resonance at 18 eV and the energy-integrated reaction rate within this resonance typically dominates the total reaction rate. With the coarse group structure shown in the figure, an unshielded approach to computing the reaction rate yields values several times the `true' point-wise value. \citeauthor{Pampin2005} showed the importance of self-shielding for tungsten in fusion applications, finding that neglecting shielding effects can overestimate radiative capture in \textsuperscript{186}W by a factor of 6. \citeauthor{Gilbert2016}'s work built on this, sampling flux at multiple depths in first-wall tungsten to predict accurate rates of transmutation to rhenium and osmium. Even with this more sophisticated sampling, total unshielded reaction rates were sometimes twice their true value \cite{Gilbert2016}. Examples from the fission realm also abound, using a relatively coarse (but commonplace) 175 group structure \cite{Plechaty1978}, individual groups for \textsuperscript{232}Th cross-sections can be wrong by a factor of 50 \cite{Cacuci2010}. 
+Figure~\ref{fig:W-183_shielding} shows cross-sections from several tungsten istopes, \textsuperscript{182}W, \textsuperscript{183}W, \textsuperscript{184}W and \textsuperscript{186}W which together account for 99.88\% of the atomic mass of natural W. When computing the self-shielding factors for \textsuperscript{183}W in a material of natural W, it can be seen that areas without a significant background cross-section such as $140 < E [eV] < 160$, the self-shielding factors make a greater change to the unshielded cross-section. However, some resonances from different isotopes overlap in energy. Where there is a large resonance from an isotope other than nuclide in question, it elevates the background cross-section, $\sigma_{0}$, and absorbs particles in this energy region. An example of this behaviour is the \textsuperscript{183}W resonance at 220 eV, which is overshadowed by resonances in \textsuperscript{182,186}W and so does not significantly self-shield. The self-shielding factor for this energy bin is correspondingly close to unity.
+
+% Plot of self-shielding factor with background cross-sections, showing shielding on lone target resonance, less shielding with high background
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{W-183_shielding}
+  \caption{}
+  \label{fig:W-183_shielding}
+\end{figure}
+
+Calculating self-shielding factors by the above method, or other more sophisticated approaches, allows one to then take simple unshielded cross-sections, multiply then by the SSF and arrive at group cross-sections that are more appropriate for the nuclide given its environment. An example is shown in figure~\ref{fig:W183_gamma}.
+
+% Perhaps a simple plot of self-shielding factor, unshielded and shielded RR in ssf_data/709_fispact/figures
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{W183_gamma}
+  \caption{}
+  \label{fig:W183_gamma}
+\end{figure}
+
+%The calculation of reaction rates should incorporate the effects of self-shielding. As indicated above, a resonant material of particular interest to fusion plant designers is tungsten, with $^{186}\mathrm{W}(n,\gamma)$ shown in figure \ref{fig:w_cross_section}. This figure highlights the difficulties of determining reaction rates to a high accuracy. $^{186}$W has a large resonance at 18 eV and the energy-integrated reaction rate within this resonance typically dominates the total reaction rate. With the coarse group structure shown in the figure, an unshielded approach to computing the reaction rate yields values several times the `true' point-wise value. \citeauthor{Pampin2005} showed the importance of self-shielding for tungsten in fusion applications, finding that neglecting shielding effects can overestimate radiative capture in \textsuperscript{186}W by a factor of 6. \citeauthor{Gilbert2016}'s work built on this, sampling flux at multiple depths in first-wall tungsten to predict accurate rates of transmutation to rhenium and osmium. Even with this more sophisticated sampling, total unshielded reaction rates were sometimes twice their true value \cite{Gilbert2016}. Examples from the fission realm also abound, using a relatively coarse (but commonplace) 175 group structure \cite{Plechaty1978}, individual groups for \textsuperscript{232}Th cross-sections can be wrong by a factor of 50 \cite{Cacuci2010}. 
 
 The self-shielding of resonant materials other than tungsten has yet to receive much attention in nuclear analyses of fusion power systems. A robust approach for accurately determining reaction rates for any material composition would be a welcome tool for future analyses. 
 
