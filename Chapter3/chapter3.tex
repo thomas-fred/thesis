@@ -208,23 +208,31 @@ Figure~\ref{fig:W-183_shielding} shows cross-sections from several tungsten isto
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{W-183_shielding}
-  \caption{}
+  \caption{This figure shows cross-sections and computed self-shielding factors for \textsuperscript{183}W in elemental tungsten. The upper panel shows the total cross-section, $\sigma_{t}(E)$, for the major constituent isotopes of tungsten. The interaction data is processed from ENDF-B/VII.1 and was obtained from \citeauthor{Shimwell2018}'s online cross-section plotting service \cite{Shimwell2018}. The lower panel shows total self-shielding factors computed for group-wise \textsuperscript{183}W data using the FISPACT-II code \cite{sublet2017a}. The group structure employed is a relatively fine 2,048 group with equal log\textsubscript{10} spacing. Note how \textsuperscript{183}W resonances are only shielded when the have a greater cross-section than other nuclides in the mixture (natural tungsten).}
   \label{fig:W-183_shielding}
 \end{figure}
 
-Calculating self-shielding factors by the above method, or other more sophisticated approaches, allows one to then take simple unshielded cross-sections, multiply then by the SSF and arrive at group cross-sections that are more appropriate for the nuclide given its environment. An example is shown in figure~\ref{fig:W183_gamma}.
+Calculating self-shielding factors by the above method, or other more sophisticated approaches, allows one to then take simple unshielded cross-sections, multiply then by the SSF and arrive at group cross-sections that are more appropriate for the nuclide given its environment. A convenient measure of the magnitude of this shielding is given by equation~\ref{eq:ssf_bar}.
+
+\begin{equation}
+  \label{eq:ssf_bar}
+  \overline{\mathrm{SSF}} = \frac{\sum_{g=0}^{G}\mathrm{RR}(E_{g})\mathrm{SSF}(E_{g})}
+                                          {\sum_{g=0}^{G}\mathrm{RR}(E_{g})}
+\end{equation}
+
+An example application of group-wise self-shielding factors is shown in figure~\ref{fig:W183_gamma}. Here self-shielding factors have been applied to a na\"ive, unshielded group-wise (n,$\gamma$) reaction-rate, reducing the total energy-integrated reaction rate to 0.364 of its unshielded value. Note the log-scale of the ordinate axis--the groups in the immediate vicinty of the three resonances contribute much of the total reaction rate and significant shielding on one of these groups can severely change the result.
 
 % Perhaps a simple plot of self-shielding factor, unshielded and shielded RR in ssf_data/709_fispact/figures
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{W183_gamma}
-  \caption{}
+  \caption{Shown here are the unshielded and shielded \textsuperscript{183}W(n,$\gamma$)\textsuperscript{184}W reaction rates and the associated macro-partial self-shielding factors for this reaction channel as a function of energy. The neutron spectrum in this example is a constant function of energy and so the reaction rates are a simple renormalisation of the cross-section. The material is elemental tungsten.}
   \label{fig:W183_gamma}
 \end{figure}
 
-%The calculation of reaction rates should incorporate the effects of self-shielding. As indicated above, a resonant material of particular interest to fusion plant designers is tungsten, with $^{186}\mathrm{W}(n,\gamma)$ shown in figure \ref{fig:w_cross_section}. This figure highlights the difficulties of determining reaction rates to a high accuracy. $^{186}$W has a large resonance at 18 eV and the energy-integrated reaction rate within this resonance typically dominates the total reaction rate. With the coarse group structure shown in the figure, an unshielded approach to computing the reaction rate yields values several times the `true' point-wise value. \citeauthor{Pampin2005} showed the importance of self-shielding for tungsten in fusion applications, finding that neglecting shielding effects can overestimate radiative capture in \textsuperscript{186}W by a factor of 6. \citeauthor{Gilbert2016}'s work built on this, sampling flux at multiple depths in first-wall tungsten to predict accurate rates of transmutation to rhenium and osmium. Even with this more sophisticated sampling, total unshielded reaction rates were sometimes twice their true value \cite{Gilbert2016}. Examples from the fission realm also abound, using a relatively coarse (but commonplace) 175 group structure \cite{Plechaty1978}, individual groups for \textsuperscript{232}Th cross-sections can be wrong by a factor of 50 \cite{Cacuci2010}. 
+The calculation of reaction rates should incorporate the effects of self-shielding. As indicated above, a resonant material of particular interest to fusion plant designers is tungsten. Figure~\ref{fig:W183_gamma} highlights the difficulties of determining reaction rates to a high accuracy. $^{183}$W has a large resonance at 8 eV and the energy-integrated reaction rate within this and neighbouring resonances typically dominate the total reaction rate. With the coarse group structure shown in the figure, an unshielded approach to computing the reaction rate yields values several times the `true' point-wise value. \citeauthor{Pampin2005} showed the importance of self-shielding for tungsten in fusion applications, finding that neglecting shielding effects can overestimate radiative capture in \textsuperscript{186}W by a factor of 6. \citeauthor{Gilbert2016}'s work built on this, sampling flux at multiple depths in first-wall tungsten to predict accurate rates of transmutation to rhenium and osmium. Even with this more sophisticated modelling approach, total unshielded reaction rates were sometimes twice their true value \cite{Gilbert2016}. The self-shielding of resonant materials other than tungsten has yet to receive much attention in nuclear analyses of fusion power systems. Examples from the fission realm also abound, using a relatively coarse (but commonplace) 175 group structure \cite{Plechaty1978}, individual groups for \textsuperscript{232}Th cross-sections can be wrong by a factor of 50 \cite{Cacuci2010}. 
 
-The self-shielding of resonant materials other than tungsten has yet to receive much attention in nuclear analyses of fusion power systems. A robust approach for accurately determining reaction rates for any material composition would be a welcome tool for future analyses. 
+Various methods exist for computing the effects of self-shielding. These have been validated in a variety of scenarios, especially with regards to the fission realm. The deployment of these methods to geometrically complex heterogeneous systems such as a fusion reactors is not a straightforward prospect. Undoubtedly self-shielding effects must be included in future studies, but reliance upon the computation of accurate self-shielding factors should be reduced where possible. Assume SSF(E\textsubscript{g}) is a self-shielding factor, where g is some group containing a large, self-shielded resonance--any error in this one factor may dramatically change the total reaction rate. To reduce the requirement for the accurate computation of self-shielding factors, one can adopt a higher-fidelity description of interaction and partial spectrum data. The remainder of this chapter uses concepts from self-shielding to target bin density resolution for optimised energy group structures. A robust approach for accurately determining reaction rates for any material composition would be a welcome tool for future analyses. 
 
 % Curse shielding, as in something to be minimised, but self-shielding theory and associated SSFs an opportunity for attacking the problem
 
@@ -234,8 +242,14 @@ The self-shielding of resonant materials other than tungsten has yet to receive 
 
 \section{Method}
 \label{sec:method}
+The general approach adopted here for optimising energy group structures is to use functions derived from group-wise cross-section and self-shielding data to construct a distribution that represents how badly represented each part of the energy domain is for a given set of reactions. After modifications, this distribution is used as a bin density distribution, allowing a given number of bins to be apportioned by need throughout the energy domain. 
+
+This approach requires a robust, repeatable methodology for the generation of nuclear data on an arbitrary energy grid. Section~\ref{subsec:nd_processing} outlines this. 
+
+\ref{subsec:opt} \ref{subsec:computation}
 
 \subsection{Nuclear data processing}
+\label{subsec:nd_processing}
 % Describe infrastructure: design, robustness, testing, types of data
 \subsubsection{Overview}
 % Some sort of flowchart?
@@ -277,12 +291,6 @@ C(E_{g}) = 1 - \left( \left(1-\overline{\mathrm{SSF}}\right) \frac{S(E_{g})} {S(
 \end{equation}
 
 begins at 1 for the first energy group, and to reduce to a minimum of the effective self-shielding factor $\overline{\mathrm{SSF}}$,
-
-\begin{equation}
-\label{eq:ssf_bar}
-\overline{\mathrm{SSF}} = \frac{\sum_{g=0}^{N}\mathrm{RR}(E_{g})\mathrm{SSF}(E_{g})}
-{\sum_{g=0}^{N}\mathrm{RR}(E_{g})}.
-\end{equation}
 
 This function, $C(E)$, gives a dimensionless measure of the importance of self-shielding modifications to interaction data. It allows comparison between nuclides of different cross-section values, as it is scaled between unity and the nuclide's $\overline{\mathrm{SSF}}$. Discontinuities in C(E) show regions with large effective self-shielding. An example of a cumulative SSF distribution is shown in figure \ref{fig:w_cross_section}. 
 
@@ -338,6 +346,7 @@ The group structures tested in this study are listed in table \ref{tab:groups}. 
 % Iterative application but also coarsening approaches – all still using some form of rho(E)
 
 \subsection{Computation}
+\label{subsec:computation}
 
 The calculation of effective cross-sections were carried out using three different techniques:
 
