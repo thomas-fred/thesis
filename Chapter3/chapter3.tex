@@ -250,7 +250,7 @@ This approach requires a robust, repeatable methodology for the generation of nu
 
 \subsection{Nuclear data processing}
 \label{subsec:nd_processing}
-As mentioned in chapter~\ref{chap:tmc} with regard to the TENDL nuclear data libraries, a key to producing reliable nuclear data is having a processing architecture that is robust and repeatable \cite{Koning2008}. For this group structure optimisation work, many kinds of nuclear data are required. The production of this data was coordinated by a series of Python modules and scripts written during the project. These launched other codes, parsing and checking outputs before inputting these to other codes.  
+As mentioned in chapter~\ref{chap:tmc} with regard to the TENDL nuclear data libraries, a key to producing reliable nuclear data is having a processing architecture that is robust and repeatable \cite{Koning2008}. For this group structure optimisation work, many kinds of nuclear data are required. The production of this data was coordinated by a series of Python modules and scripts written during the project. These launched other codes, parsing and checking outputs before inputting these to other codes. Below is a short description of the attributes and production process for each kind of relevant nuclear data.
 % Describe infrastructure: design, robustness, testing, types of data
 % Some sort of flowchart?
 
@@ -272,87 +272,79 @@ To enable self-shielding calculations within the unresolved resonance range, pro
 \subsubsection{Self-shielding factors}
 The computation of self-shielding factors was accomplished with FISPACT II, version 3.2 \cite{sublet2017a}. Inputs include the group structure, ENDF file, group-wise interaction data, probability tables, nuclides to shield, containing material, material temperature and incident particle spectrum. Each calculation would compute the self-shielding factors for all available macro-partial cross-sections (neutron scattering, radiative capture, fission) and the total. 
 
-The target nuclide would be defined within its elemental material, i.e. \textsubscript{56}Fe would be shielded for a \textsuperscript{nat.}Fe mixture. Clearly, many times nuclides are present within materials of more than their element, whenever they are compounded or alloyed. However, it can be almost guaranteed that nuclides are present alongside fellow isotopes. Given that the aim of this study is to use self-shielding factors to target bin resolution rather than accurately calculating a specific reaction rate or rates, this `elemental composition' assumption was deemed acceptable as providing likely background cross-sections for the shielding calculation. 
+The target nuclide would be defined within its elemental material, i.e. \textsuperscript{56}Fe would be shielded for a \textsuperscript{nat.}Fe mixture. Clearly, many times nuclides are present within materials of more than their element, whenever they are compounded or alloyed. However, it can be almost guaranteed that nuclides are present alongside fellow isotopes. Given that the aim of this study is to use self-shielding factors to target bin resolution rather than accurately calculating a specific reaction rate or rates, this `elemental composition' assumption was deemed acceptable as providing likely background cross-sections for the shielding calculation. 
 
-FISPACT can take an arbitrary particle spectrum as input. For the simulations described below two broad cases were used: 1) Realistic spectra, sampled from a stochastic radiation transport code (MCNP6). These were sampled in the relevant group structure and allow comparison between group-wise and point-wise calculations. 2) `Parametric spectra' where a flux for each group structure bin was calculated from a relationship of the sort: $\log_{10}\phi(E) = m\log_{10}(E) + c$. By varying $m$, the shape of the slowing-down region can be modified and greater weight given to cross-sections (and resonances) within the low or high energy regions. This $m$ parameter is an input to the optimisation process outlined below, in section~\ref{subsec:opt}.
+FISPACT can take an arbitrary particle spectrum as input. For the simulations described below two broad cases were used: 
+
+\begin{enumerate}
+  \item Realistic spectra, sampled from a stochastic radiation transport code (MCNP6). These were sampled in the relevant group structure and allow comparison between group-wise and point-wise calculations. 
+  \item `Parametric spectra' where a flux for each group structure bin was calculated from a relationship of the sort: $\log_{10}\phi(E) = m\log_{10}(E) + c$, a linear relationship in log-log space. If $c = 0$, this is simply $\phi(E) = E^{m}$. By varying $m$, the gradient of the slowing-down region can be modified and greater weight given to cross-sections (and resonances) within the low or high energy regions. This $m$ parameter is an input to the optimisation process outlined below, in section~\ref{subsec:opt}.
+\end{enumerate}
 
 \subsubsection{A Compact ENDF (ACE)}
-To enable testing of optimised group structures, point-wise calculations using MCNP6 are used as a reference. The underlying nuclear data used in this simulation should be the same as that used to create the discretised data. As such, ACE files for MCNP6 are produced using the acer module of NJOY \cite{MacFarlane2016}.
+To enable testing of optimised group structures, point-wise calculations using MCNP6 are used as a reference. The underlying nuclear data used in this simulation should be the same as that used to create the discretised data. As such, ACE files for MCNP6 are produced from the ENDF/B-VII.1 data at 294K, using the acer module of NJOY \cite{MacFarlane2016}.
 
 \subsection{Group structure optimisation}
 \label{subsec:opt}
+Accurate nuclear simulations require cross-section data which preserve the true reaction rates even when discretised. An energy-dependent function of the reaction rate accuracy could be used to indicate where a higher-fidelity representation of the resonance would be useful. If this action could be performed for a variety of cases (materials, common spectra), this function could be used to target group structure bin density, lessening future errors. The process could perhaps be performed iteratively to converge on an ideal group structure. The group structure could be very specific (for a certain reaction channel and spectrum) or relatively general (for the whole table of nuclides, in a typical slowing down spectrum).
 
 \subsubsection{Towards an ideal bin density function}
-This study tests various group structures against a point-wise reference. We have generated two of the test group structures, attempting to optimise them to accurately calculate reaction rates for a set of nuclides.
-
 To assemble a distribution for bin density we define several piecewise functions for identifying where, in the energy domain, self-shielding factor modifications are important and to indicate where resolution should be concentrated. 
 
-Equation \ref{eq:s} describes the cumulative differences between reaction rates for an energy group as defined in section~\ref{subsec:self-shielding}. 
+Equation~\ref{eq:s} describes the cumulative differences between reaction rates for an energy group as defined in section~\ref{subsec:self-shielding}. 
 
 \begin{equation}
-\label{eq:s}
-S(E_{g}) = \sum_{i=0}^{g} \mathrm{RR}(E_{i}) - \mathrm{RR}(E_{i})\mathrm{SSF}(E_{i})
+  \label{eq:s}
+  S(E_{g}) = \sum_{i=0}^{g} (\mathrm{RR}(E_{i}) - \mathrm{RR}(E_{i})\mathrm{SSF}(E_{i}))
 \end{equation}
 
-The cumulative, effective self-shielding distribution,
+$S(E_{g})$ is the sum of differences between shielded and unshielded reaction rates from the start of the resolved resonance region to the $g$-th group. The cumulative, effective self-shielding distribution, $C(E_{g})$ as shown in equation~\ref{eq:c} and is normalised to start at 1 for $g=0$ and reduce through the shielded energy region to $\overline{\mathrm{SSF}}$.
 
 \begin{equation}
-\label{eq:c}
-C(E_{g}) = 1 - \left( \left(1-\overline{\mathrm{SSF}}\right) \frac{S(E_{g})} {S(E_{N})}\right)
+  \label{eq:c}
+  C(E_{g}) = 1 - \left( \left(1-\overline{\mathrm{SSF}}\right) \frac{S(E_{g})} {S(E_{G})}\right)
 \end{equation}
 
-begins at 1 for the first energy group, and to reduce to a minimum of the effective self-shielding factor $\overline{\mathrm{SSF}}$,
-
-This function, $C(E)$, gives a dimensionless measure of the importance of self-shielding modifications to interaction data. It allows comparison between nuclides of different cross-section values, as it is scaled between unity and the nuclide's $\overline{\mathrm{SSF}}$. Discontinuities in C(E) show regions with large effective self-shielding. An example of a cumulative SSF distribution is shown in figure \ref{fig:w_cross_section}. 
-
-The differences between discrete elements of the cumulative distribution provide an effective self-shielding distribution,
+This function, $C(E)$, gives a dimensionless measure of the importance of self-shielding modifications to interaction data. It allows comparison between nuclides of different cross-section values, as it is scaled between unity and the nuclide's $\overline{\mathrm{SSF}}$. Discontinuities in $C(E)$ show regions with large effective self-shielding. An example of a cumulative SSF distribution is shown in figure~\ref{fig:w_cross_section}. 
 
 \begin{equation}
-\label{eq:d}
-D(E_{g}) = C(E_{g}) - C(E_{g-1}),
+  \label{eq:d}
+  D(E_{g}) = C(E_{g}) - C(E_{g-1})
 \end{equation}
 
-that identifies the relative contributions from each bin to the overall self-shielding effect. It is shown as the effective self-shielding distribution in figure \ref{fig:w_cross_section}.
+The differences between discrete elements of the cumulative distribution provide an effective self-shielding distribution, $D(E_{g})$. Equation~\ref{eq:d} shows this, identifying the relative contributions from each bin to the overall self-shielding effect. It is shown as the effective self-shielding distribution in figure~\ref{fig:w_cross_section}. As such, $D(E_{g})$ indicates where the the group structure requires enhanced resolution in an improved group structure. 
 
-As such, $D(E)$ indicates where the the group structure requires enhanced resolution in an improved group structure. However, outside the resonance ranges, for example for E $< 10^{-2}$ or E $> 10^{5}$ eV, this distribution is identically zero. To enforce a minimum bin density, a constant, $b$, is added to all bins of $D(E)$ in the algorithm employed. 
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{W186_gamma}
+  \caption{Shown in the upper plot is a $^{186}$W radiative capture reaction rate, both unshielded and shielded. The incident particle spectrum in this case is a power function of energy, i.e. $\phi(E) = E^{m}$ where $m$ is some constant, in this case 0. The second plot shows the calculated self-shielding factors as a function of energy for this reaction, given an elemental W material composition. The third plot is the cumulative self-shielding distribution, $C(E_{g})$ from equation~\ref{eq:c}. The fourth and final plot is of, $D(E_{g})$, from equation~\ref{eq:d}.}
+  \label{fig:w_cross_section}
+\end{figure}
+
+This process of computing $D(E_{g})$ can be repeated for a variety of nuclides and the distributions summed to give their combined effective self-shielding distribution. However, outside the resonance ranges, for example for E $< 10^{-2}$ or E $> 10^{5}$ eV, this distribution is identically zero. To enforce a minimum bin density, a constant, $b$, is added to all bins of $D(E)$ in the algorithm employed. 
 
 \begin{equation}
-\label{eq:b}
-b = \frac{D(E) \Delta E(E)}{\frac{n_{bins}}{bpd_{min}} - d}
+  \label{eq:b}
+  b = \frac{D(E) \Delta E(E)}{\frac{n_{bins}}{bpd_{min}} - d}
 \end{equation}
 
 The minimum bins per decade, $\mathrm{bpd}_{min}$ must be specified. Where $d$ is the number of decades described by the group structure, $n_{bins}$ is the total number of bins required of the new group structure and $\Delta E(E)$ is an array of the input group bin widths.
 
 \begin{equation}
-\label{eq:offset}
-\rho(E) = D(E) + b
+  \label{eq:offset}
+  \rho(E) = D(E) + b
 \end{equation}
 
 $\rho(E)$ is an array of proposed local bin densities, on the input group structure. This is then rebinned into equal areas as per equation \ref{eq:equal} to determine the new, optimised group structure.
 
 \begin{equation}
-\label{eq:equal}
-\int_{g=i-1}^{g=i} \rho(E_{g})dE = \frac{1}{n_\mathrm{bins}}\int_{g=0}^{g=N}\rho(E_{g})dE \end{equation} 
+  \label{eq:equal}
+  \int_{g=i-1}^{g=i} \rho(E_{g})dE = \frac{1}{n_\mathrm{bins}}\int_{g=0}^{g=N}\rho(E_{g})dE 
+\end{equation} 
 
-The group structures tested in this study are listed in table \ref{tab:groups}. The two groups, 280 and 650, generated by our process were optimised for all stable nuclides of the following elements: Fe, W, Mo, Nd, Sn, Zr, Cu, Co and Ta. This means we performed the nuclide-wise integral of $\rho(E)$ for all naturally occurring isotopes of these elements. 
+An example bin density distribution is shown as figure~\ref{}.
 
-\begin{table}[H]
-  \centering
-  \begin{tabular}{lllll}
-    \toprule
-    n$_\mathrm{bins}$ & E$_\mathrm{min}$ (eV) & E$_\mathrm{max}$ (eV) & bpd$_\mathrm{res}$ & Description \\ 
-    \midrule
-    709 & 1E-5 & 1E9 & 50 & CCFE \\
-    650 & 1E-5 & 1E8 & 37--101 & Optimised fine \\
-    315 & 1E-5 & 1.94E7 & 24--50 & TRIPOLI  \\
-    280 & 1E-5 & 1E8 & 11--73 & Optimised coarse \\ 
-    175 & 1E-5 & 1.96E7 & 5--22 & VITAMIN-J \\
-    \bottomrule
-  \end{tabular}
-  \caption{Comparison of group structures tested, noting their bin counts, n$_\mathrm{bins}$, the energy range over which they are defined and the bins per decade, bpd$_\mathrm{res}$ they employ in the resonant region.}
-  \label{tab:groups}
-\end{table}
-
+\FloatBarrier
 \subsubsection{Iterative and other methods}
 % Iterative application but also coarsening approaches – all still using some form of rho(E)
 
@@ -387,10 +379,32 @@ The effective cross-sections calculated for this study were a series of radiativ
 % Concentric spheres used in iterative method, give description of geometry, data and radiation transport
 
 \subsubsection{JET activation foils}
+This study tests various group structures against a point-wise reference. We have generated two of the test group structures, attempting to optimise them to accurately calculate reaction rates for a set of nuclides.
 
 The radiation transport geometry utilised in this study is the JET tokamak located near Abingdon, Oxfordshire. Octant 8 of the tokamak has previously housed the Long Term Irradiation Station (LTIS) for exposing activation foils to the JET neutron field. A variety of $(n,\gamma)$ effective cross-sections have been calculated in various materials and for a selection of energy group structures. Some of these group structures are optimised for the materials present in the simulation, while others are standard group structures in common usage today. 
 
-\begin{table}[h]
+The group structures tested in this study are listed in table \ref{tab:groups}. The two groups, 280 and 650, generated by our process were optimised for all stable nuclides of the following elements: Fe, W, Mo, Nd, Sn, Zr, Cu, Co and Ta. This means we performed the nuclide-wise integral of $\rho(E)$ for all naturally occurring isotopes of these elements. 
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lllll}
+    \toprule
+    n$_\mathrm{bins}$ & E$_\mathrm{min}$ (eV) & E$_\mathrm{max}$ (eV) & bpd$_\mathrm{res}$ & Description \\ 
+    \midrule
+    709 & 1E-5 & 1E9 & 50 & CCFE \\
+    650 & 1E-5 & 1E8 & 37--101 & Optimised fine \\
+    315 & 1E-5 & 1.94E7 & 24--50 & TRIPOLI  \\
+    280 & 1E-5 & 1E8 & 11--73 & Optimised coarse \\ 
+    175 & 1E-5 & 1.96E7 & 5--22 & VITAMIN-J \\
+    \bottomrule
+  \end{tabular}
+  \caption{Comparison of group structures tested, noting their bin counts, n$_\mathrm{bins}$, the energy range over which they are defined and the bins per decade, bpd$_\mathrm{res}$ they employ in the resonant region.}
+  \label{tab:groups}
+\end{table}
+
+The reaction channels chosen for study are listed in table \ref{tab:reactions}. The nuclides listed are found in the designs of fusion power systems; iron is the principal constituent of all steels, cobalt a steel impurity which dominates shut down dose rates at intermediate time scales, molybdenum an important steel alloying element, tantalum is being investigated for use in high-heat flux componentry and tungsten is a current first choice for a plasma facing high-heat flux material.
+
+\begin{table}[H]
   \centering
   \begin{tabular}{lll}
     \toprule
@@ -408,8 +422,6 @@ The radiation transport geometry utilised in this study is the JET tokamak locat
   \label{tab:reactions}
 \end{table}
 
-The reaction channels chosen for study are listed in table \ref{tab:reactions}. The nuclides listed are found in the designs of fusion power systems; iron is the principal constituent of all steels, cobalt a steel impurity which dominates shut down dose rates at intermediate time scales, molybdenum an important steel alloying element, tantalum is being investigated for use in high-heat flux componentry and tungsten is a current first choice for a plasma facing high-heat flux material.
-
 In order to compare the performance of the different group structures, incident particle spectra were obtained. As previously mentioned, the LTIS foil holder is located within Octant 8 of the JET facility. The LTIS MCNP model \cite{lengar2017} was integrated into a reference JET model. The LTIS was populated with foils of the materials noted in table \ref{tab:reactions}. The simulation was set to tally the reaction rates of interest in each of the foils in each specified group structure. Point-wise tallies were also included.
 
 \section{Results \& Discussion}
@@ -420,13 +432,6 @@ In order to compare the performance of the different group structures, incident 
 % Include this test spectrum plot, and the lin-log profile used to bias the SSFs
 
 \subsection{Singly optimised}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.8\linewidth]{W186_gamma}
-  \caption{Shown in the upper plot is a $^{186}$W radiative capture reaction rate, both unshielded and shielded. The incident particle spectrum in this case is a power function of energy, i.e. $\phi(E) = E^{x}$ where $x$ is some constant. The second plot shows the calculated self-shielding factors as a function of energy for this reaction, given an elemental material composition. The third and fourth plots are derived quantities used for group structure optimisation.}
-  \label{fig:w_cross_section}
-\end{figure}
 
 A set of sample LTIS spectra are as shown in figure \ref{fig:spectrum}. These particular spectra are from within the tungsten foil. Resonances both within the tungsten and the surrounding materials have resulted in flux depressions. An expanded view of the $^{186}$W 18 eV resonance is shown as figure \ref{fig:spectrum_detail}. The degree to which the resonances are resolved by the different group structures is a function of the bin resolution around the resonance. The 709 group, with a standard 50 bins per decade reaches down into the 18 eV resonance, recording a fluence of 3.5E-9 whilst the optimised group structures, 280 and 650 record 2.32E-9 and 1.26E-9. The standard group structures 175 and 315 which are much coarser in this region record a minimum fluence more than an order of magnitude greater than the 650 group structure.
 
