@@ -232,7 +232,9 @@ An example application of group-wise self-shielding factors is shown in figure~\
 
 The calculation of reaction rates should incorporate the effects of self-shielding. As indicated above, a resonant material of particular interest to fusion plant designers is tungsten. Figure~\ref{fig:W183_gamma} highlights the difficulties of determining reaction rates to a high accuracy. $^{183}$W has a large resonance at 8 eV and the energy-integrated reaction rate within this and neighbouring resonances typically dominate the total reaction rate. With the coarse group structure shown in the figure, an unshielded approach to computing the reaction rate yields values several times the `true' point-wise value. \citeauthor{Pampin2005} showed the importance of self-shielding for tungsten in fusion applications, finding that neglecting shielding effects can overestimate radiative capture in \textsuperscript{186}W by a factor of 6. \citeauthor{Gilbert2016}'s work built on this, sampling flux at multiple depths in first-wall tungsten to predict accurate rates of transmutation to rhenium and osmium. Even with this more sophisticated modelling approach, total unshielded reaction rates were sometimes twice their true value \cite{Gilbert2016}. The self-shielding of resonant materials other than tungsten has yet to receive much attention in nuclear analyses of fusion power systems. Examples from the fission realm also abound, using a relatively coarse (but commonplace) 175 group structure \cite{Plechaty1978}, individual groups for \textsuperscript{232}Th cross-sections can be wrong by a factor of 50 \cite{Cacuci2010}. 
 
-Various methods exist for computing the effects of self-shielding. These have been validated in a variety of scenarios, especially with regards to the fission realm. The deployment of these methods to geometrically complex heterogeneous systems such as a fusion reactors is not a straightforward prospect. Undoubtedly self-shielding effects must be included in future studies, but reliance upon the computation of accurate self-shielding factors should be reduced where possible. Assume SSF(E\textsubscript{g}) is a self-shielding factor, where g is some group containing a large, self-shielded resonance--any error in this one factor may dramatically change the total reaction rate. To reduce the requirement for the accurate computation of self-shielding factors, one can adopt a higher-fidelity description of interaction and partial spectrum data. The remainder of this chapter uses concepts from self-shielding to target bin density resolution for optimised energy group structures. A robust approach for accurately determining reaction rates for any material composition would be a welcome tool for future analyses. 
+Various methods exist for computing the effects of self-shielding, including the one laid out above. These methods have been validated in a variety of scenarios, especially with regards to the fission realm. However, the deployment of these methods to geometrically complex heterogeneous systems such as a fusion reactors is not a straightforward prospect. Undoubtedly self-shielding effects must be included in future studies, but reliance upon the computation of accurate self-shielding factors should be reduced where possible. Assume SSF(E\textsubscript{g}) is a self-shielding factor, where g is some group containing a large, self-shielded resonance--if $\mathrm{SSF(E_{g})} \approx 0.1$, a mere 0.01 error in this one factor results in a 10\% error for the group cross-section and may dramatically change the total reaction rate. 
+
+To reduce the requirement for the accurate computation of self-shielding factors, one can adopt a higher-fidelity description of interaction and particle spectrum data. However, as seen earlier, many tens of thousands of groups are required for the accurate computation of reaction rates when used in an untargeted way. The remainder of this chapter uses concepts from self-shielding to \textit{target} bin density resolution for optimised energy group structures. 
 
 % Curse shielding, as in something to be minimised, but self-shielding theory and associated SSFs an opportunity for attacking the problem
 
@@ -244,29 +246,38 @@ Various methods exist for computing the effects of self-shielding. These have be
 \label{sec:method}
 The general approach adopted here for optimising energy group structures is to use functions derived from group-wise cross-section and self-shielding data to construct a distribution that represents how badly represented each part of the energy domain is for a given set of reactions. After modifications, this distribution is used as a bin density distribution, allowing a given number of bins to be apportioned by need throughout the energy domain. 
 
-This approach requires a robust, repeatable methodology for the generation of nuclear data on an arbitrary energy grid. Section~\ref{subsec:nd_processing} outlines this. 
-
-\ref{subsec:opt} \ref{subsec:computation}
+This approach requires a robust, repeatable methodology for the generation of nuclear data on an arbitrary energy grid. Section~\ref{subsec:nd_processing} outlines this. Then, section \ref{subsec:opt} describes how a bin density distribution can be derived from self-shielding data. Finally, section \ref{subsec:computation} details the computational methods utilised to test the optimised group structures.
 
 \subsection{Nuclear data processing}
 \label{subsec:nd_processing}
+As mentioned in chapter~\ref{chap:tmc} with regard to the TENDL nuclear data libraries, a key to producing reliable nuclear data is having a processing architecture that is robust and repeatable \cite{Koning2008}. For this group structure optimisation work, many kinds of nuclear data are required. The production of this data was coordinated by a series of Python modules and scripts written during the project. These launched other codes, parsing and checking outputs before inputting these to other codes.  
 % Describe infrastructure: design, robustness, testing, types of data
-\subsubsection{Overview}
 % Some sort of flowchart?
 
 \subsubsection{Group structure}
+The group structure is defined by an ebins file, as per FISPACT-II. These stipulate the position of energy bounds, at 7 digit precision with 2 digits for the order of magnitude\footnote{See \cite{Cullen1988} for effects of ND numerical precision on calculations.}. The file is in descending order energy, with units of electron-volts. The ebins file is given a unique ID that is also used for all grouped data which adopt its group structure.
 
-\subsubsection{Point-wise ENDF}
+\subsubsection{Evaluated Nuclear Data Files (ENDF)}
+The ENDF files used for this work were those of the ENDF/B-VII.1 library \cite{Chadwick2011}.
 
-\subsubsection{Group-wise ENDF}
+\subsubsection{Point-wise ENDF (PENDF)}
+Point-wise, or PENDF files are created using NJOY \cite{MacFarlane2016}. Resonances were constructed with the reconr module. For all work presented here the resonances were Doppler broadened to room temperature (294K) with the broadr module. 
+
+\subsubsection{Group-wise ENDF (GENDF)}
+Group-wise data, or GENDF files were produced from the broadened PENDFs using the groupie module of the PREPRO processing code \cite{cullen2017}. This operation takes a group structure specified by an ebins description.
 
 \subsubsection{Probability tables}
+To enable self-shielding calculations within the unresolved resonance range, probability tables were employed (see section~\ref{subsec:prob_table} in chapter~\ref{chap:introduction}). These were computed with the CALENDF code \cite{sublet2011}. This is the most computationally expensive step of the ND generation and was parallelised to utilise multiple cores with the Python multiprocessing module \cite{multiprocessing2018}.
 
 \subsubsection{Self-shielding factors}
+The computation of self-shielding factors was accomplished with FISPACT II, version 3.2 \cite{sublet2017a}. Inputs include the group structure, ENDF file, group-wise interaction data, probability tables, nuclides to shield, containing material, material temperature and incident particle spectrum. Each calculation would compute the self-shielding factors for all available macro-partial cross-sections (neutron scattering, radiative capture, fission) and the total. 
 
-\subsubsection{A Compact ENDF}
+The target nuclide would be defined within its elemental material, i.e. \textsubscript{56}Fe would be shielded for a \textsuperscript{nat.}Fe mixture. Clearly, many times nuclides are present within materials of more than their element, whenever they are compounded or alloyed. However, it can be almost guaranteed that nuclides are present alongside fellow isotopes. Given that the aim of this study is to use self-shielding factors to target bin resolution rather than accurately calculating a specific reaction rate or rates, this `elemental composition' assumption was deemed acceptable as providing likely background cross-sections for the shielding calculation. 
 
-\subsubsection{Data storage }
+FISPACT can take an arbitrary particle spectrum as input. For the simulations described below two broad cases were used: 1) Realistic spectra, sampled from a stochastic radiation transport code (MCNP6). These were sampled in the relevant group structure and allow comparison between group-wise and point-wise calculations. 2) `Parametric spectra' where a flux for each group structure bin was calculated from a relationship of the sort: $\log_{10}\phi(E) = m\log_{10}(E) + c$. By varying $m$, the shape of the slowing-down region can be modified and greater weight given to cross-sections (and resonances) within the low or high energy regions. This $m$ parameter is an input to the optimisation process outlined below, in section~\ref{subsec:opt}.
+
+\subsubsection{A Compact ENDF (ACE)}
+To enable testing of optimised group structures, point-wise calculations using MCNP6 are used as a reference. The underlying nuclear data used in this simulation should be the same as that used to create the discretised data. As such, ACE files for MCNP6 are produced using the acer module of NJOY \cite{MacFarlane2016}.
 
 \subsection{Group structure optimisation}
 \label{subsec:opt}
