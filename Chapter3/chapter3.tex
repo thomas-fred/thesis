@@ -342,11 +342,24 @@ $\rho(E)$ is an array of proposed local bin densities, on the input group struct
   \int_{g=i-1}^{g=i} \rho(E_{g})dE = \frac{1}{n_\mathrm{bins}}\int_{g=0}^{g=N}\rho(E_{g})dE 
 \end{equation} 
 
-An example bin density distribution is shown as figure~\ref{}.
+An example bin density distribution and the associated new group structure bin bounds are shown in figure~\ref{fig:optimised_bounds}. One can see a greater density of new bin boundaries (green) where the distribution (red) is peaked.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{optimised_bounds}
+  \caption{This plot shows the bin density, $\rho(E)$ distribution as per equation~\ref{eq:offset}. This is the summed effective self-shielding distributions for all nuclides of interest, plus some constant to give a minimum bins per decade outside of the resonant region. The 64 log-spaced bin boundaries for this distribution constitute the original group structure. An optimised 64 group structure is determined by rebinning the $\rho(E)$ distribution and is shown by the green lines.}
+  \label{fig:optimised_bounds}
+\end{figure}
+
+The above process provides a method to determining where a group structure provides a poor representation of the spectra information and nuclides' nuclear physics. It can be used to apportion a given number of bins to construct a new group structure, as shown in equation~\ref{eq:equal} and figure~\ref{fig:optimised_bounds}. However, one needn't stop at this point. With these distributions, other optimisation methods are conceivable. The process can be repeated, in an attempt to converge on an optimum group structure. Or, one might start with a very fine representation, with many tens of thousands of bins and attempt to coarsen based on the effective self-shielding distribution. Section~\ref{subsubsec:iterative} explores these potential methods.
 
 \FloatBarrier
 \subsubsection{Iterative and other methods}
+\label{subsubsec:iterative}
 % Iterative application but also coarsening approaches – all still using some form of rho(E)
+
+% Do I actually have any good results with these `advanced' methods? If not, exclude the method bar a passing remark above...
+
 
 \subsection{Computation}
 \label{subsec:computation}
