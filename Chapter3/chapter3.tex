@@ -346,24 +346,22 @@ An example bin density distribution and the associated new group structure bin b
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.8\linewidth]{optimised_bounds}
-  \caption{This plot shows the bin density, $\rho(E)$ distribution as per equation~\ref{eq:offset}. This is the summed effective self-shielding distributions for all nuclides of interest, plus some constant to give a minimum bins per decade outside of the resonant region. The 64 log-spaced bin boundaries for this distribution constitute the original group structure. An optimised 64 group structure is determined by rebinning the $\rho(E)$ distribution and is shown by the green lines.}
+  \includegraphics[width=0.8\linewidth]{nbins-280_bpd-10}
+  \caption{This plot shows the bin density, $\rho(E)$ distribution as per equation~\ref{eq:offset}. This is the summed effective self-shielding distributions for all nuclides of interest, plus some constant to give a minimum bins per decade outside of the resonant region. The 280 log-spaced bin boundaries for this distribution constitute the original group structure. An optimised 280 bin group structure is determined by rebinning the $\rho(E)$ distribution and is shown by the green lines. There are a minimum of 10 bins per decade.}
   \label{fig:optimised_bounds}
 \end{figure}
 
-The above process provides a method to determining where a group structure provides a poor representation of the spectra information and nuclides' nuclear physics. It can be used to apportion a given number of bins to construct a new group structure, as shown in equation~\ref{eq:equal} and figure~\ref{fig:optimised_bounds}. However, one needn't stop at this point. With these distributions, other optimisation methods are conceivable. The process can be repeated, in an attempt to converge on an optimum group structure. Or, one might start with a very fine representation, with many tens of thousands of bins and attempt to coarsen based on the effective self-shielding distribution. Section~\ref{subsubsec:iterative} explores these potential methods.
+The above process provides a method to determining where a group structure provides a poor representation of the spectra information and nuclides' nuclear physics. It can be used to apportion a given number of bins to construct a new group structure, as shown in equation~\ref{eq:equal} and figure~\ref{fig:optimised_bounds}. However, one needn't stop at this point. With these distributions, other optimisation methods are conceivable. The process can be repeated, in an attempt to converge on an optimum group structure. Or, one might start with a very fine representation, with many tens of thousands of bins and attempt to coarsen based on the effective self-shielding distribution. These constitute future avenues of research for this group structure optimisation method.
 
 \FloatBarrier
-\subsubsection{Iterative and other methods}
-\label{subsubsec:iterative}
+%\subsubsection{Iterative and other methods}
+%\label{subsubsec:iterative}
 % Iterative application but also coarsening approaches – all still using some form of rho(E)
-
 % Do I actually have any good results with these `advanced' methods? If not, exclude the method bar a passing remark above...
-
+% A: No, not really... instead mention these in concluding remarks as things that were tried but require further work
 
 \subsection{Computation}
 \label{subsec:computation}
-
 The calculation of effective cross-sections were carried out using three different techniques:
 
 \begin{enumerate}
@@ -374,48 +372,46 @@ The calculation of effective cross-sections were carried out using three differe
 
 Methods 1 \& 2 discretise the incident spectrum, over a  $\phi(E)$ and $\sigma(E)$, taking the inner product of two vectors of constants,
 $$\vec{\phi} \cdot \vec{\sigma} = \sum_i \phi(E_i , E_{i+1}) \sigma(E_i , E_{i+1}),$$
-as the spectrum-averaged, effective cross section. However, for each group interval, $(E_{i}, E_{i+1}]$ the true functions $\phi(E),\ \sigma(E)$ are not contant. Regions with resonances in the cross section cause local decreases in the neutron flux, resulting in significant `self-shielding' errors with the multi-group method. To address this, self-shielding factors, $\mathrm{SSF}(E_i)$, may be used to account for these resonance effects. 
+as the spectrum-averaged, effective cross section. However, as mentioned in section~\ref{subsec:self-shielding}, for each group interval, $(E_{i}, E_{i+1}]$ the true functions $\phi(E),\ \sigma(E)$ are not contant. Regions with resonances in the cross section cause local decreases in the neutron flux, resulting in significant `self-shielding' errors with the multi-group method. To address this, self-shielding factors, $\mathrm{SSF}(E_i)$, may be used to account for these resonance effects. An incident spectrum, material inventory and nuclear data are input to FISPACT-II. The spectrum and interaction nuclear data are then collapsed to generate one-group effective cross-sections. With the addition of probability table data generated with CALENDF-2010 \cite{sublet2011}, $\mathrm{SSF}(E_i)$ are calculated for both the resolved and unresolved resonance regions.
 
-An incident spectrum, material inventory and nuclear data are input to FISPACT-II. The spectrum and interaction nuclear data are then collapsed to generate one-group effective cross-sections. With the addition of probability table data generated with CALENDF-2010 \cite{sublet2011}, $\mathrm{SSF}(E_i)$ are calculated for both the resolved and unresolved resonance regions.
-
-Method 3 employs nuclear cross-section data with tens of thousands of points per reaction channel, interpolating between them to approximate a continuous energy treatment. The effective radiative capture cross-section can be determined from the point-wise calculated $(n,\gamma)$ reaction rate as equation \ref{eq:pw}. 
+Method 3 employs nuclear cross-section data with tens of thousands of points per reaction channel (ACE files), interpolating between them to approximate a continuous energy treatment. The effective radiative capture cross-section can be determined from the point-wise calculated $(n,\gamma)$ reaction rate as equation \ref{eq:pw}. 
 
 \begin{equation}
 \label{eq:pw}
 \sigma_\mathrm{eff} = \frac{\int RR_{n,\gamma}(E) dE}{\int \phi(E) dE}
 \end{equation}
 
-
 The effective cross-sections calculated for this study were a series of radiative capture reactions in metals. These reactions often have a large fraction of their total reaction rate within the neutron slowing down region between thermal and fast energies. Hence, an accurate resonance treatment is required for accurate results. 
 
-\subsubsection{Simple test case}
-% Concentric spheres used in iterative method, give description of geometry, data and radiation transport
+To test optimised group structures, both simple examples and faithful real-world radiation transport models have been used. These models allow the sampling of neutron spectra with MCNP6 for the computation of point-wise effective cross-sections, but also for the computation of effective cross-sections using multi-group methods with FISPACT-II. The following section briefly discusses the radiation transport geometries and models.
+
+\subsubsection{Convergence study}
+\label{subsubsec:conv}
+% Concentric spheres used in convergence study for W-186, 
+% Give description of geometry, data and radiation transport
+To explore the benefits of group structure optimisation by the methods outlined above, and to inspect the effects of bin count on accuracy, a convergence study was carried out. This utilised a simple geometry of concentric spheres as shown in figure~\ref{fig:conv_mcnp}. The concentric shells of material are stainless steel, water and tungsten. The steel and water act to locally depress and moderate the spectrum. There is a point neutron source of 14 MeV situated at the centre of the nested spheres. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\linewidth]{conv_mcnp}
+  \caption{A 2D slice of a simple MCNP test geometry, a series of concentric shells of material. These shells are steel, water and tungsten from inside to outside. There is a 14 MeV point source located in the centre.}
+  \label{fig:conv_mcnp}
+\end{figure}
+
+Tallies sample the neutron spectrum in a variety of energy group structures within the outermost, tungsten shell. These are for six bin counts, $n_\mathrm{bins} = [64,128,256,512,1024,2048]$, each with a logarithmically spaced and an optimised version, giving 12 group structures in total. The group structures were optimised for all naturally occuring tungsten isotopes, with a flat spectrum. In addition to the multi-group tallies, there is also a single point-wise Monte Carlo estimator in the MCNP model, sampling the reaction rate of \textsuperscript{186}W(n,$\gamma$)\textsuperscript{187}W.
 
 \subsubsection{JET activation foils}
-This study tests various group structures against a point-wise reference. We have generated two of the test group structures, attempting to optimise them to accurately calculate reaction rates for a set of nuclides.
+\label{subsubsec:jet}
+This study again tests various group structures against a point-wise reference. Two of the test group structures are optimised for a particular set of nuclides, in an attempt to accurately calculate reaction rates for these nuclides. However the radiation transport geometry for this example is more complex than used in section~\ref{subsubsec:conv}. The radiation transport geometry utilised in this study is the JET tokamak located near Abingdon, Oxfordshire. Octant 8 of the tokamak has previously housed the Long Term Irradiation Station (LTIS) for exposing activation foils to the JET neutron field. In this work, the LTIS MCNP model \cite{lengar2017} was integrated into a reference JET model. The LTIS was then populated with foils of the materials noted in table \ref{tab:reactions}. The general layout of the JET device and the location of the LTIS holder is shown as figure~\ref{fig:jet_mcnp}.
 
-The radiation transport geometry utilised in this study is the JET tokamak located near Abingdon, Oxfordshire. Octant 8 of the tokamak has previously housed the Long Term Irradiation Station (LTIS) for exposing activation foils to the JET neutron field. A variety of $(n,\gamma)$ effective cross-sections have been calculated in various materials and for a selection of energy group structures. Some of these group structures are optimised for the materials present in the simulation, while others are standard group structures in common usage today. 
-
-The group structures tested in this study are listed in table \ref{tab:groups}. The two groups, 280 and 650, generated by our process were optimised for all stable nuclides of the following elements: Fe, W, Mo, Nd, Sn, Zr, Cu, Co and Ta. This means we performed the nuclide-wise integral of $\rho(E)$ for all naturally occurring isotopes of these elements. 
-
-\begin{table}[H]
+\begin{figure}[H]
   \centering
-  \begin{tabular}{lllll}
-    \toprule
-    n$_\mathrm{bins}$ & E$_\mathrm{min}$ (eV) & E$_\mathrm{max}$ (eV) & bpd$_\mathrm{res}$ & Description \\ 
-    \midrule
-    709 & 1E-5 & 1E9 & 50 & CCFE \\
-    650 & 1E-5 & 1E8 & 37--101 & Optimised fine \\
-    315 & 1E-5 & 1.94E7 & 24--50 & TRIPOLI  \\
-    280 & 1E-5 & 1E8 & 11--73 & Optimised coarse \\ 
-    175 & 1E-5 & 1.96E7 & 5--22 & VITAMIN-J \\
-    \bottomrule
-  \end{tabular}
-  \caption{Comparison of group structures tested, noting their bin counts, n$_\mathrm{bins}$, the energy range over which they are defined and the bins per decade, bpd$_\mathrm{res}$ they employ in the resonant region.}
-  \label{tab:groups}
-\end{table}
+  \includegraphics[width=\linewidth]{jet_mcnp_inset}
+  \caption{The figure shows a plan view of the JET tokamak in Oxfordshire, UK and the location of the LTIS foil holder. The main panel is approximately 12m across, displaying the major radius, R = 3m of JET. The ports for each octant are visible as openings in the purple vessel. The LTIS foil holder is located in the lower left, in octant 8. It is shown at greater magnification in the inset panels. This figure is assembled from various MCNP plotter views.}
+  \label{fig:jet_mcnp}
+\end{figure}
 
-The reaction channels chosen for study are listed in table \ref{tab:reactions}. The nuclides listed are found in the designs of fusion power systems; iron is the principal constituent of all steels, cobalt a steel impurity which dominates shut down dose rates at intermediate time scales, molybdenum an important steel alloying element, tantalum is being investigated for use in high-heat flux componentry and tungsten is a current first choice for a plasma facing high-heat flux material.
+The reaction channels chosen for study are listed in table \ref{tab:reactions}. The nuclides listed are found in the designs of fusion power systems; iron is the principal constituent of all steels, cobalt a steel impurity which dominates shut down dose rates at intermediate time scales, molybdenum an important steel alloying element, tantalum is being investigated for use in high-heat flux componentry and tungsten is a current first choice for a plasma facing high-heat flux material. Each element to be tested was represented by a foil of this material held within the LTIS model.
 
 \begin{table}[H]
   \centering
@@ -435,16 +431,54 @@ The reaction channels chosen for study are listed in table \ref{tab:reactions}. 
   \label{tab:reactions}
 \end{table}
 
-In order to compare the performance of the different group structures, incident particle spectra were obtained. As previously mentioned, the LTIS foil holder is located within Octant 8 of the JET facility. The LTIS MCNP model \cite{lengar2017} was integrated into a reference JET model. The LTIS was populated with foils of the materials noted in table \ref{tab:reactions}. The simulation was set to tally the reaction rates of interest in each of the foils in each specified group structure. Point-wise tallies were also included.
+A variety of $(n,\gamma)$ effective cross-sections are calculated for nuclides in the foil materials. Each reaction is calculated for 5 different group structures, some of these group structures are optimised for the materials present in the simulation, while others are standard group structures in common usage today. The group structures sampled in the LTIS foils are listed in table \ref{tab:groups}. Two groups, 280 and 650, generated by the process outlined above were optimised for all stable nuclides of the following common engineering elements: Fe, W, Mo, Nd, Sn, Zr, Cu, Co and Ta. This means performing the nuclide-wise sum of equation~\ref{eq:d} for all naturally occurring isotopes of these elements before rebinning this distribution into equal areas, and using the boundary of these areas as the new group structure bin bounds.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{spectrum}
+  \caption{The approximate neutron spectrum in the steel of the LTIS foil holder. This spectrum was obtained a short initial MCNP run. Statistical uncertainty from MCNP sampling is shown as light blue shading around the dark blue mean value. The slowing-down region between 1 eV and 100 keV has been fitted with the following relationship: $\phi(E) = E^{0.192} + 10^{-6.88}$.}
+  \label{fig:opt_spectrum}
+\end{figure}
+
+The spectrum used as input to the optimisation process is pictured in figure~\ref{fig:opt_spectrum}. This spectrum was sampled from a short inital run of the problem, determining roughly what shape the slowing-down region has in this problem. The exponent of the fitted relationship $\phi(E) = E^{0.192}$ is used to characterise the spectrum as input to FISPACT-II for calculating self-shielding factors prior to group structure optimisation. It effectively functions as a weighting function, determining whether lower or higher energy resonances will contribute most to the reaction rate (and so where reaction rate errors would be most problematic).
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lllll}
+    \toprule
+    n$_\mathrm{bins}$ & E$_\mathrm{min}$ (eV) & E$_\mathrm{max}$ (eV) & bpd$_\mathrm{res}$ & Description \\ 
+    \midrule
+    709 & 1E-5 & 1E9 & 50 & CCFE \\
+    650 & 1E-5 & 1E8 & 37--101 & Optimised fine \\
+    315 & 1E-5 & 1.94E7 & 24--50 & TRIPOLI  \\
+    280 & 1E-5 & 1E8 & 11--73 & Optimised coarse \\ 
+    175 & 1E-5 & 1.96E7 & 5--22 & VITAMIN-J \\
+    \bottomrule
+  \end{tabular}
+  \caption{Comparison of group structures tested, noting their bin counts, n$_\mathrm{bins}$, the energy range over which they are defined and the bins per decade, bpd$_\mathrm{res}$ they employ in the resonant region.}
+  \label{tab:groups}
+\end{table}
 
 \section{Results \& Discussion}
 \label{sec:results}
 % Introduce general approach again, tall plot of SSF effect functions is to follow
+This section details the results from both test cases, a simple set of concentric shells and a more sophisticated radiation transport model of the JET tokamak. 
 
+\subsection{Convergence}
+For the first study 12 group structures were tested against a point-wise reference. The effective one group cross-sections of radiative capture in \textsuperscript{186}W were compared with a Monte Carlo estimator using fine and interpolated data. The comparative results are shown in figure~\ref{fig:W186_convergence}. 
+ 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{W-186_nbins_convergence_SSF}
+  \caption{}
+  \label{fig:W186_convergence}
+\end{figure}
+
+Figure~\ref{fig:W186_convergence} shows that increasing the bin count of a group structure will between describe multi-group spectra and cross-section information, as we have already seen at the start of this chapter in figure~\ref{fig:gendf_convergence}. We can also see that the multi-group computed results which were closest to the point-wise estimate were those which employed self-shielding factors in the calculation. For shielded results, by 512 groups the error to point-wise was $< 1\%$ whether the groups were optimised or log-spaced. The next most significant factor was the optimisation, where we see a difference 
+
+\subsection{JET activation foils}
 %%To generate self-shielding factors using FISPACT we require a spectrum. The spectrum shape guess was $\phi(E) = E^{0.192}$, or slightly harder than `flat' (see figure \ref{fig:spectrum} for an indication of the spectrum). 
 % Include this test spectrum plot, and the lin-log profile used to bias the SSFs
-
-\subsection{Singly optimised}
 
 A set of sample LTIS spectra are as shown in figure \ref{fig:spectrum}. These particular spectra are from within the tungsten foil. Resonances both within the tungsten and the surrounding materials have resulted in flux depressions. An expanded view of the $^{186}$W 18 eV resonance is shown as figure \ref{fig:spectrum_detail}. The degree to which the resonances are resolved by the different group structures is a function of the bin resolution around the resonance. The 709 group, with a standard 50 bins per decade reaches down into the 18 eV resonance, recording a fluence of 3.5E-9 whilst the optimised group structures, 280 and 650 record 2.32E-9 and 1.26E-9. The standard group structures 175 and 315 which are much coarser in this region record a minimum fluence more than an order of magnitude greater than the 650 group structure.
 
@@ -500,12 +534,7 @@ The $^{181}$Ta (figure \ref{fig:tantalum-181}) and $^{95}$Mo (figure \ref{fig:mo
   \label{fig:molybdenum-95}
 \end{figure}
 
-\subsection{Advanced methods}
-% Results from iteratively applying algorithm, coarsening vs. straight rho(E), etc.
-
-
 \section{Conclusions}
-
 This study has investigated how an incident spectrum and nuclear data library are discretised in energy (i.e. the group structure) effects the accuracy of reaction rate calculations. The selection of group structures trialled included three in current use and two which were optimised by our own, novel method.
 
 The accuracy of multi-group reaction rate calculations is severely hampered by using the legacy VITAMIN-J 175 group structure. In the context of this activation foil problem, coarse group structures can give reasonable results if used in conjunction with modifying self-shielding factors. If used, self-shielding factors must be applied carefully, with potential geometric shielding effects considered. If used inappropriately, over-shielding may result, which may not be conservative depending on the context.
