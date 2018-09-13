@@ -450,7 +450,7 @@ A variety of $(n,\gamma)$ effective cross-sections are calculated for nuclides i
   \label{tab:groups}
 \end{table}
 
-The spectrum used as input to the optimisation process is pictured in figure~\ref{fig:opt_spectrum}. This spectrum was sampled from a short inital run of the problem, determining roughly what shape the slowing-down region has in this problem. The exponent of the fitted relationship $\phi(E) = E^{0.192}$ is used to characterise the spectrum as input to FISPACT-II for calculating self-shielding factors prior to group structure optimisation. It effectively functions as a weighting function, determining whether lower or higher energy resonances will contribute most to the reaction rate (and so where reaction rate errors would be most problematic).
+The spectrum used as input to the optimisation process is pictured in figure~\ref{fig:opt_spectrum}. This spectrum was sampled from a short inital run of the problem, determining roughly what shape the slowing-down region has in this problem. The exponent of the fitted relationship $\phi(E) = E^{0.192}$ is used to characterise the spectrum as input to FISPACT-II for calculating self-shielding factors prior to group structure optimisation. It effectively acts as a weighting function, determining whether lower or higher energy resonances will contribute most to the reaction rate (and so where reaction rate errors would be most problematic).
 
 \begin{figure}[H]
   \centering
@@ -462,7 +462,7 @@ The spectrum used as input to the optimisation process is pictured in figure~\re
 \section{Results \& Discussion}
 \label{sec:results}
 % Introduce general approach again, tall plot of SSF effect functions is to follow
-This section details the results from both test cases, a simple set of concentric shells and a more sophisticated radiation transport model of the JET tokamak. 
+This section details the results from both test cases, a simple set of concentric shells and a more sophisticated radiation transport model of the JET tokamak. Both cases utilise utilise traditional log-spaced group structures and optimised ones. They also both probe the effects of self-shielding.
 
 \subsection{Convergence}
 For the first study 12 group structures were tested against a point-wise reference. The effective one group cross-sections of radiative capture in \textsuperscript{186}W were compared with a Monte Carlo estimator using fine and interpolated data. The comparative results are shown in figure~\ref{fig:W186_convergence}. 
@@ -470,7 +470,7 @@ For the first study 12 group structures were tested against a point-wise referen
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\linewidth]{W186_lin_log}
-  \caption{This figure shows the results from the convergence study in tungsten. The two panels both show the same information, that is the percentage error between the collapsed multi-group cross-section and the point-wise result. The upper panel ordinate axis is log-scaled to show the breadth of results. For $\%\Delta < 0.05$, some of the shielded data was returned as slightly negative and so could not be displayed on the log-scaled plot. The lower panel adopts a linear-scaling. This panel also has a secondary axis to display the one-group cross-section values in barns and a dashed line to indicate the point-wise reference value. The bin count for the group structures is the abscissa axis for both panels. Blue markers indicate an energy group with a simple log-spaced arrangement while red markers indicate the group has been optimised for representing tungsten data. Crosses are unshielded results, while circles are shielded.}
+  \caption{This figure shows the results from the convergence study in tungsten. The two panels both show the same information, that is the percentage error between the collapsed multi-group cross-section and the point-wise result. The upper panel ordinate axis is log-scaled to show the breadth of results. For $\%\Delta < 0.05$, some of the shielded data was returned as marginally negative and so could not be displayed on the log-scaled plot. The lower panel adopts a linear-scaling. This panel also has a secondary axis to display the one-group cross-section values in barns and a dashed line to indicate the point-wise reference value. The bin count for the group structures is the abscissa axis for both panels. Blue markers indicate an energy group with a simple log-spaced arrangement while red markers indicate the group has been optimised for representing tungsten data. Crosses are unshielded results, while circles are shielded.}
   \label{fig:W186_convergence}
 \end{figure}
 
@@ -479,20 +479,19 @@ Figure~\ref{fig:W186_convergence} shows that increasing the bin count of a group
 \subsection{JET activation foils}
 %%To generate self-shielding factors using FISPACT we require a spectrum. The spectrum shape guess was $\phi(E) = E^{0.192}$, or slightly harder than `flat' (see figure \ref{fig:spectrum} for an indication of the spectrum). 
 % Include this test spectrum plot, and the lin-log profile used to bias the SSFs
-
-A set of a LTIS neutron spectra are as shown in figure \ref{fig:spectrum}. These particular spectra are sampled from within the tungsten foil. Resonances both within the tungsten and the surrounding materials have resulted in flux depressions. An expanded view of the $^{186}$W 18 eV resonance is shown as figure \ref{fig:spectrum_detail}. The degree to which the resonances are resolved by the different group structures is a function of the bin resolution around the resonance. The 709 group, with a standard 50 bins per decade reaches down into the 18 eV resonance, recording a fluence of 3.5E-9 whilst the optimised group structures, 280 and 650 record 2.32E-9 and 1.26E-9. The standard group structures 175 and 315 which are much coarser in this region record a minimum fluence more than an order of magnitude greater than the 650 group structure.
+A set of neutron spectra from the LTIS assembly are as shown in figure \ref{fig:spectrum}. These particular spectra are sampled from within the tungsten foil. Resonances both within the tungsten and the surrounding materials have resulted in flux depressions. An expanded view of the $^{186}$W 18 eV resonance is shown as figure \ref{fig:spectrum_detail}. The degree to which the resonances are resolved by the different group structures is a function of the bin resolution around the resonance. The 709 group, with a standard 50 bins per decade reaches down into the 18 eV resonance, recording a fluence of $3.5\times10^{-9}$ whilst the optimised group structures, 280 and 650 record $2.32\times10^{-9}$ and $1.26\times10^{-9}$. The standard group structures 175 and 315 which are much coarser in this region record a minimum fluence more than an order of magnitude greater than the 650 group structure.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{W186_spectra_diff_groups.eps}
-  \caption{Typical DT neutron spectrum within the LTIS activation foil holder. The fluence of each bin has been divided by the lethargy width for that bin, $\Delta U$. The spectrum is hard, with little thermalisation as a consequence the foil's proximity to the plasma. The same neutrons have been binned according to various group structures, from 175 to 709 groups.}
+  \caption{Typical DT neutron spectrum within the LTIS activation foil holder. The fluence of each bin has been divided by the lethargy width for that bin, $\Delta U$. The 14.1 MeV neutron emission peak from the DT plasma is clearly visible, along with a typical slowing-down spectrum, filled with flux depressions. The spectrum is generally `hard', with little thermalisation as a consequence the foil's proximity to the plasma. The same neutrons have been binned according to various group structures, from 175 to 709 groups as listed in table~\ref{tab:groups}.}
   \label{fig:spectrum}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{w_spectrum_detail}
-  \caption{Magnified section of spectrum showing how progressively finer group structures resolve flux depressions in a neutron spectrum.}
+  \caption{Magnified section of spectrum showing how progressively finer group structures resolve flux depressions in a neutron spectrum. The flux depression corresponding to the \textsuperscript{186}W 18 eV resonance is clearly visible, along with a variety of other resonances from \textsuperscript{186} and other W isotopes.}
   \label{fig:spectrum_detail}
 \end{figure}
 
@@ -502,7 +501,7 @@ As would be expected, in a simple, unshielded case having more groups and theref
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{W-182.eps}
+  \includegraphics[width=0.8\linewidth]{W-182.eps}
   \caption{Comparison of different calculation methods for radiative capture in $^{182}$W under JET neutron irradiation.}
   \label{fig:tungsten-182}
 \end{figure}
@@ -511,7 +510,7 @@ With regards to individual groups, the 175 group used unshielded performs very p
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{W-186.eps}
+  \includegraphics[width=0.8\linewidth]{W-186.eps}
   \caption{Comparison of different calculation methods for radiative capture in $^{186}$W under JET neutron irradiation.}
   \label{fig:tungsten-186}
 \end{figure}
@@ -520,26 +519,31 @@ As might be expected the shielded results show far less variation between groups
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{Ta-181.eps}
+  \includegraphics[width=0.8\linewidth]{Ta-181.eps}
   \caption{Comparison of different calculation methods for radiative capture in $^{181}$Ta under JET neutron irradiation.}
   \label{fig:tantalum-181}
 \end{figure}
 
-The $^{181}$Ta (figure \ref{fig:tantalum-181}) and $^{95}$Mo (figure \ref{fig:molybdenum-95}) results indicate over-shielding, that is self-shielding factors over compensating for a poor description of the spectrum. This is particularly pronounced for the 315 group in $^{95}$Mo, where the shielded result is 40\% less than the point-wise result. This is due to the application of one set of self-shielding factors over the entirety of the foil depth. Although only 500 microns, the compound geometric effects are essential and are the subject of further work.
+The $^{181}$Ta (figure \ref{fig:tantalum-181}) and $^{95}$Mo (figure \ref{fig:molybdenum-95}) results indicate over-shielding, that is self-shielding factors over compensating for a poor description of the spectrum. This is particularly pronounced for the 315 group in $^{95}$Mo, where the shielded result is 40\% less than the point-wise result. This is possibly due to the application of one set of self-shielding factors over the entirety of the foil depth. Although only 500 microns, the compound geometric effects are essential and are the subject of further work.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{Mo-95.eps}
+  \includegraphics[width=0.8\linewidth]{Mo-95.eps}
   \caption{Comparison of different calculation methods for radiative capture in $^{95}$Mo under JET neutron irradiation.}
   \label{fig:molybdenum-95}
 \end{figure}
 
 \section{Conclusions}
-This study has investigated how an incident spectrum and nuclear data library are discretised in energy (i.e. the group structure) effects the accuracy of reaction rate calculations. The selection of group structures trialled included three in current use and two which were optimised by our own, novel method.
+This study has investigated how an incident spectrum and nuclear data library discretision in energy (i.e. the group structure) effects the accuracy of reaction rate calculations. This has relevance for deterministic radiation transport and activation-transmutation calculations.
 
-The accuracy of multi-group reaction rate calculations is severely hampered by using the legacy VITAMIN-J 175 group structure. In the context of this activation foil problem, coarse group structures can give reasonable results if used in conjunction with modifying self-shielding factors. If used, self-shielding factors must be applied carefully, with potential geometric shielding effects considered. If used inappropriately, over-shielding may result, which may not be conservative depending on the context.
+A background in nuclear resonant behaviour and self-shielding was given. Nuclear data processing infrastructure was created to produce nuclear data on an arbitrary energy grid. It was then theorised that it might be possible to optimise the discretisation of the energy domain for nuclear analyses by using self-shielding theory to identify which energy regions were poorly described. A novel method for assembling a bin density distribution, $\rho(E)$ was described in section~\ref{subsec:opt}. This distribution in energy was rebinned into equal-area segments, with the boundaries of these segments becoming the new optimised bin bounds. This allocates more bins into areas that were previously poorly described.
 
-An optimisation algorithm has been demonstrated. The algorithm can generate and optimised set of bin bounds, given a `guess' spectrum and a target nuclide set. An unshielded multi-group calculation using an optimised group structure with 280 bins has more closely approximated the point-wise result than the 709 unshielded multi-group calculation in the majority of cases examined.
+Testing was undertaken to examine the performance of these optimised group structures. Of the testing presented here, this was initially using groups optimised for only a narrow range of nuclides (for instance, only natural tungsten). Testing of optimised and log-spaced groups in a simple case showed the benefits of both correcting for self-shielding and optimisation. For a small number of groups, 64, the benefits were greatest, with a reduction in error from 130\% to 25\% by using an optimised group.
 
-Further work will improve on the optimisation algorithm and explore the performance of optimised group structures in a wider array of circumstances. Iterative application of the algorithm will be investigated as well as geometric self-shielding effects. 
+Subsequently, a pair of optimised group structures (280 \& 650) were developed using the same method. These group structures were optimised for a characteristic slowing-down spectrum and for the naturally occuring isotopes of the following elements: Fe, W, Mo, Nd, Sn, Zr, Cu, Co and Ta. These group structures were compared with three `industry standard' group structures (175, 315 \& 709) in a real-world scenario: the Long Term Irradiation Station (LTIS) in the JET tokamak. Results from this testing showed the accuracy of multi-group reaction rate calculations is severely hampered by using the legacy VITAMIN-J 175 group structure. In the context of this activation foil problem, coarse group structures can give reasonable results if used in conjunction with modifying self-shielding factors. If used, self-shielding factors must be applied carefully, with potential geometric shielding effects considered. If used inappropriately, over-shielding may result, which may not be conservative depending on the context. An unshielded multi-group calculation using an optimised group structure with 280 bins has more closely approximated the point-wise result than the 709 bin unshielded multi-group calculation in the majority of cases examined. 
+
+Additional work not presented here has explored the potential benefits of iteratively applying the optimisation process but has not yet returned any conclusive results. Suggested further work could include improving the optimisation algorithm and exploring the performance of optimised group structures in a wider array of circumstances, for a greater set of nuclides. It would be enlightening to see if optimising for a very large nuclide set (say, all stable nuclides) negates the benefits of optimisation witnessed for a relatively constrained nuclide set. 
+
+It is interesting to speculate on the current usage of evaluated nuclear data. Currently, nuclear analysts use nuclear binned to a either a very general purpose grid, or even a na\"ive one. Nuclear data is only easily available in these long-lived group structures. Given a robust nuclear data processing infrastructure, it would not necessarily be difficult to generate nuclear data on a bespoke, optimised energy grid prior to some piece of nuclear analysis work. Processing a whole nuclear data library (all stable nuclides), including probability table data can be done in a day on a laptop, or within an hour on a cluster. 
+
 
