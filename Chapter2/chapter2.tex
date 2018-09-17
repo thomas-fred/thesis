@@ -3,7 +3,7 @@
 %****************************** Second Chapter *********************************
 %*******************************************************************************
 
-\chapter{Quantifying received dose errors introduced by spatial homogenisation of reinforced concrete shielding}
+\chapter{Quantifying received dose errors introduced by modelling approximations in reinforced concrete shielding}
 \label{chap:homogenisation}
 
 \ifpdf
@@ -12,24 +12,46 @@
     \graphicspath{{Chapter2/Figs/Vector/}{Chapter2/Figs/}}
 \fi
 
+% ITER report is robust and actually quite well written, use as base
+% Check with Roddy I can use material from this report
+% Need some introductory material on spatial homogenisation:
+%     Raoul's report?
+%     Wider literature
+% Additional figures which might be nice:
+%     Nice SDDR photon ratio
+%     Interpolated (time, E, ratio) heatmap
 
 \section{Outline}
+This chapter looks at %%%
 
 %INTRODUCTION
 \section{Introduction}
-An investigation into the process of spatial homogenisation of radiation transport geometry has been performed for reinforced concrete shielding. Using parameters relevant for the ITER fusion experiment, shielding and activation simulations have quantified the effect of homogenisation. The dose received by a person beyond the shield during plasma operation is underestimated by homogenisation. For walls over a meter in thickness it can be by 20\%. The shut down dose to a worker on the tokamak side of an activated wall \textit{due to the wall} is overestimated by homogenisation, by a factor of up to 60.
+The ITER nuclear fusion experiment will begin DT operation in the 2030s. At 500MW fusion power the source rate of 14.1MeV neutrons will approximately $1.8\times10^{20}$ s\textsuperscript{-1}. For comparison, JET's maximum source rate to date is 30 times less. But the real difference is in the fluence. JET's lifetime neutron budget is $2\times10^{21}$ \cite{Lobel08}, or 10 seconds of operation for ITER-DT. The ITER life-time budget is approximately $3\times10^{27}$ neutrons.
 
-In nuclear engineering, quantifying the absorbed dose to radiation sensitive components, or the equivalent dose to personnel usually requires crafting a computer model of the problem, making a series of assumptions and simplifications in the process. For reinforced concrete radiation shields, this often entails either homogenising the reinforcing bar (abrev. rebar) with the concrete, or even neglecting the presence of rebar entirely. However, steel has a high density $\sim7.8g\cdot cm^{-3}$ and a markedly different elemental composition to low density $\sim2.2g\cdot cm^{-3}$ concrete. Steel is an alloy of many different elements but principally high-Z Fe. Whereas concrete largely consists of low-Z elements, O, Si \& H (in descending atomic density order).\par
-The process of homogenisation introduces systematic error into the reported solution of any radiation transport problem by moving steel and adjusting the density.
+Designing a complex device such as a superconducting tokamak to operate in this radiation environment is a particularly challenging aspect of the ITER project. Care must be taken both to shield sensitive components like semiconductor devices from Single Event Effects (SEE) and to prevent excessive nuclear heating in large systems like the superconducting coils. The high flux and fluence of high energy neutrons means activation in areas like the Neutral Beam (NB) cells and in the Tokamak Cooling Water System (TCWS) will be significant. And of course, gamma from these activated components, and the prompt radiation of a thermonuclear plasma must be shielded against to protect the workforce operating and maintaining the plant.
 
-The discrepancy in results between heterogeneous and homogeneous modelling approaches is investigated in this work. Querying the strength of correlation of the discrepancy with a given parameter requires producing radiation transport geometry in pairs, as shown in figure \ref{fig:wall_diagram}. 
+Quantifying the absorbed dose to radiation sensitive components, or the equivalent dose to personnel requires crafting a computer model of the problem and typically making a series of assumptions and simplifications in the process. For reinforced concrete radiation shields, this often entails either homogenising the rebar with the concrete, or even neglecting the presence of rebar entirely. This process introduces systematic error into the reported solution of the problem. However, uncertainty in an answer is not solely from geometrical simplification, but also from other input data. Cross-section, secondary particle and decay data can be flawed or missing and materials compositions can be incorrect. In the case of reinforced concrete, the water and therefore hydrogen content is uncertain. This is because not only can the water content change from batch to batch, but also over time (during the plant lifetime) for a given batch.
 
 \subsection{Radiation shielding}
-% 
+% Lit review.
 
 \subsection{Spatial homogenisation}
+% Lit review.
 
-\subsection{ITER}
+\subsection{ITER bioshield}
+
+%METHOD
+\section{Method}
+The modelling simplification under investigation is that of spatial homogenisation and how it affects doses to workers, whether prompt or delayed. It is theorised that any errors incurred by this modelling approximation will be functions of geometry and material composition. For each set of variables interrogated, at least two simulations will be performed. One will have a high-fidelity model of the real-world problem geometry with reinforcing bar and stirrup rods faithfully reproduced. The other will smear the rebar across the concrete, homogenising the two materials into one with a density equal to the mass weighted sum of the concrete and steel constituents. 
+
+Simulations employing realistic ITER source particle distributions will tally transmitted or `leakage' fluence at the rear of the shielding walls in both cases. This permits comparison between the modelling approximation and the higher-fidelity simulation.
+
+\subsection{Model geometry}
+The heterogeneous, realistic wall is constructed of a large concrete block, with two meshes of rebar, one buried below each face. The distance from wall exterior to rebar is known as the cover depth. Connecting the two meshes are a small number of narrow gauge `stirrup' bars. The homogeneous model is the same external dimensions and total mass as the heterogeneous one, but without an internal steel structure and with homogenised materials.
+
+A Python program has been written to take wall depth, cover depth and rebar diameter as input variables to construct a corresponding MCNP model. This model utilises lattices to construct the repeated features of the reinforced concrete wall. The concrete block dimensions are $(x, y, z) = (10, y, 10)$ where $y$ is the wall thickness. Embedded within the block are the major two meshes of steel reinforcement. These meshes are always constructed with 200mm spaced rebar extendeding in both the x and z directions \cite{Perez2014}. The meshes are buried a small cover depth from the two $y$-perpendicular surfaces of the wall. Tying the two meshes together are some thinner `stirrup' bars extending in the y direction, with $\approx 4m^{-2}$ of wall face \cite{Perez2014}. A particular level of reinforcement may be referred to as 16HB200, i.e. 16mm diameter rebar, at 200mm spacing.
+
+Material compositions, wall widths, rebar arrangements and steel fractions have been determined from ITER drawings and specifications for concrete walls in the tokamak building. The work have been conducted with a moderated ITER DT fusion neutron source spectrum. The results should give a good idea of the implications of the homogeneous modelling approximation at ITER but also more generally. 
 
 % column span figure
 \begin{figure}[H]
@@ -39,31 +61,104 @@ The discrepancy in results between heterogeneous and homogeneous modelling appro
 	\label{fig:wall_diagram}
 \end{figure}
 
-The heterogeneous wall is constructed of a large concrete block, with two meshes of rebar, one buried below each face. The distance from wall exterior to rebar is known as the cover depth. Connecting the two meshes are a small number ($4m^{-2}$) of narrow gauge stirrup bars.
-
-Material compositions, wall widths, rebar arrangements and steel fractions have been determined from ITER drawings and specifications for concrete walls in the tokamak building. The results should give a good idea of the implications of the homogeneous modelling approximation at ITER. The work was also conducted with a moderated ITER DT fusion neutron source spectrum. As such, this investigation should not only be instructive concerning ITER shielding, but also other DT fusion facilities.
-
-%METHOD
-\section{Method}
-
-The principal modelling simplification under investigation is that of spatial homogenisation. As such, for each set of independent and dependent variables, at least two simulations will be performed. One will have a high-fidelity model of the real-world problem geometry with rebar and stirrups faithfully reproduced. The other will smear the rebar across the concrete, homogenising the two materials into one with a density equal to the mass weighted sum of the concrete and steel constituents. \par
-The implications of homogenisation prove to be different for on-load and shut-down (activated) dose rates. It is helpful to consider them seperately.
+The implications of spatial homogenisation prove to be different for on-load and shut-down (activated) dose rates. It is helpful to consider them seperately. The following two sections detail the methods for determining these two dose rates.
 
 \subsection{Prompt neutron \& gamma radiation}
+Determining the dose to personnel beyond a wall requires knowledge of the radiation fluxes there. The on-load gamma flux $\phi_{\gamma}(x,y,z,E,t)$ and neutron flux, $\phi_{n}(x,y,z,E)$, can be computed with Monte Carlo techniques, spawning neutrons from a prerecorded source distribution, $P(x,y,z,E,\Omega)$ at a particular point with a given energy and angle. These particles may propagate through the wall, scattering, being absorbed, exciting nuclei (which later relax through radiative emission) and perhaps leaking out of the back of the shield wall. Tallying this leakage flux of neutrons and photons is the main task of calculating a dose due to radiation.
 
-Determining the dose to personnel beyond a wall requires knowledge of the radiation fluxes there. The on-load gamma flux $\phi_{\gamma}(x,y,z,E,t)$ and neutron flux, $\phi_{n}(x,y,z,E)$, can be computed with Monte Carlo techniques, spawning neutrons from a prerecorded source distribution, $P(x,y,z,E,\Omega)$ at a particular point with a given energy and angle. These particles may propagate through the wall, scattering, being absorbed, exciting nuclei (which later relax through radiative emission) and perhaps leaking out of the back of the shield wall. Tallying this leakage flux of neutrons and photons is the main task of calculating a dose due to radiation.\par
-Radiation transport was conducted with MCNP6v1.0. The nuclear data employed was the continuous energy Joint Evaluated Fission and Fusion file 3.2 (JEFF3.2) for neutron transport and MCPLIB84 for photon transport. Input decks for MCNP were produced with a bespoke Python program written by the author, this automated approach allowed for easy parametric study. \par
-The MCNP relative error, $R = \frac{\sigma_{s}}{\mu_{s}}$ which is the ratio of sample standard deviation to sample mean was kept to below 0.1 for all energy bins and mesh voxels.
+\subsubsection{Materials}
+Although much of the investigation will be by comparing values for homogeneous and heterogeneous responses, it is still important to supply the most accurate input information possible for the simulations. All the compositions that follow were mixed using the PyNE python package \cite{Pyne18} employing natural abundance for isotopic distributions.
+
+\paragraph{Concrete}
+The density of concrete used is 2.2g cm\textsuperscript{-3} \cite{Jakhar16}. The composition is shown in table~\ref{tab:concrete}. 
+
+\begin{table}[H]
+  \centering
+  \begin{tabu} to 0.5\textwidth {X X}
+    \toprule
+    Element   &   \% weight
+    \midrule
+    H  &	0.56
+    O	 &  49.75
+    Na &	1.71
+    Mg &	0.26
+    Al &	4.69
+    Si &	31.47
+    S  &	0.13
+    K  &	1.92
+    Ca &	8.28
+    Fe &	1.24
+    \bottomrule
+  \end{tabu}
+  \caption{Concrete composition \% weight from \cite{Jakhar16}. The H content may be overestimated in this mixture. Sampling suggests it may be as low as 0.2\%wt \cite{Aramburu16}. The consequences of such an deviation are substantial and were investigated in work not presented here.}
+  \label{tab:concrete}
+\end{table}
+
+\paragraph{Steel}
+The density of steel used for rebar is 7.85g cm\textsuperscript{-3} \cite{BSsteel05}. The steel minor constituents Cu, Mn, Cr, Mo, V and Ni are not specified in \cite{BSsteel05} however the CEV (Carbon Equivalent Value) is given, a figure for quantitatively comparing the 'weldability' of steels. The CEV formula was used to determine likely \% fractions of the aforementioned elements, giving a material composition as shown in table~\ref{tab:steel}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabu} to 0.5\textwidth {X X}
+    \toprule
+    Element   &   \% weight
+    \midrule
+    Fe	& 97.24
+    C   &	0.22
+    P   &	0.05
+    S   &	0.05
+    N   &	0.012
+    Mn  &	0.56
+    Cr  &	0.16
+    Mo  &	0.16
+    V   &	0.16
+    Ni  &	0.7
+    Cu  &	0.7
+    \bottomrule
+  \end{tabu}
+  \caption{Steel composition \% weight from \cite{BSsteel05}.}
+  \label{tab:steel}
+\end{table}
+
+\subsubsection{Radiation sources}
+The effect of spatial homogenisation is considered for both neutron and photon radiation, hence likely distributions are required for both particle types.
+
+No particle direction information was available, so it was assumed that all particles are born travelling perpendicular to the radiation shield. It was reasoned that this is a conservative assumption, liable to increase the discrepancy between heterogeneous and homogeneous approaches as the heterogeneous model has features (the stirrup bars) which are aligned with this initial particle direction.
+
+\paragraph{Neutron}
+The neutron source spectrum was obtained in previous work by \citeauthor{Jakhar16} and is shown below as \ref{fig:src_spectra}. The location tallied for this particle spectrum was behind a ITER neutral beam assembly, of neutrons incident upon the shield wall behind. In the ITER plant this area will receive an elevated flux over other areas of the bioshield due to the penetrations from neutral beam injectors into the plasma chamber.
+
+It was provided in the 175 VITAMIN-J group structure. Unfortunately this group structure provides very little information about the fine structure of the thermal neutron distribution below 0.1 eV. This is a deficiency in this study as the source spectrum is heavily thermalised. 
 
 % column span figure
 \begin{figure}[H]
   \figuretitle{Neutron source spectrum}
 	\includegraphics[width=\textwidth]{src_spectra}
-	\caption{Neutron spectra for incident radiation. This spectra was recorded in 175 energy groups from the back of the ITER Neutral Beam assembly, immediately inside the bioshield concrete wall.}
+	\caption{Neutron spectra for incident radiation. This spectra was tallied at back of the ITER Neutral Beam assembly.}
 	\label{fig:src_spectra}
 \end{figure}
 
-The source spectrum plotted as figure \ref{fig:src_spectra} has the recognisable DT peak, but has been significantly thermalised. The apparent absence of a Maxwellian shape around the facility temperature is because of the coarse energy binning used for this tally.
+\paragraph{Photon}
+The Tokamak Cooling Water System (TCWS) will move large quantities of water through an intense neutron flux during ITER's operation. This water leaves the tokamak through a network of penetrations and pipes in the surrounding facility. The water is activated mainly by the following reactions: \textsuperscript{16}O(n,p)\textsuperscript{16}N and \textsuperscript{17}O(n,p)\textsuperscript{17}N. These nitrogen isotopes rapidly decay as shown in table~\ref{tab:nitrogen_decay}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabu} to 0.5\textwidth {X[2] X X X[2]}
+    \toprule
+    Activation product  & t$_{\frac{1}{2}}$(s)  & Decay mode  & Energy (MeV) [branching ratio \%]
+    \midrule
+    \textsuperscript{16}N & 7.13  & $\gamma$              & 6.129 [67], 7.115 [5] 
+    \textsuperscript{17}N & 4.14  & $\beta \rightarrow n$ & 0.383 [35], 1.171 [53]
+    \bottomrule
+  \end{tabu}
+  \caption{The type, energy and likelihood of decay from activated N isotopes in the ITER water cooling system.}
+  \label{tab:nitrogen_decay}
+\end{table}
+
+The gamma decay of \textsuperscript{16}N is utilised as a source for several of the simulations presented in section~\ref{subsec:prompt}.
+
+\subsubsection{Computation}
+The nuclear data employed was the continuous energy Joint Evaluated Fission and Fusion file 3.2 (JEFF3.2) for neutron transport and MCPLIB84 for photon transport. Radiation transport was conducted with MCNP6v1.0. The MCNP relative error, $R = \frac{\sigma_{s}}{\mu_{s}}$ which is the ratio of sample standard deviation to sample mean was kept to below 0.1 for all energy bins and mesh voxels.
 
 % column span figure
 \begin{figure}[H]
@@ -79,8 +174,7 @@ The effective dose to humans is a function of the energy and type of radiation. 
 %\lambda_{D(e)}=\sqrt{ \frac{ \varepsilon_0 k_B T_{(e)}}{e^2 n_\infty}}
 %\end{equation}
 
-\subsection{Delayed gamma radiation}
-
+\subsection{Shut Down Dose Rate (SDDR)}
 The calculation of $\phi_{\gamma}(x,y,z,E,t)$ where $t$ is some time after cessation of plasma operation comprises three main steps:
 \begin{enumerate}
   \item 1) Neutron transport---as previously, compute the neutron flux during plasma operation, $\phi_{n}(x,y,z,E)$, recording the neutron flux binned by energy over a spatial mesh. 
@@ -88,8 +182,39 @@ The calculation of $\phi_{\gamma}(x,y,z,E,t)$ where $t$ is some time after cessa
   \item 3) Photon transport---using the distributed decay gamma source produced by step 2), conduct a radiation transport run to determine the photon flux, $\phi_{\gamma}(x,y,z,E,t)$, converting to effective dose as required.
 \end{enumerate}
 
-As for before, radiation transport was conducted with MCNP6 v1.0. Activation was conducted with the FISPACT-II code and EAF2010 nuclear data. \par
-The irradiation scenario employed for the activation step was ITER's SA-2, which gives a good representation of the ITER experimental programme total fluence and of the final, end-of-life pulses.
+\subsubsection{Materials}
+For analysis of the SDDR, where small impurities can have large contributions to the dose rate, the steel composition was refined \cite{Barabash16}. ITER limits for Co and Ni were imposed, 0.01\%wt and 0.05\%wt respectively. The resulting composition for steel is shown as table~\ref{tab:sddr_steel}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabu} to 0.5\textwidth {X X}
+    \toprule
+    Element   &   \% weight
+    \midrule
+    Fe  &	97.613
+    C   &	0.22
+    P   &	0.05
+    S   &	0.05
+    N   &	0.012
+    Mn  &	1.08
+    Cr  &	0.1
+    Mo  &	0.01
+    V   &	0.005
+    Ni  &	0.05
+    Cu  &	0.8
+    Co  &	0.01
+    \bottomrule
+  \end{tabu}
+  \caption{}
+  \label{tab:sddr_steel}
+\end{table}
+
+\subsubsection{Computation}
+As for before, radiation transport was conducted with MCNP6 v1.0. Neutron spectra were tallied on a mesh in the shield models. These spectra were used as input to the MCR2S activation linker code \cite{Eade2015}. This program uses these spectra and a corresponding irradiation scenario to compute material changes within the meshed model. These new materials and decay information can be used to generate a photon source from the activated nuclides. The final steps in the calculation are to perform photon transport calculations from the activated wall to a target. The generation of photon sources and transport of emitted $\gamma$-rays must be computed for each decay time step of interest.
+
+In this study the 
+
+was conducted with the FISPACT-II code and EAF2010 nuclear data. The irradiation scenario employed for the activation step was ITER's SA-2, which gives a good representation of the ITER experimental programme total fluence and of the final, end-of-life pulses.
 
 %\end{multicols}
 
