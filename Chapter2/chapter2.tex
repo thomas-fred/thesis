@@ -49,16 +49,25 @@ Simulations employing realistic ITER source particle distributions will tally tr
 \subsection{Model geometry}
 The heterogeneous, realistic wall is constructed of a large concrete block, with two meshes of rebar, one buried below each face. The distance from wall exterior to rebar is known as the cover depth. Connecting the two meshes are a small number of narrow gauge `stirrup' bars. The homogeneous model is the same external dimensions and total mass as the heterogeneous one, but without an internal steel structure and with homogenised materials.
 
-A Python program has been written to take wall depth, cover depth and rebar diameter as input variables to construct a corresponding MCNP model. This model utilises lattices to construct the repeated features of the reinforced concrete wall. The concrete block dimensions are $(x, y, z) = (10, y, 10)$ where $y$ is the wall thickness. Embedded within the block are the major two meshes of steel reinforcement. These meshes are always constructed with 200mm spaced rebar extendeding in both the x and z directions \cite{Perez2014}. The meshes are buried a small cover depth from the two $y$-perpendicular surfaces of the wall. Tying the two meshes together are some thinner `stirrup' bars extending in the y direction, with $\approx 4m^{-2}$ of wall face \cite{Perez2014}. A particular level of reinforcement may be referred to as 16HB200, i.e. 16mm diameter rebar, at 200mm spacing.
+A Python program has been written to take wall thickness, cover depth and other parameters as input variables to construct a corresponding MCNP model. This model utilises lattices to construct the repeated features of the reinforced concrete wall. The concrete block dimensions are $(x, y, z) = (10, y, 10)$ where $y$ is the wall thickness. Embedded within the block are the major two meshes of steel reinforcement. These meshes are always constructed with 200mm spaced rebar extendeding in both the x and z directions \cite{Perez2014}. The meshes are buried a small cover depth from the two $y$-perpendicular surfaces of the wall. Tying the two meshes together are some thinner `stirrup' bars extending in the y direction, with $\approx 4m^{-2}$ of wall face \cite{Perez2014}. A particular level of reinforcement may be referred to as 16HB200, i.e. 16mm diameter rebar, at 200mm spacing.
 
-Material compositions, wall widths, rebar arrangements and steel fractions have been determined from ITER drawings and specifications for concrete walls in the tokamak building. The work have been conducted with a moderated ITER DT fusion neutron source spectrum. The results should give a good idea of the implications of the homogeneous modelling approximation at ITER but also more generally. 
+Simulations were run for the following wall thicknesses: 30, 50, 80, 120 \& 210 cm. For each case, the fraction of total wall mass as steel was kept constant at 4.45\%. This was achieved by increasing the rebar diameter, noting the relationship shown in equation~\ref{eq:rebar}. 
+
+\begin{equation}
+  \label{eq:rebar}
+  \frac{d^{2}_{r}}{t_{w}} \propto f_{s}
+\end{equation}
+
+That is, the rebar diameter, $d_{r}$ squared divided by the wall thickness, $t_{w}$ is proportional to the steel fraction, $f_{s}$. The value of 4.45\% was chosen as this is a typical value computed from the description of reinforcement and dimensions in \cite{Perez2014}. 
+
+Material compositions, wall widths, rebar arrangements and steel fractions have been determined from ITER drawings and specifications for concrete walls in the tokamak building. The work has been conducted with a moderated ITER DT fusion neutron source spectrum. The results should give a good idea of the implications of the homogeneous modelling approximation at ITER but also more generally given the standard civil engineering design of the reinforced concrete walls.
 
 % column span figure
 \begin{figure}[H]
   \figuretitle{Homogenising reinforced concrete}
-	\includegraphics[width=\textwidth]{wall_diagram}
-	\caption{The two modelling approaches considered in this investigation. a) Heterogeneous, where the steel reinforcing bar and stirrups are explicitly modelled. b) Homogeneous, where the mass of rebar is 'smeared' through the concrete. The new homogenised material has a greater density than plain concrete, conserving mass.}
-	\label{fig:wall_diagram}
+  \includegraphics[width=\textwidth]{wall_diagram}
+  \caption{The two modelling approaches considered in this investigation. a) Heterogeneous, where the steel reinforcing bar and stirrups are explicitly modelled. b) Homogeneous, where the mass of rebar is 'smeared' through the concrete. The new homogenised material has a greater density than plain concrete, conserving mass.}
+  \label{fig:wall_diagram}
 \end{figure}
 
 The implications of spatial homogenisation prove to be different for on-load and shut-down (activated) dose rates. It is helpful to consider them seperately. The following two sections detail the methods for determining these two dose rates.
@@ -74,20 +83,20 @@ The density of concrete used is 2.2g cm\textsuperscript{-3} \cite{Jakhar16}. The
 
 \begin{table}[H]
   \centering
-  \begin{tabu} to 0.5\textwidth {X X}
+  \begin{tabu} to 0.3\textwidth {X X}
     \toprule
-    Element   &   \% weight
+    Element   &   \% weight \\
     \midrule
-    H  &	0.56
-    O	 &  49.75
-    Na &	1.71
-    Mg &	0.26
-    Al &	4.69
-    Si &	31.47
-    S  &	0.13
-    K  &	1.92
-    Ca &	8.28
-    Fe &	1.24
+    H & 0.56 \\
+    O & 49.75 \\
+    Na & 1.71 \\
+    Mg & 0.26 \\
+    Al & 4.69 \\
+    Si & 31.47 \\
+    S & 0.13 \\
+    K & 1.92 \\
+    Ca & 8.28 \\
+    Fe & 1.24 \\
     \bottomrule
   \end{tabu}
   \caption{Concrete composition \% weight from \cite{Jakhar16}. The H content may be overestimated in this mixture. Sampling suggests it may be as low as 0.2\%wt \cite{Aramburu16}. The consequences of such an deviation are substantial and were investigated in work not presented here.}
@@ -95,25 +104,25 @@ The density of concrete used is 2.2g cm\textsuperscript{-3} \cite{Jakhar16}. The
 \end{table}
 
 \paragraph{Steel}
-The density of steel used for rebar is 7.85g cm\textsuperscript{-3} \cite{BSsteel05}. The steel minor constituents Cu, Mn, Cr, Mo, V and Ni are not specified in \cite{BSsteel05} however the CEV (Carbon Equivalent Value) is given, a figure for quantitatively comparing the 'weldability' of steels. The CEV formula was used to determine likely \% fractions of the aforementioned elements, giving a material composition as shown in table~\ref{tab:steel}.
+The density of steel used for rebar is 7.85g cm\textsuperscript{-3} \cite{BSsteel05}. The steel minor constituents Cu, Mn, Cr, Mo, V and Ni are not specified in \cite{BSsteel05} however the CEV (Carbon Equivalent Value) is given, a figure for quantitatively comparing the `weldability' of steels. The CEV formula was used to determine likely \% fractions of the aforementioned elements, giving a material composition as shown in table~\ref{tab:steel}.
 
 \begin{table}[H]
   \centering
-  \begin{tabu} to 0.5\textwidth {X X}
+  \begin{tabu} to 0.3\textwidth {X X}
     \toprule
-    Element   &   \% weight
+    Element & \% weight \\
     \midrule
-    Fe	& 97.24
-    C   &	0.22
-    P   &	0.05
-    S   &	0.05
-    N   &	0.012
-    Mn  &	0.56
-    Cr  &	0.16
-    Mo  &	0.16
-    V   &	0.16
-    Ni  &	0.7
-    Cu  &	0.7
+    Fe & 97.24 \\
+    C & 0.22 \\
+    P & 0.05 \\
+    S & 0.05 \\
+    N & 0.012 \\
+    Mn & 0.56 \\
+    Cr & 0.16 \\
+    Mo & 0.16 \\
+    V & 0.16 \\
+    Ni & 0.7 \\
+    Cu & 0.7 \\
     \bottomrule
   \end{tabu}
   \caption{Steel composition \% weight from \cite{BSsteel05}.}
@@ -125,17 +134,25 @@ The effect of spatial homogenisation is considered for both neutron and photon r
 
 No particle direction information was available, so it was assumed that all particles are born travelling perpendicular to the radiation shield. It was reasoned that this is a conservative assumption, liable to increase the discrepancy between heterogeneous and homogeneous approaches as the heterogeneous model has features (the stirrup bars) which are aligned with this initial particle direction.
 
-\paragraph{Neutron}
-The neutron source spectrum was obtained in previous work by \citeauthor{Jakhar16} and is shown below as \ref{fig:src_spectra}. The location tallied for this particle spectrum was behind a ITER neutral beam assembly, of neutrons incident upon the shield wall behind. In the ITER plant this area will receive an elevated flux over other areas of the bioshield due to the penetrations from neutral beam injectors into the plasma chamber.
+% column span figure
+\begin{figure}[H]
+  \figuretitle{ICRP74 flux to dose factors}
+  \includegraphics[width=\textwidth]{icrp74}
+  \caption{The flux to dose conversion factors for neutron and photon exposure.}
+  \label{fig:icrp74}
+\end{figure}
 
-It was provided in the 175 VITAMIN-J group structure. Unfortunately this group structure provides very little information about the fine structure of the thermal neutron distribution below 0.1 eV. This is a deficiency in this study as the source spectrum is heavily thermalised. 
+The effective dose to humans is a function of the energy and type of radiation. It takes into account the varying susceptibilities of different tissues in the human body. For radiation protection, this is the typical figure quoted when specifying a dose rate. Where required, translation from fluence or flux to dosea or dose-rate respectively is by functions as shown in figure \ref{fig:icrp74}.
+
+\paragraph{Neutron}
+The neutron source spectrum was obtained in previous work by \citeauthor{Jakhar16} and is shown below as \ref{fig:src_spectra}. The location tallied for this particle spectrum was behind a ITER neutral beam assembly, of neutrons incident upon the shield wall behind. In the ITER plant this area will receive an elevated flux over other areas of the bioshield due to the penetrations from neutral beam injectors into the plasma chamber. The neutron spectrum was provided in the 175 VITAMIN-J group structure. Unfortunately this group structure provides very little information about the fine structure of the thermal neutron distribution below 0.1 eV. This is a deficiency in this study as the source spectrum is heavily thermalised. For the radiation transport simulations, no neutron source rates or wall loadings were specified. Instead, results were reported per source neutron. Many of the results later presented are ratios of the same quantity and hence unitless. 
 
 % column span figure
 \begin{figure}[H]
   \figuretitle{Neutron source spectrum}
-	\includegraphics[width=\textwidth]{src_spectra}
-	\caption{Neutron spectra for incident radiation. This spectra was tallied at back of the ITER Neutral Beam assembly.}
-	\label{fig:src_spectra}
+  \includegraphics[width=\textwidth]{src_spectra}
+  \caption{Neutron spectra for incident radiation. This spectra was tallied at back of the ITER Neutral Beam assembly.}
+  \label{fig:src_spectra}
 \end{figure}
 
 \paragraph{Photon}
@@ -143,12 +160,12 @@ The Tokamak Cooling Water System (TCWS) will move large quantities of water thro
 
 \begin{table}[H]
   \centering
-  \begin{tabu} to 0.5\textwidth {X[2] X X X[2]}
+  \begin{tabu} to \textwidth {X[3] X X X[5]}
     \toprule
-    Activation product  & t$_{\frac{1}{2}}$(s)  & Decay mode  & Energy (MeV) [branching ratio \%]
+    Activation product  & t$_{\frac{1}{2}}$(s)  & Decay mode  & Energy (MeV) [branching ratio \%] \\
     \midrule
-    \textsuperscript{16}N & 7.13  & $\gamma$              & 6.129 [67], 7.115 [5] 
-    \textsuperscript{17}N & 4.14  & $\beta \rightarrow n$ & 0.383 [35], 1.171 [53]
+    \textsuperscript{16}N & 7.13 & $\gamma$              & 6.129 [67], 7.115 [5] \\
+    \textsuperscript{17}N & 4.14 & $\beta \rightarrow n$ & 0.383 [35], 1.171 [53] \\
     \bottomrule
   \end{tabu}
   \caption{The type, energy and likelihood of decay from activated N isotopes in the ITER water cooling system.}
@@ -158,17 +175,20 @@ The Tokamak Cooling Water System (TCWS) will move large quantities of water thro
 The gamma decay of \textsuperscript{16}N is utilised as a source for several of the simulations presented in section~\ref{subsec:prompt}.
 
 \subsubsection{Computation}
-The nuclear data employed was the continuous energy Joint Evaluated Fission and Fusion file 3.2 (JEFF3.2) for neutron transport and MCPLIB84 for photon transport. Radiation transport was conducted with MCNP6v1.0. The MCNP relative error, $R = \frac{\sigma_{s}}{\mu_{s}}$ which is the ratio of sample standard deviation to sample mean was kept to below 0.1 for all energy bins and mesh voxels.
+\label{subsubsec:rad_tran_comp}
+The nuclear data employed was the continuous energy Joint Evaluated Fission and Fusion file 3.2 (JEFF3.2) for neutron transport and MCPLIB84 for photon transport. EAF2010 data was used at ITER Organisation's request for activation calculations. Radiation transport was conducted with MCNP6v1.0
 
-% column span figure
+The MCNP relative error, $R = \frac{\sigma_{s}}{\mu_{s}}$ which is the ratio of sample standard deviation to sample mean was kept to below 0.1 for all energy bins and mesh voxels where possible. However, the wall is a shield and heavily attenuating of source particles. For a 50cm thickness of concrete, the neutron attenuation is approximately 7 orders of magnitude. Therefore in order to converge the spectrum and solve the problem a significant number of histories must be run. 
+
+Converging results on a coarse energy grid or `group structure' requires fewer source particles for a given $R$, but having fewer energy bins means the spectrum will be correspondingly poorly resolved, with large steps in flux across the energy domain. Initial simulations using VITAMIN-J 175 group structure did a good job of resolving the spectrum from 1 eV up to the fusion peak at 14MeV, however they completely fail to represent the fine structure of the thermal spectrum. This is demonstrated in figure~\ref{fig:neutron_group_comparison}. The two lowest bins are $[10^{-5},10^{-1})$ eV and $[10^{-1},4.1\times10^{-1})$ eV. Despite the lack of thermal energy resolution, VITAMIN-J extends to very low energies. This means that neutrons scored at thermal energies contribute equally across four orders of magnitude in the lowest bin. When a spectrum such as this is sampled later, for an activation calculation, say, fictitious neutrons at $10^{-5}$ and $10^{-4}$ eV are produced and will skew results for problems where reactions in the 1/E region are significant, potentially drastically overestimating reaction rates. 
+
 \begin{figure}[H]
-  \figuretitle{ICRP74 flux to dose factors}
-	\includegraphics[width=\textwidth]{icrp74}
-	\caption{The flux to dose conversion factors for neutron and photon exposure.}
-	\label{fig:icrp74}
+  \includegraphics[width=\textwidth]{shield_flux_by_group.png}
+  \caption{This figure shows the same transmitted flux, as simulated by MCNP, binned in a variety of group structures. While the region down to approximately 1 eV is resolved broadly similarly, the VITAMIN-J 175 group structure has insufficient bins to resolve a Maxwellian distribution of thermal neutrons in the low-energy region.}
+  \label{fig:neutron_group_comparison}
 \end{figure}
 
-The effective dose to humans is a function of the energy and type of radiation. It takes into account the varying susceptibilities of different tissues in the human body. For radiation protection, this is the typical figure quoted when specifying a dose rate. Translation from fluence or flux is by a table similar to that plotted as figure \ref{fig:icrp74}.
+The ideal group structure should contain enough bins in the low energy region to approximate a thermal distribution. However, as previously stated, all bins should converge to have a relative error of less than 0.1 as proof of convergence. For this particular problem, convergence is most difficult for the high energy region, as these particles are relatively rare. Hence, many fine bins in the high energy region will necessitate significantly longer run times. For the work presented here, the 315 neutron group structure was selected as a compromise between speed and fidelity.
 
 %\begin{equation}
 %\lambda_{D(e)}=\sqrt{ \frac{ \varepsilon_0 k_B T_{(e)}}{e^2 n_\infty}}
@@ -177,8 +197,8 @@ The effective dose to humans is a function of the energy and type of radiation. 
 \subsection{Shut Down Dose Rate (SDDR)}
 The calculation of $\phi_{\gamma}(x,y,z,E,t)$ where $t$ is some time after cessation of plasma operation comprises three main steps:
 \begin{enumerate}
-  \item 1) Neutron transport---as previously, compute the neutron flux during plasma operation, $\phi_{n}(x,y,z,E)$, recording the neutron flux binned by energy over a spatial mesh. 
-  \item 2) Activation---determine the appropriate irradiation scenario, then activate and transmutate the materials present in the problem geometry. 
+  \item 1) Neutron transport---as previously, compute the neutron flux during plasma operation, $\phi_{n}(x,y,z,E)$, recording the neutron flux binned by energy over a spatial mesh. Finer meshes will converge on true behaviour, with coarse meshes over or under-estimating fluxes depending on local geometry and flux gradients \footnote{Using a mesh which conforms to the geometry, such as an unstructured mesh has been shown to give significant improvements, especially for small features \cite{Eade2015}.}.
+  \item 2) Activation---determine the appropriate irradiation scenario, then activate and transmutate the materials present in the problem geometry. This involves assembling a system of differential equations, Bateman equations, to track the inventory of all the nuclides present. One can numerically solving this system for a series of timesteps using codes such as FISPACT-II \cite{sublet2017a}. The resulting nuclides and their abundances can be paired with decay data to generate a decay photon source on the original mesh. 
   \item 3) Photon transport---using the distributed decay gamma source produced by step 2), conduct a radiation transport run to determine the photon flux, $\phi_{\gamma}(x,y,z,E,t)$, converting to effective dose as required.
 \end{enumerate}
 
@@ -187,42 +207,43 @@ For analysis of the SDDR, where small impurities can have large contributions to
 
 \begin{table}[H]
   \centering
-  \begin{tabu} to 0.5\textwidth {X X}
+  \begin{tabu} to 0.3\textwidth {X X}
     \toprule
-    Element   &   \% weight
+    Element & \% weight \\
     \midrule
-    Fe  &	97.613
-    C   &	0.22
-    P   &	0.05
-    S   &	0.05
-    N   &	0.012
-    Mn  &	1.08
-    Cr  &	0.1
-    Mo  &	0.01
-    V   &	0.005
-    Ni  &	0.05
-    Cu  &	0.8
-    Co  &	0.01
+    Fe & 97.613 \\
+    C  & 0.22 \\
+    P  & 0.05 \\
+    S  & 0.05 \\
+    N  & 0.012 \\
+    Mn & 1.08 \\
+    Cr & 0.1 \\
+    Mo & 0.01 \\ 
+    V  & 0.005 \\
+    Ni & 0.05 \\
+    Cu & 0.8 \\
+    Co & 0.01 \\
     \bottomrule
   \end{tabu}
-  \caption{}
+  \caption{Steel composition \% weight for SDDR calculations from \cite{Barabash16}. This composition includes minor constituents which are not important for radiation transport, but may play a significant role in any SDDR.}
   \label{tab:sddr_steel}
 \end{table}
 
 \subsubsection{Computation}
-As for before, radiation transport was conducted with MCNP6 v1.0. Neutron spectra were tallied on a mesh in the shield models. These spectra were used as input to the MCR2S activation linker code \cite{Eade2015}. This program uses these spectra and a corresponding irradiation scenario to compute material changes within the meshed model. These new materials and decay information can be used to generate a photon source from the activated nuclides. The final steps in the calculation are to perform photon transport calculations from the activated wall to a target. The generation of photon sources and transport of emitted $\gamma$-rays must be computed for each decay time step of interest.
+As for before, radiation transport was conducted with MCNP6 v1.0. Neutron spectra were tallied on a mesh in the shield models. These spectra were used as input to the MCR2S activation linker code \cite{Davis2010a}. This program uses these spectra and a corresponding irradiation scenario to compute material changes within the meshed model. These new materials and decay information can be used to generate a photon source from the activated nuclides. The final steps in the calculation are to perform photon transport calculations from the activated wall to a target. The generation of photon sources and transport of emitted $\gamma$-rays must be computed for each decay time step of interest.
 
-In this study the 
+The irradiation scenario employed for the activation step was ITER's SA-2 \cite{Loughlin09}, which approximates the ITER DT experimental programme total fluence and explicitly includes the final, end-of-life pulses for accurate estimation of short-lived nuclides.
 
-was conducted with the FISPACT-II code and EAF2010 nuclear data. The irradiation scenario employed for the activation step was ITER's SA-2, which gives a good representation of the ITER experimental programme total fluence and of the final, end-of-life pulses.
+As noted in section~\ref{subsubsec:rad_tran_comp}, the choice of energy group structure can be important for the accuracy of calculations. When a pre-sampled neutron flux is later sampled to calculate a SDDR dose, the 175 group structure introduced a 20\% increase in dose rate for steel at all time steps, and approximately the same increase for concrete until days after irradiation, when the discrepancy between 175 and 315 falls to zero.
 
-%\end{multicols}
+The dominant contributors to dose rate in steel all originate through (n,$\gamma$) and as such are not threshold reactions, instead observing 1/E behaviour at low energies. Whilst the dominant contributor to dose rate in concrete is initially \textsuperscript{24}Na formed though \textsuperscript{23}Na(n,$gamma$)\textsuperscript{24}Na, it decays with t$_{\frac{1}{2}}=15$h before the dominant nuclide becomes \textsuperscript{39}Ar, which is produced via \textsuperscript{39}K(n,p)\textsuperscript{39}Ar. The (n,p) reaction is threshold, i.e. not effected by the low energy inaccuracy introduced by binning in 175. Therefore after a few days, the SDDR discrepancy between groups reduces to zero.
+
+Further enquiry into the optimum energy group structures for activation calculations is presented as chapter~\ref{chap:group_structure}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % RESULTS AND DISCUSSION %
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results \& discussion}
-%\begin{multicols}{2}
 
 \subsection{Transmission of prompt radiation}
 \label{subsec:prompt}
@@ -232,9 +253,9 @@ The reduced thermal flux in the homogeneous case is in part because steel is now
 % column span figure
 \begin{figure}[H]
   \figuretitle{Transmitted neutron spectra}
-	\includegraphics[width=\textwidth]{transmitted_neutron_spectra}
-	\caption{The neutron spectra leaving the shield for the heterogeneous and homogeneously modelled cases. Note the substantially reduced thermal flux in the homogeneous simulation. This spectrum has been binned with a finer energy grid than the source, the TRIPOLI 315 group structure.}
-	\label{fig:trans_neutron_spec}
+  \includegraphics[width=\textwidth]{transmitted_neutron_spectra}
+  \caption{The neutron spectra leaving the shield for the heterogeneous and homogeneously modelled cases. Note the substantially reduced thermal flux in the homogeneous simulation. This spectrum has been binned with a finer energy grid than the source, the TRIPOLI 315 group structure.}
+  \label{fig:trans_neutron_spec}
 \end{figure}
 
 % column span figure
@@ -250,9 +271,9 @@ Plotting the ration of the leakage neutron spectra as figure \ref{fig:relative_n
 % column span figure
 \begin{figure}[H]
   \figuretitle{Relative neutron spectra}
-	\includegraphics[width=\textwidth]{relative_neutron_spectra}
-	\caption{The homogeneous flux increases are readily visible here.}
-	\label{fig:relative_neutron_spectra}
+  \includegraphics[width=\textwidth]{relative_neutron_spectra}
+  \caption{The homogeneous flux increases are readily visible here.}
+  \label{fig:relative_neutron_spectra}
 \end{figure}
 
 % % column span figure
@@ -268,9 +289,9 @@ Figure \ref{fig:dose_discrepancy} shows how the discrepancy due to the homogeneo
 % column span figure
 \begin{figure}[H]
   \figuretitle{Dose discrepancy due to homogeneity}
-	\includegraphics[width=\textwidth]{wall_thickness_dose_discrep}
-	\caption{The discrepancy between modelling approaches is a function of the wall thickness for thin walls.}
-	\label{fig:dose_discrepancy}
+  \includegraphics[width=\textwidth]{wall_thickness_dose_discrep}
+  \caption{The discrepancy between modelling approaches is a function of the wall thickness for thin walls.}
+  \label{fig:dose_discrepancy}
 \end{figure}
 
 \subsection{Shut Down Dose Rate}
@@ -282,9 +303,9 @@ Spatial homogenisation acts to overestimate the SDDR beyond 1 day (see figure \r
 % column span figure
 \begin{figure}[H]
   \figuretitle{Shut-down $\phi_{\gamma}$ 30cm from irradiated concrete}
-	\includegraphics[width=\textwidth]{sddr}
-	\caption{The total $\phi_{\gamma}$ as a function of cooling time. The homogeneous simulation gives a significantly increased value at time steps beyond $10^{5}s$ or approximately 1 day.}
-	\label{fig:sddr}
+  \includegraphics[width=\textwidth]{sddr}
+  \caption{The total $\phi_{\gamma}$ as a function of cooling time. The homogeneous simulation gives a significantly increased value at time steps beyond $10^{5}s$ or approximately 1 day.}
+  \label{fig:sddr}
 \end{figure}
 
 The mean free path of neutrons near the surface is $\sim2cm$ (see figure \ref{fig:mfp}) and as such a typical neutron will undergo several collisions before arriving at the rebar in a heterogeneous simulation. However, in a homogeneous simulation a small amount of steel is present right at the very surface of the concrete, as it is present throughout the simulation. This steel is exposed to an intense neutron flux and is activated accordingly.
@@ -292,9 +313,9 @@ The mean free path of neutrons near the surface is $\sim2cm$ (see figure \ref{fi
 % column span figure
 \begin{figure}[H]
   \figuretitle{Neutron path length in concrete}
-	\includegraphics[width=\textwidth]{mfp}
-	\caption{The path lengths of neutrons in pure concrete are shown as a histogram. There is a wide distribution with a mean of approximately 2cm.}
-	\label{fig:mfp}
+  \includegraphics[width=\textwidth]{mfp}
+  \caption{The path lengths of neutrons in pure concrete are shown as a histogram. There is a wide distribution with a mean of approximately 2cm.}
+  \label{fig:mfp}
 \end{figure}
 
 The plot shown as figure \ref{fig:contact_dose} is produced with data from the activation solver FISPACT-II. Shown are estimates for a contact dose with concrete and steel. As the steel is buried within concrete, the numbers plotted here are not a substitute for transporting decay $\gamma$ photons from their birth to their death. However, they do give a good feel for which nuclides are responsible for the activity of a material at a given time. It is clear that after $^{28}$Al and $^{24}$Na decay in concrete, it has become substantially less active. It is around this time that steel becomes the dominant contributor to dose and the homogeneous modelling approach diverges from heterogeneous.
@@ -303,8 +324,8 @@ The plot shown as figure \ref{fig:contact_dose} is produced with data from the a
 \begin{figure}[H]
   \figuretitle{Contact dose rate by material}
   \includegraphics[width=\textwidth]{contact_dose_by_mat}
-	\caption{This plot shows an estimate for the specific contact dose rate due to steel and concrete irradiated under the ITER SA-2 scenario. Nuclides which contribute a significant fraction of the dose are shown with their abscissa value as their half-life, $t_{\frac{1}{2}}$.}
-	\label{fig:contact_dose}
+  \caption{This plot shows an estimate for the specific contact dose rate due to steel and concrete irradiated under the ITER SA-2 scenario. Nuclides which contribute a significant fraction of the dose are shown with their abscissa value as their half-life, $t_{\frac{1}{2}}$.}
+  \label{fig:contact_dose}
 \end{figure}
 
 % % page span figure
