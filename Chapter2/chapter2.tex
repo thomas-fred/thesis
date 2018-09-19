@@ -22,25 +22,34 @@
 %     Interpolated (time, E, ratio) heatmap
 
 \section{Outline}
-This chapter looks at %%%
+This chapter looks to determine the impact of a nuclear analysis modelling approximation known as spatial homogensation--where complex geometries of differing materials are combined to form a homogeneous volume with a new material mixture. Undertaking a study for and of relevance to ITER, the effect of spatial homogenisation on the attenuation properties of reinforced concrete walls is investigated, before studying how the SDDR to workers is affected 
+
+%%%% FINISH OUTLINE THEN CHAPTER DRAFTED 
 
 %INTRODUCTION
 \section{Introduction}
-The ITER nuclear fusion experiment will begin DT operation in the 2030s. At 500MW fusion power the source rate of 14.1MeV neutrons will approximately $1.8\times10^{20}$ s\textsuperscript{-1}. For comparison, JET's maximum source rate to date is 30 times less. But the real difference is in the fluence. JET's lifetime neutron budget is $2\times10^{21}$ \cite{Lobel08}, or 10 seconds of operation for ITER-DT. The ITER life-time budget is approximately $3\times10^{27}$ neutrons.
+The ITER nuclear fusion experiment will begin DT operation in the 2030s. At 500MW fusion power the source rate of 14.1MeV neutrons will approximately $1.8\times10^{20}$ s\textsuperscript{-1}. For comparison, JET's maximum source rate to date is 30 times less. But the real difference is in the fluence. JET's lifetime neutron budget is now set at $2\times10^{21}$ \cite{Lobel2008}, or 10 seconds of operation for ITER-DT. The ITER life-time budget is approximately $3\times10^{27}$ neutrons.
 
 Designing a complex device such as a superconducting tokamak to operate in this radiation environment is a particularly challenging aspect of the ITER project. Care must be taken both to shield sensitive components like semiconductor devices from Single Event Effects (SEE) and to prevent excessive nuclear heating in large systems like the superconducting coils. The high flux and fluence of high energy neutrons means activation in areas like the Neutral Beam (NB) cells and in the Tokamak Cooling Water System (TCWS) will be significant. And of course, gamma from these activated components, and the prompt radiation of a thermonuclear plasma must be shielded against to protect the workforce operating and maintaining the plant.
 
-Quantifying the absorbed dose to radiation sensitive components, or the equivalent dose to personnel requires crafting a computer model of the problem and typically making a series of assumptions and simplifications in the process. For reinforced concrete radiation shields, this often entails either homogenising the rebar with the concrete, or even neglecting the presence of rebar entirely. This process introduces systematic error into the reported solution of the problem. However, uncertainty in an answer is not solely from geometrical simplification, but also from other input data. Cross-section, secondary particle and decay data can be flawed or missing and materials compositions can be incorrect. In the case of reinforced concrete, the water and therefore hydrogen content is uncertain. This is because not only can the water content change from batch to batch, but also over time (during the plant lifetime) for a given batch.
+Quantifying the absorbed dose to radiation sensitive components, or the equivalent dose to personnel requires crafting a computer model of the problem and typically making a series of assumptions and simplifications in the process. For reinforced concrete radiation shields, this often entails either homogenising the rebar with the concrete, or even neglecting the presence of rebar entirely. This process introduces systematic error into the reported solution of the problem. So, in addition to uncertainties from cross-section, secondary particle and decay data as explored in chapter~\ref{chap:tmc}, modelling approximations play a role in thickening the fog of misunderstanding. 
 
 \subsection{Radiation shielding}
-% Lit review.
+A fusion reactor harbours many different radiation fields. A variety of particles, across the energy spectrum, are present at one time or another. In order to preserve biological life and to extend the operable life of components, radiation shielding is employed to attenuate radiation fields, reducing their intensity by many orders of magnitude.
 
-\subsection{Spatial homogenisation}
-% Lit review.
+\subsubsection{Radiation fields}
+The radiation fields of principal interest for shielding in fusion systems are the neutron and photon fields both during and after operation of the device.
 
-\subsection{ITER bioshield}
+\begin{itemize}
+  \item Prompt neutron--During a plasma shot, fusion neutrons will be emitted from the plasma at around 14.1 and 2.5 MeV for DT and DD reactions respectively. These neutrons propagate out of the plasma unheeded due to the very low plasma density. The uncharged particles travel in straight lines until they encounter a nucleus in the surrounding material. For a fusion reactor this will be the first wall, divertor or initial layers of the blanket. The neutrons then scatter elastic and inelastically off nuclei, losing energy in the process by transferring it to the bombarded nuclei. Eventually the neutrons reduce in energy to the $1/v$ region of nuclear interaction, where lower energies (velocities, $v$) are favoured as the time for neutron-nuclei interaction is increased. At these low energies, reactions like radiative capture become very likely and neutron fluxes decrease through absorption.
+  \item Prompt photon--While a fusion reactor is running, a large amount of Bremsstrahlung radiation will be emitted from the plasma at energies in the keV range and $\gamma$ photons at MeV energies can be emitted by certain hydrogenous nuclear reactions. However, other radiation will be generated by the interaction of neutrons with surrounding matter. As the neutrons slow down their inelastic collisions excite nuclei which return to a ground state by emission of an energetic photon. This process generates an intense photon field.
+  \item Shut-down photon--After cessation of plasma operations, there will still be intense radiation fields within and around a tokamak. The fusion neutrons will have activated and transmuted nuclei through reactions such as radiative capture. Many of the reconfigured nuclei will not be stable and so will decay through various emission mechanisms to a stable ground state. This often involves a chain of $\gamma$ and other emissions.
+  \item Shut-down neutron--Despite the lack of fusion neutrons after the reactor has turned off, a neutron field still persists. Reactions such as photofission of actinide contaminants, $^{2}$H($\gamma$,n)$^{1}$H in cooling water \cite{Kodeli1995} and $^{9}$Be($\gamma$,n$\alpha$)$^{4}$He in the first-wall \cite{Davis2010} will generate neutrons.
+\end{itemize}
 
-%METHOD
+\subsubsection{Shielding design}
+Shielding for a fusion system will have to attenuate the above fields to an acceptable level for the safety of humans and the wider environment, as well as any equipment which is sensitive to radiation. The basic principal for shielding photons is to use Compton scattering (see chapter~\ref{chap:introduction}, section~\ref{subsubsec:compton}) off electrons to reduce the photon energy until they are absorbed. Therefore the higher the electron density, the greater the $\gamma$ shielding properties of a material. For this reason, high-Z materials such as heavy metals like steel, lead and tungsten are frequently used. Shielding for neutrons is similar in approach, moderating and then absorbing, although different materials are suitable. For moderation low-mass nuclides are best, to maximise the energy transfer with each collision (see equation~\ref{eq:alpha} in section~\ref{subsubsec:elastic}, chapter~\ref{chap:introduction}). The best nuclide is $^{1}$H, so any hydrogenous substance such as water provides an effective neutron moderator. Once moderated, absorption is best achieved by nuclides with a large radiative capture cross-section. There are many considerations in designing a long-lived, effective radiation shield, especially for high-flux operation. Any shield design will have to balance parameters such as cost, weight, volume, radiation damage, self-activation and nuclear heating. A much more complete discussion of radiation shielding design can be found in \cite{Price1959}.
+
 \section{Method}
 The modelling simplification under investigation is that of spatial homogenisation and how it affects doses to workers, whether prompt or delayed. It is theorised that any errors incurred by this modelling approximation will be functions of geometry and material composition. For each set of variables interrogated, at least two simulations will be performed. One will have a high-fidelity model of the real-world problem geometry with reinforcing bar and stirrup rods faithfully reproduced. The other will smear the rebar across the concrete, homogenising the two materials into one with a density equal to the mass weighted sum of the concrete and steel constituents. 
 
@@ -79,55 +88,10 @@ Material compositions, wall widths, rebar arrangements and steel fractions have 
 Although much of the investigation will be by comparing values for homogeneous and heterogeneous responses, it is still important to supply the most accurate input information possible for the simulations. All the compositions that follow were mixed using the PyNE python package \cite{Pyne18} employing natural abundance for isotopic distributions.
 
 \paragraph{Concrete}
-The density of concrete used is 2.2g cm\textsuperscript{-3} \cite{Jakhar16}. The composition is shown in table~\ref{tab:concrete}. 
-
-\begin{table}[H]
-  \centering
-  \begin{tabu} to 0.3\textwidth {X X}
-    \toprule
-    Element   &   \% weight \\
-    \midrule
-    H & 0.56 \\
-    O & 49.75 \\
-    Na & 1.71 \\
-    Mg & 0.26 \\
-    Al & 4.69 \\
-    Si & 31.47 \\
-    S & 0.13 \\
-    K & 1.92 \\
-    Ca & 8.28 \\
-    Fe & 1.24 \\
-    \bottomrule
-  \end{tabu}
-  \caption{Concrete composition \% weight from \cite{Jakhar16}. The H content may be overestimated in this mixture. Sampling suggests it may be as low as 0.2\%wt \cite{Aramburu16}. The consequences of such an deviation are substantial and were investigated in work not presented here.}
-  \label{tab:concrete}
-\end{table}
+The density of concrete used is 2.2g cm\textsuperscript{-3} \cite{Jakhar16}. The composition is shown in table~\ref{tab:concrete} in appendix~\ref{app:materials}. 
 
 \paragraph{Steel}
-The density of steel used for rebar is 7.85g cm\textsuperscript{-3} \cite{BSsteel05}. The steel minor constituents Cu, Mn, Cr, Mo, V and Ni are not specified in \cite{BSsteel05} however the CEV (Carbon Equivalent Value) is given, a figure for quantitatively comparing the `weldability' of steels. The CEV formula was used to determine likely \% fractions of the aforementioned elements, giving a material composition as shown in table~\ref{tab:steel}.
-
-\begin{table}[H]
-  \centering
-  \begin{tabu} to 0.3\textwidth {X X}
-    \toprule
-    Element & \% weight \\
-    \midrule
-    Fe & 97.24 \\
-    C & 0.22 \\
-    P & 0.05 \\
-    S & 0.05 \\
-    N & 0.012 \\
-    Mn & 0.56 \\
-    Cr & 0.16 \\
-    Mo & 0.16 \\
-    V & 0.16 \\
-    Ni & 0.7 \\
-    Cu & 0.7 \\
-    \bottomrule
-  \end{tabu}
-  \caption{Steel composition \% weight from \cite{BSsteel05}.}
-  \label{tab:steel}
-\end{table}
+The density of steel used for rebar is 7.85g cm\textsuperscript{-3} \cite{BSsteel05}. The steel minor constituents Cu, Mn, Cr, Mo, V and Ni are not specified in \cite{BSsteel05} however the CEV (Carbon Equivalent Value) is given, a figure for quantitatively comparing the `weldability' of steels. The CEV formula was used to determine likely \% fractions of the aforementioned elements, giving a material composition as shown in table~\ref{tab:steel} in appendix~\ref{app:materials}.
 
 \subsubsection{Radiation sources}
 The effect of spatial homogenisation is considered for both neutron and photon radiation, hence likely distributions are required for both particle types.
@@ -197,40 +161,16 @@ The ideal group structure should contain enough bins in the low energy region to
 \subsection{Shut Down Dose Rate (SDDR)}
 The calculation of $\phi_{\gamma}(x,y,z,E,t)$ where $t$ is some time after cessation of plasma operation comprises three main steps:
 \begin{enumerate}
-  \item 1) Neutron transport---as previously, compute the neutron flux during plasma operation, $\phi_{n}(x,y,z,E)$, recording the neutron flux binned by energy over a spatial mesh. Finer meshes will converge on true behaviour, with coarse meshes over or under-estimating fluxes depending on local geometry and flux gradients \footnote{Using a mesh which conforms to the geometry, such as an unstructured mesh has been shown to give significant improvements, especially for small features \cite{Eade2015}.}.
-  \item 2) Activation---determine the appropriate irradiation scenario, then activate and transmutate the materials present in the problem geometry. This involves assembling a system of differential equations, Bateman equations, to track the inventory of all the nuclides present. One can numerically solving this system for a series of timesteps using codes such as FISPACT-II \cite{sublet2017a}. The resulting nuclides and their abundances can be paired with decay data to generate a decay photon source on the original mesh. 
-  \item 3) Photon transport---using the distributed decay gamma source produced by step 2), conduct a radiation transport run to determine the photon flux, $\phi_{\gamma}(x,y,z,E,t)$, converting to effective dose as required.
+  \item Neutron transport---as previously, compute the neutron flux during plasma operation, $\phi_{n}(x,y,z,E)$, recording the neutron flux binned by energy over a spatial mesh. Finer meshes will converge on true behaviour, with coarse meshes over or under-estimating fluxes depending on local geometry and flux gradients \footnote{Using a mesh which conforms to the geometry, such as an unstructured mesh, has been shown to give significant improvements, especially for small features \cite{Eade2015}.}.
+  \item Activation---determine the appropriate irradiation scenario, then activate and transmutate the materials present in the problem geometry. This involves assembling a system of differential equations, Bateman equations, to track the inventory of all the nuclides present. One can numerically solving this system for a series of timesteps using codes such as FISPACT-II \cite{sublet2017a}. The resulting nuclides and their abundances can be paired with decay data to generate a decay photon source on the original mesh. 
+  \item Photon transport---using the distributed decay gamma source produced by step 2), conduct a radiation transport run to determine the photon flux, $\phi_{\gamma}(x,y,z,E,t)$, converting to effective dose as required.
 \end{enumerate}
 
 \subsubsection{Model geometry}
 The shut-down dose rate is calculated for the following scenario: it assumes a worker is inside the bioshield at ITER during a shutdown, stood 30cm from the inner surface of a 150cm thick wall with a steel mass fraction of 4.5\% the total wall mass. Reinforcing bar forms a mesh of squares 20cm in width and height at the front and back of the wall, 5cm from the surfaces. 
 
 \subsubsection{Materials}
-For analysis of the SDDR, where small impurities can have large contributions to the dose rate, the steel composition was refined \cite{Barabash16}. ITER limits for Co and Ni were imposed, 0.01\%wt and 0.05\%wt respectively. The resulting composition for steel is shown as table~\ref{tab:sddr_steel}.
-
-\begin{table}[H]
-  \centering
-  \begin{tabu} to 0.3\textwidth {X X}
-    \toprule
-    Element & \% weight \\
-    \midrule
-    Fe & 97.613 \\
-    C  & 0.22 \\
-    P  & 0.05 \\
-    S  & 0.05 \\
-    N  & 0.012 \\
-    Mn & 1.08 \\
-    Cr & 0.1 \\
-    Mo & 0.01 \\ 
-    V  & 0.005 \\
-    Ni & 0.05 \\
-    Cu & 0.8 \\
-    Co & 0.01 \\
-    \bottomrule
-  \end{tabu}
-  \caption{Steel composition \% weight for SDDR calculations from \cite{Barabash16}. This composition includes minor constituents which are not important for radiation transport, but may play a significant role in any SDDR.}
-  \label{tab:sddr_steel}
-\end{table}
+For analysis of the SDDR, where small impurities can have large contributions to the dose rate, the steel composition was refined \cite{Barabash16}. ITER limits for Co and Ni were imposed, 0.01\%wt and 0.05\%wt respectively. The resulting composition for steel is shown as table~\ref{tab:sddr_steel} in appendix~\ref{app:materials}.
 
 \subsubsection{Computation}
 As for before, radiation transport was conducted with MCNP6 v1.0. Neutron spectra were tallied on a mesh in the shield models. These spectra were used as input to the MCR2S activation linker code \cite{Davis2010a}. This program uses these spectra and a corresponding irradiation scenario to compute material changes within the meshed model. These new materials and decay information can be used to generate a photon source from the activated nuclides. The final steps in the calculation are to perform photon transport calculations from the activated wall to a target. The generation of photon sources and transport of emitted $\gamma$-rays must be computed for each decay time step of interest.
@@ -251,9 +191,19 @@ This section details the effect of spatial homogenisation on fluence and dose re
 
 \subsection{Transmission of prompt radiation}
 \label{subsec:prompt}
+As neutrons from the ITER plasma are incident upon the shielding wall, they advance through the material. Nuclides from steel and concrete materials scatter the neutrons, moderating their energy down. Figure~\ref{fig:mfp} shows the neutrons have a mean free path of approximately 2cm in concrete, and most will scatter multiple times in the material--although the path length distribution is relatively broad, and some may travel 10cm or more without interaction. As the energy decreases, the likelihood of capture increases. Indeed, most neutrons are eventually absorbed, although a small fraction of the source particles propagate all the way through the shield and an even smaller proportion without any interactions at all--the DD and DT peaks visible in figure~\ref{fig:trans_neutron_spec}. 
+
+\begin{figure}[H]
+  \centering
+  \figuretitle{Neutron path length in concrete}
+  \includegraphics[width=0.7\textwidth]{mfp}
+  \caption{The path lengths of neutrons in pure concrete are shown as a histogram. There is a wide distribution with a mean of approximately 2cm. This figure was compiled from MCNP ptrac data.}
+  \label{fig:mfp}
+\end{figure}
+
 The transmitted, or `leakage' neutron spectra for a thick (2.1m) concrete wall is shown below as figure~\ref{fig:trans_neutron_spec}. Note the DT and prominent DD reaction peaks at 14.1 and 2.5 MeV respectively. Other features are the flat slowing-down region with a few flux depressions and the significant thermal Maxwellian distribution. The flux has been severely reduced by its interaction with the wall, decreasing from the source by an order of magnitude each 20cm traversed. The most prominent difference between the heterogeneous and homogeneous models is in the thermal region. 
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \figuretitle{Transmitted neutron spectra}
   \includegraphics[width=0.9\textwidth]{transmitted_neutron_spectra}
@@ -263,7 +213,7 @@ The transmitted, or `leakage' neutron spectra for a thick (2.1m) concrete wall i
 
 The reduced transmitted homogeneous thermal flux in figure~\ref{fig:trans_neutron_spec} is in part because steel is now available for neutron interactions throughout the depth of the wall, in the homogenised material, rather than solely being available for interactions near the surfaces. Steel has a greater macroscopic material capture cross-section than concrete, and so acts as a neutron sink for slow neutrons, preventing them from propagating through the shield. The material cross-sections for radiative capture are shown in figure~\ref{fig:n_rad_capture}.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \figuretitle{Radiative capture probability}
   \includegraphics[width=0.8\textwidth]{n_rad_capture}
@@ -271,24 +221,34 @@ The reduced transmitted homogeneous thermal flux in figure~\ref{fig:trans_neutro
   \label{fig:n_rad_capture}
 \end{figure}
 
-Plotting the ratio of the leakage neutron spectra as figure~\ref{fig:relative_neutron_spectra}, one can see the differences in flux more easily. Thermal flux is underestimated by more than a factor 2. But also, fast flux in the 1keV--1MeV range is underestimated by $\sim1.2$. The fast flux discrepancy is correlated with wall thickness and is negligible for thin (\textless 1m) walls.
+Plotting the ratio of the leakage neutron spectra as figure~\ref{fig:relative_neutron_spectra}, one can see the differences in flux more easily. Thermal flux is underestimated by more than a factor 2. But also, fast flux in the 1 keV--1 MeV range is underestimated by $\sim1.2$. The fast flux discrepancy is correlated with wall thickness and is negligible for thin (\textless 1m) walls.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \figuretitle{Relative neutron spectra}
   \includegraphics[width=0.8\textwidth]{25HB200_800_relative_n_spectra}
-  \caption{The homogeneous flux increases are readily visible in this example. The ratio is of the two spectra from figure~\ref{fig:trans_neutron_spec}. Errors have been combined in quadrature and are plotted as the light shading surrounding the mean value.}
+  \caption{The homogeneous flux decreases are readily visible in this figure, principally in the thermal region, but also in the 1 keV -- 1 MeV range. The ratio is of the two spectra from figure~\ref{fig:trans_neutron_spec}. MCNP statistical errors have been combined in quadrature and are plotted as the light shading surrounding the mean value.}
   \label{fig:relative_neutron_spectra}
 \end{figure}
 
-Figure~\ref{fig:dose_discrepancy} shows how the received dose discrepancy due to the homogeneous approximation varies with wall thickness. Thin walls have a relatively small discrepancy--to be expected as the heterogeneous model is at its most similar to the homogeneous in this case. As the walls become thicker and the rebar meshes become separated by a larger volume of concrete, the discrepancy increases. It plateaus at $\sim 1m$ wall thickness. Similar behaviour is observed for dose due to prompt photons. It can be seen that the effect is greatest for neutrons, with a maximum dose underestimate of 22\%.
+Figure~\ref{fig:dose_discrepancy} shows how the received dose discrepancy (as received by someone stood behind the wall) due to the homogeneous approximation varies with wall thickness. Thin walls have a relatively small discrepancy--to be expected as the heterogeneous model is at its most similar to the homogeneous in this case. As the walls become thicker and the rebar meshes become separated by a larger volume of concrete, the discrepancy increases. It plateaus at $\sim 1m$ wall thickness. Similar behaviour is observed for dose due to prompt photons. It can be seen that the effect is greatest for neutrons, with a maximum dose underestimate of 22\%. The great majority of steel in the heterogeneous simulations is orientated perpendicular to the incident neutron flux, although a small number of `stirrup' bars to run parallel with the flux. \citeauthor{Pampin2007} studied water and steel radiation shields, where the orientation of water pipes was varied. Where the pipes were parallel to the incident neutron flux, the spatial homogenisation underestimate was as much as 375\%, as the homogeneous model missed neutron streaming effects \cite{Pampin2007}. However, for the perpendicular configuration as is modelled here, \citeauthor{Pampin2007} found the difference was 13\%, not too dissimilar to the 22\% underestimate reported in this work.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{wall_thickness}
   \caption{This figure shows the relationship between the wall thickness and the difference between the homogeneous and heterogeneously modelled walls. The quantity plotted is the energy integrated dose for each case, for neutrons and prompt photons. Error bars due to radiation transport statistics are shown but may not be visible on this scale. The discrepancy between modelling approaches is a function of the wall thickness, greater for neutrons than photons.}
   \label{fig:dose_discrepancy}
 \end{figure}
+
+The effect of the steel mass fraction has also been investigated. It was found that the discrepancy between homogeneous and heterogeneous approaches is effectively zero for transmitted photon flux. However, the homogeneous method underestimates neutron flux to a greater degree with an increased steel mass fraction. The greater availability of steel nuclides through the homogeneous mixture results in greater absorption inside the wall and thus a reduced leakage flux (and therefore dose due to neutrons).
+
+% \begin{figure}[H]
+%   \centering
+%   \figuretitle{Flux ratio at incident surface}
+%   \includegraphics[width=0.9\textwidth]{flux_ratio.png}
+%   \caption{This visualisation shows the ratio of homogeneous to heterogeneous flux, i.e. the overestimate (> 1) or underestimate (< 1) of neutron flux compared with the true, heterogeneous case. It is a plan view of the reinforced concrete shielding at the side which is first struck by the neutron flux. The reinforcing steel mesh is clearly visible as the area where the homogeneous approximation has raised the flux over its real value.}
+%   \label{fig:flux_ratio}
+% \end{figure}
 
 \FloatBarrier
 \subsection{Shut Down Dose Rate (SDDR)}
@@ -297,16 +257,16 @@ After operation of a tokamak, repairs and maintenance are often necessary. This 
 
 The effect of the spatial homogenisation modelling approximation generally acts to overestimate the SDDR by a small amount. The behaviour is shown as figure~\ref{fig:sddr}. On the timescale of seconds and minutes, and from days out to decades, the overestimate is approximately 10\%. On the timescale of hours, the discrepancy between homogeneous and heterogeneous approaches closes, briefly becoming reversed, with the homogeneous approximation underestimating the SDDR by 4\%. The absolute dose due to photons from the reinforced wall will have fallen by an order of magnitude in the period elapsed between a minute and a week after the final DT shot and it is unlikely anyone will be entering the facility before then.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{sddr}
   \caption{This figure displays total $\phi_{\gamma}$ received at a distance of 30cm from the activated wall. The upper panel displays the absolute values in the heterogeneous and homogeneous modelling approaches, as a function of time since last irradiation. There are 16 time steps, for which the activation and subsequent photon transport has been carried out. The lower panel displays the ratio between the approaches, i.e. homogeneous values normalised by the heterogeneous values. One can see that the homogeneous approximation artificially increases the SDDR by $\approx 10\%$ at most time steps, bar those around an hour.}
   \label{fig:sddr}
 \end{figure}
 
-The complex behaviour displayed in figure~\ref{fig:sddr} is a result of the many different nuclides which contribute to the decay $\gamma$ field. These nuclides have a range of half-lives and inspecting their relative emissions as a function of time is instructive in understanding the shape of figure~\ref{fig:sddr}. The plot shown as figure~\ref{fig:contact_dose} displays estimates for a contact dose with concrete and steel. As the steel is buried within concrete, the numbers plotted here are not a substitute for transporting decay $\gamma$ photons from their emission to their absorption. However, figure~\ref{fig:contact_dose} does give a good feel for which nuclides are responsible for the activity of each material at a given time. 
+The complex behaviour displayed in figure~\ref{fig:sddr} is a result of the many different nuclides which contribute to the decay $\gamma$ field. These nuclides have a range of half-lives and inspecting their relative emissions as a function of time is instructive in understanding the shape of figure~\ref{fig:sddr}. The plot shown as figure~\ref{fig:contact_dose} displays estimates for a contact dose with concrete and steel. As in the real case the reinforcing steel is buried within concrete, the numbers plotted here are not a substitute for transporting decay $\gamma$ photons from their emission to their absorption (as was done for figures~\ref{fig:sddr} \& \ref{fig:sddr_nrg}). Figure~\ref{fig:contact_dose} reports specific contact dose rates, i.e. per unit mass. Note that 2.25\% of the wall mass is steel close to the activated surface, while the mass of concrete between this reinforcing steel and the wall surface is $\frac{5cm}{150cm} (1 - 0.045) = 3.18\%$ of the total wall mass--so the amount of each material near the surface is very roughly equal and therefore specific contact dose rates are informative by themselves, without being weighted by mass.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \figuretitle{Contact dose rate by material}
   \includegraphics[width=0.8\textwidth]{contact_dose_by_mat}
@@ -314,27 +274,31 @@ The complex behaviour displayed in figure~\ref{fig:sddr} is a result of the many
   \label{fig:contact_dose}
 \end{figure}
 
-From figure~\ref{fig:contact_dose} it is clear that the two materials clearly have quite different nuclear properties, so it is not surprising that their spatial distribution influences the dose received. On a per-mass basis, concrete is more active on the timescale of minutes due to $^{28}$Al. Subsequently, until a few hours have elapsed since last irradiation, gamma emission from $^{56}$Mn makes steel the most active. $^{24}$Na then makes concrete the most active on the timescale of days and after its decay, steel becomes dominant out to very long timescales. The period around an hour or two, where $^{56}$Mn is the dominant nuclide in steel, is also where the homogeneous modelling approach briefly stops overestimating the dose due to the shut-down $\gamma$ field. %This could be connected, $^{56}$Mn undergoes $\beta^{-}$ decay followed by gamma emission of 0.85, 1.81 \& 2.11 MeV energies to become stable $^{56}$Fe. 
+From figure~\ref{fig:contact_dose} it is clear that the two materials have quite different nuclear properties, so it is not surprising that their spatial distribution influences the dose received. On a per-mass basis, concrete is more active on the timescale of minutes due to $^{28}$Al, and as this decays the homogeneous overestimate reduces. Subsequently, until a few hours have elapsed since last irradiation, gamma emission from $^{56}$Mn makes steel the most active while the homogeneous approximation begins to overestimate SDDR again. After this, $^{24}$Na in concrete is the dominant contributor to SDDR, making concrete the most active material on the timescale of days. After its decay, the homogeneous approximation falls slightly again as steel becomes the more active material out to very long timescales. 
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{sddr_nrg.pdf}
-  \caption{This figure displays the ratio of homogeneous and heterogeneous $\phi_{\gamma}$ fluxes for a series of cooling times and all photon emission energies. Time since last irradiation is given in seconds on the abscissa, while the ordinate is photon emission energy in MeV. The grey circles indicate simulation data, i.e. flux ratios for a particular photon energy group at a particular cooling timestep. These data have been interpolated with a cubic method to generate the heatmap shown. A diverging colourmap helps identify where spatial homogenisation is overestimating dose (blue) and where it underestimates (red).}
+  \caption{This figure displays the ratio of homogeneous and heterogeneous $\phi_{\gamma}$ for a series of cooling times and all photon emission energies. Time since last irradiation is given in seconds on the abscissa, while the ordinate is photon emission energy in MeV. The grey circles indicate simulation data, i.e. flux ratios for a particular photon energy group at a particular cooling timestep. These data have been interpolated with the Clough Tocher method to generate the heatmap shown. A diverging colourmap helps identify where spatial homogenisation is overestimating dose (blue) and where it underestimates (red).}
   \label{fig:sddr_nrg}
 \end{figure}
 
-Homogeneous simulations tend to overestimate the number of high-energy gamma photons, as some steel material is located everywhere in the homogenised mixture, including the shallow volume, outside of where the rebar is located in the heterogeneous models. This steel lying on the surface in the homogeneous model will emit high-energy, gamma rays which can leave the shielding unattenuated and are more likely to contribute to a worker's dose\footnote{High energy, $1 < \mathrm{E [MeV]} < 2$ gamma-rays constitute the majority of the dose received at all times, however beyond 2 MeV the flux and contribution to dose falls off sharply.}. This behavior is shown in figure~\ref{fig:sddr_nrg} where the ratio of homogeneous and heterogeneous gamma spectra have been plotted for a variety of timesteps. Work to corroborate this explanation could include varying the cover depth, to see if homogeneous models started to underestimate the received dose as the cover depth approached zero and the rebar was on the surface in the heterogeneous model.
+Homogeneous simulations tend to overestimate the number of high-energy gamma photons, as can be seen in figure~\ref{fig:sddr_nrg}. A homogeneous overestimate is shown as a blue band across much of the higher energy region. For the homogeneous case, some steel material is located everywhere in the material mixture, including the shallow `cover depth' volume, outside of where the rebar is located in the heterogeneous models. Nuclides from steel then lie on the surface in the homogeneous model and will emit high-energy, gamma rays which can leave the shielding unattenuated and are more likely to contribute to a worker's dose\footnote{High energy gamma-rays (between 1 and 2 MeV) constitute the majority of the dose received at all times, however beyond 2 MeV the flux and therefore contribution to dose falls off sharply.}. Work to corroborate this explanation could include varying the cover depth, to see if homogeneous models started to underestimate the received dose as the cover depth approached zero and the rebar was on the surface in the heterogeneous model.
 
-% The mean free path of neutrons near the surface is $\sim2cm$ (see figure \ref{fig:mfp}) and as such a typical neutron will undergo several collisions before arriving at the rebar in a heterogeneous simulation. However, in a homogeneous simulation a small amount of steel is present right at the very surface of the concrete, as it is present throughout the simulation. This steel is exposed to an intense neutron flux and is activated accordingly.
+It is worth noting that while not explicitly modelled here, it is likely that the SDDR on the exterior side of the shield will be artificially depressed by spatial homogenisation as the activating neutron flux is depressed by that approach. This is confirmed for similar circumstances in work by \citeauthor{Sanz2014} \cite{Sanz2014}.
 
-% \begin{figure}[h]
-%   \centering
-%   \figuretitle{Neutron path length in concrete}
-%   \includegraphics[width=\textwidth]{mfp}
-%   \caption{The path lengths of neutrons in pure concrete are shown as a histogram. There is a wide distribution with a mean of approximately 2cm.}
-%   \label{fig:mfp}
-% \end{figure}
+% Sanz is also relevant for cover depth and effects on homogeneous discrepancy -- although requires reinterpretation as the layout is different
 
 \FloatBarrier
 \section{Conclusion}
-The spatial homogenisation modelling approximation for reinforced concrete underestimates the dose due to neutrons by up to 20\%. The dose due to on-load photons can be underestimated by up to 8\%. The SDDR is instead overestimated by homogenisation, by up to a factor 60 at times beyond a day. 
+A series of simulations have been performed to assess the impact of the spatial homogenisation modelling approximation on various fluxes and associated doses. 
+
+The specific circumstances investigated are firstly prompt neutron and photon emission from the the ITER plasma and its surroundings, transmitted through a variety of different thickness reinforced concrete walls. In this case, spatial homogenisation was found to underestimate received dose on the outside of the wall by up to 22\%, with the discrepancy a function of wall thickness. For photons, there was less effect, with 10\% the greatest divergence between approaches. The relatively small discrepancies are to be expected for reinforcing bar arrangements as used here. 
+
+The second case investigated how spatial homogenisation affected the dose to workers during a maintenance operation, the SDDR at the inside face of a wall activated by neutron irradiation. This particular configuration is relatively unaffected by spatial homogenisation, with the greatest deviation from the true case being an overestimate of 12\% for the homogenised case. The discrepancy is a function of the cooling time, with a smaller discrepancy at timescales beyond a day, down to an overestimate of approximately 8\%. As the homogenised results are dose overestimates, they are in this case conservative, and thus do not pose a risk to workers' health, rather providing an upper bound on the likely dose rate. 
+
+Where the practice of spatial homogenisation likely results in a conservative estimate as is the case here, it can be tolerated, as it reduces model complexity and is safe. However, where neutron streaming paths are available, if features contain routes with low absorption or poor moderating properties, or if features are larger than the mean free path of the neutrons, then spatial homogeisation should be treated with caution. One imagines that with the increased computer power available for nuclear and multi-physics analysis, in the not distant future details such as reinforcing bar and other small but potentially important features will be explicitly included in radiation transport models. 
+
+% Comment on size of these uncertainties relative to hydrogen fraction (water content) \cite{Samarin2013} and concrete density 
+% pg12 Pampin2007 useful for general guidance on spatial homogenisation
+
