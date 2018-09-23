@@ -308,20 +308,20 @@ Unstable nuclei decay, that is, change by the emission of particles or by intern
 % \cite{Rullhusen2006} may be helpful too!
 Without information on uncertainty, data may be worse than just wrong, it may be falsely reassuring. The practical utility of some ND is in part determined by its uncertainty, whether its quoted value is likely to be near the true value. For uncertainties to be quoted with engineering results, uncertainty must first be quantified within the inputs (ND). Then, ND uncertainties can be propagated by various methods through to quantities of interest such as powers, neutron multiplication factors or material temperatues. The uncertainty data is a description of the experimental variance on certain data points, say, a cross-section for a given reaction channel and energy, but also with covariance information. These covariance data describe how correlated pairs of mean value data are. These correlations often arise from systematic measurement errors in nuclear physics experiments, where data for a whole energy range might be biased similarly in some way. The files containing variance and covariance information are colloquially known simply (and a little confusingly) as `covariances' or `covariance files'. Until recently, uncertainty information was only released in nuclear data library documentation or accompanying references. The modern ENDF-6 standard groups variance and covariance information together with the mean value data \cite{ENDF-6}. 
 
-%\section{Radiation transport methods}
-%\label{sec:radiation_transport}
-%% Boltzmann equation and intro
-%\subsection{Deterministic methods}
-%\label{subsec:deterministic}
-%% Brief overview, don't spend too long
-%\subsection{Stochastic methods}
-%\label{subsec:monte_carlo}
-%% Sampling not solving the Boltzmann equation, more involved description of MC
+\section{Radiation transport methods}
+\label{sec:radiation_transport}
+% Boltzmann equation and intro
+\subsection{Deterministic methods}
+\label{subsec:deterministic}
+% Brief overview, don't spend too long
+\subsection{Stochastic methods}
+\label{subsec:monte_carlo}
+% Sampling not solving the Boltzmann equation, more involved description of MC
 
-%\section{Material activation-transmutation methods}
-%% Bateman equation and its solution
-%% pg 11-12 of below may be helpful
-%% https://fispact.ukaea.uk/wp-content/uploads/2016/06/FISPACT-II-introchapter1.pdf  
+\section{Material activation-transmutation methods}
+% Bateman equation and its solution
+% pg 11-12 of below may be helpful
+% https://fispact.ukaea.uk/wp-content/uploads/2016/06/FISPACT-II-introchapter1.pdf  
 
 \section{Sources of uncertainty in fusion neutronics}
 The sources of uncertainty in fusion neutronics are many and varied. Currently envisioned fusion reactors such as ITER rank as some of the most complex machines ever. Their multitude of components, diversity of materials and range of temporal and spatial scales make simulating their operation challenging. This complexity requires immense computational resources to model with a high fidelity. It is not currently possible to model any engineering system \textit{ab initio}, solving the Schr{\"o}dinger equation for each nucleon. Instead, approximations at each distance and time scale are made and fidelity traded off against simulation time. Examples of various modelling approximations commonly employed in fusion neutronics analyses follow below. These practices enable the solution of otherwise insoluble problems.  
