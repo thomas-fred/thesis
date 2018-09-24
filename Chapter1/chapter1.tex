@@ -105,7 +105,7 @@ Those in the nuclear engineering field who use nuclear data (ND) are concerned w
 \label{subsubsec:pert}
 Perturbation theory is widely applied in many branches of the sciences, and generally consists of substituting an unsoluble equation for a related, soluble one plus some perturbatory series of terms. These increasing order terms have less and less impact on the result and the series is truncated at some point. 
 
-Work on applying this approach to reactor physics problems was undertaken by Wigner on the first nuclear pile \cite{Rising2012}. A more sophisticated framework was developed by Gandini, the Generalised Perturbation Theory (GPT) \cite{Gandini1967} and subsequently into the Equivalent Generalised Perturbation Theory (EGPT) \cite{Gandini1986}. These efforts require obtaining the forward and adjoint solutions to the Boltzmann transport equation such that one can identify the magnitude of responses to any input perturbation. This means GPT and EGPT naturally lend themselves to deterministic methods for radiation transport, where full solutions to the Boltzmann equation are obtained, rather than a subsection of its phase space sampled (as in stochastic methods). This was overcome relatively recently for fission with codes like TSUNAMI-3D by Rearden, which can calculate uncertainties in $k_{\mathrm{eff}}$ with deterministic or Monte Carlo methods \cite{Rearden2004}. An alternative method, not specific to fission problems, is to couple a radiation transport code such as MCNP \cite{goorley2012} with the SUSD or SUS-3D codes \cite{Kodeli2001}. MCNP is used with perturbed cross-sections to determine how sensitive, $S$, a response parameter, $R$, is to changes, $\delta \sigma_{g}$, in a cross-section group, $\sigma_{g}$, as shown in equation~\ref{eq:sensitivity}. 
+Work on applying this approach to reactor physics problems was undertaken by Wigner on the first nuclear pile \cite{Rising2012}. A more sophisticated framework was developed by Gandini, the Generalised Perturbation Theory (GPT) \cite{Gandini1967} and subsequently into the Equivalent Generalised Perturbation Theory (EGPT) \cite{Gandini1986}. These efforts require obtaining the forward and adjoint solutions to the Boltzmann transport equation such that one can identify the magnitude of responses to any input perturbation. This means GPT and EGPT naturally lend themselves to deterministic methods for radiation transport, where full solutions to the Boltzmann equation are obtained, rather than a subsection of its phase space sampled (as in stochastic methods). This was overcome relatively recently for fission with codes like TSUNAMI-3D by Rearden, which can calculate uncertainties in $k_{\mathrm{eff}}$ with deterministic or Monte Carlo methods \cite{Rearden2004}. An alternative method, not specific to fission problems, is to couple a radiation transport code such as MCNP \cite{Goorley2012} with the SUSD or SUS-3D codes \cite{Kodeli2001}. MCNP is used with perturbed cross-sections to determine how sensitive, $S$, a response parameter, $R$, is to changes, $\delta \sigma_{g}$, in a cross-section group, $\sigma_{g}$, as shown in equation~\ref{eq:sensitivity}. 
 
 \begin{equation}
   \label{eq:sensitivity}
@@ -213,7 +213,7 @@ Perturbatory methods require covariance matrices, but often only covariance info
 
 % ENDF-6 does not support covariances for some kinds of data, such as double-differential data \cite{ENDF-6}. 
 
-The ease of application of the two methods is varied. While TMC is conceptually easy to understand and incorporates many advantageous features, there are limitations in its application currently, such the failure of TALYS to correctly predict the behaviour of light nuclides (the typical cut-off being fluorine) \cite{Rochman2011}. For perturbation methods, the paucity of covariance information is a problem for some calculations (principally those outside the thermal fission realm). 
+The ease of application of the two methods is varied. While TMC is conceptually easy to understand and incorporates many advantageous features, there are limitations in its application currently, such the failure of TALYS to correctly predict the behaviour of light nuclides (the cut-off being A=12) \cite{Rochman2011}. For perturbation methods, the paucity of covariance information is a problem for some calculations (principally those outside the thermal fission realm). 
 
 \FloatBarrier
 \subsection{Uncertainty in fusion relevant data}
@@ -243,11 +243,11 @@ As briefly mentioned previously, \citeauthor{Leichtle2011} has undertaken a rece
 
 \FloatBarrier
 \section{Method}
-This section describes the method for nuclear data selection and sampling, along with the radiation transport and data analysis for the propagation of lead nuclear data uncertainties to a corresponding PDF for TBR.
+This chapter is investigating the propagation of lead nuclear data uncertainties to a corresponding PDF for TBR uncertainty in the DEMO reactor. The following section describes nuclear data selection and sampling, along with radiation transport and data analysis methods for the study.
 
 \subsection{Nuclear data}
 \label{subsec:data}
-As discussed in section~\ref{subsubsec:tmc}, traditionally cross-section uncertainties are represented as single values for a given energy and reaction channel. There might be an estimate of uncertainty, which is typically given as a 1 $\sigma$, standard deviation of a Gaussian distribution centered about the quoted mean value. As an example, the $^{208}$Pb(n,2n)$^{207}$Pb neutron multiplication reaction at 14MeV is shown in Table \ref{tab:lead_by_lib} for a variety of experiments and nuclear data libraries. Experimental results from the EXFOR library are also shown. Most modern nuclear data libraries quote a figure of around 2.1b at 14 MeV. However, many experimental results, for example Arakita and Shunk are radically lower at 1.04 and 1.31 b respective and with estimated uncertainties of 5.77 and 8.0\% respectively. These values are among the older data experimental data and have been relegated in importance by nuclear evaluators. Consequently, most of the nuclear data libraries agree on a $\sigma_{n,2n}(14 MeV) \approx 2.1$b. The experimental data of table~\ref{tab:lead_by_lib} are also shown in figure~\ref{fig:tendl_lead}.
+As discussed in section~\ref{subsubsec:tmc}, traditionally cross-section uncertainties are represented as single values for a given energy and reaction channel. There might be an estimate of uncertainty, which is typically given as a 1 $\sigma$, the standard deviation of a Gaussian distribution centered about the quoted mean value. As an example, the $^{208}$Pb(n,2n)$^{207}$Pb neutron multiplication reaction at 14 MeV is shown in table~\ref{tab:lead_by_lib} for a variety of experiments and nuclear data libraries. Experimental results from the EXFOR library are also shown. There are a wide spread of experimental results, for example Arakita and Shunk are relatively low at 1.04 and 1.31 b respectively and with quoted uncertainties of 5.77 and 8.0\% respectively. These values are among the older data experimental data and have been relegated in importance by nuclear evaluators. Modern evaluated data releases tend to agree on a figure of $\sigma_{n,2n}(14 MeV) \approx 2.1$ b. It would appear that model calculations, along with the experiments of Simakov and Frehaut have been favoured of to produce the data contained within contemporary evaluated nuclear data libraries. Data shown in table~\ref{tab:lead_by_lib} are also shown graphically in figure~\ref{fig:tendl_lead} along with the 300 TENDL files used for this work.
 
 \begin{table}[H]
   \footnotesize
@@ -297,7 +297,7 @@ As discussed in section~\ref{subsubsec:tmc}, traditionally cross-section uncerta
 
 This study used the TENDL-2015 library. It is a comprehensive, general-purpose nuclear data library which contains data on interactions between 7 projectiles and over 2,800 target nuclides. As described above, the library is produced by a suite of codes known as T6 and an adherance to a strict methodology of reproducability \cite{Rochman2016}. It uses the TALYS nuclear reaction code to model high-energy reactions, with TARES handling the lower energy, resonant region. The inputs are fundamental parameters, including data from the RIPL-3 database \cite{Capote2009}, each with their own probability distributions that reflect their uncertainties. The TENDL-2015 release contains `average' or best-guess evaluations, but also a collection of `random' files, those generated using the sampling method. These have been pre-generated by the TENDL team. Comprehensive information concerning the input parameters and plots of the ND are available online \cite{TENDL2015}.
 
-It is instructive to inspect the nuclear data used as input for this TMC simulation. The sampled nuclear data files were downloaded in both ACE (293K) and ENDF format from the TENDL-2015 website \cite{TENDL2015}. Figure \ref{fig:tendl_lead} shows the (n,2n) cross-sections as a function of energy for $^{208}$Pb. 
+It is instructive to inspect the nuclear data used as input for this TMC simulation. The sampled nuclear data files were downloaded in both ACE (293K) and ENDF format from the TENDL-2015 website \cite{TENDL2015}. Figure~\ref{fig:tendl_lead} shows the (n,2n) cross-sections as a function of energy for $^{208}$Pb. Cross-sections from a given file at a certain energy are shown as grey circles. The mean value of the random files and a standard deviation is also shown, along with available EXFOR data. The shape of this endothermic multiplication reaction is visible, with an energy threshold of 7.36 MeV. The cross-section rises to approximately 2 b in the 14 MeV fusion neutron energy range before falling away at higher energies--here the n,3n reaction becomes more probable. No experimental data is available from the EXFOR database beyond 14.8 MeV. This lack of higher energy information means constraining model parameters for T6 data generation is more difficult and so the uncertainties here are larger.
 
 % \begin{figure}
 % %  \figuretitle{}
@@ -332,12 +332,12 @@ In an unmoderated fusion neutron spectrum the dominant reaction channels for Pb 
   \label{table:n2n}
 \end{table}
 
-Figure \ref{fig:tendl_n2n} and Table \ref{table:n2n} show the distributions of TENDL-2015 cross-sections for (n,2n) at 14MeV. Lower values for $\sigma_{n,2n}$ will reduce the neutron multiplication of the blanket and, other quantities being equal, result in a reduced total neutron flux and therefore a lower TBR.
+Figure~\ref{fig:tendl_n2n} and table~\ref{table:n2n} show the distributions of TENDL-2015 cross-sections for (n,2n) at 14 MeV. Lower values for $\sigma_{n,2n}$ will reduce the neutron multiplication of the blanket and, other quantities being equal, result in a reduced total neutron flux and therefore a lower TBR. The first two moments of each distribution in figure~\ref{fig:tendl_n2n} were analysed for convergence testing. A normalised measure of the standard deviation, the relative standard deviation, $R(n) = \frac{\sigma(n)}{\mu(n)}$, where $\sigma(n) = \sqrt{\frac{\sum_{i=0}^{n}(x_{i}-\mu_{i})^{2}}{n-1}}$ and $\mu(n) = \frac{\sum_{i=0}^{n}x_{i}}{n}$ was plotted as a function of sample size. $R(n)$ converges for $n \approx 150$ for both $^{206}$Pb and $^{208}$Pb at 8.1\% and 9.7\% respectively. For $^{207}$Pb, $R(300)=10.7\%$, but this figure is not completely converged, with some step changes in $R$ due to extreme $\sigma_{n,2n}$ cross-sections from the low-value tail. Ideally more data would be available for this nuclide.
 
 \begin{figure}[H]
 %  \figuretitle{}
 	\includegraphics[width=\textwidth]{pb_tendl_n2n_hist}
-	\caption{Shown are histograms of $\sigma_{n,2n}$ at 14MeV for the three major Pb isotopes. It can be seen that while $^{206,208}$Pb are approximately symmetrical with skewness values close to zero, $^{207}$Pb has a skewness of -0.868 indicating a low-value tail. This may or may not be representative of the underlying distribution. The histogram contains all 300 available files for $^{207}$Pb, but it could be the case that with more files a Gaussian shape would be recovered.}
+	\caption{Shown are histograms of $\sigma_{n,2n}$ at 14 MeV for the three major Pb isotopes. The histogram contains all 300 available files each Pb nuclide. It can be seen that while $^{206,208}$Pb are approximately symmetrical with skewness values close to zero, $^{207}$Pb has a skewness of -0.868 indicating a low-value tail. This may or may not be representative of the underlying distribution.}
 	\label{fig:tendl_n2n}
 \end{figure}
 
@@ -364,7 +364,7 @@ Figure \ref{fig:tendl_n2n} and Table \ref{table:n2n} show the distributions of T
   \label{fig:tendl_nel}
 \end{figure}
 
-The elastic scattering data shown in Figure \ref{fig:tendl_nel} and Table \ref{table:nel} are instead positively skewed, with high value tails for each isotope, with the most pronounced tail being $^{208}$Pb. A greater elastic scattering cross-section will result in an increased likelihood of downscattering neutrons to lower energies. The softer spectrum will increase triton production in $^{6}$Li as the cross-section increases with decreasing energy, i.e. $\sigma_{n,t}(E) \propto \frac{1}{E}$. However, the elastic scattering cross-section is anti-correlated with the n,2n cross-section in the TENDL data (see figure \ref{fig:pb_el_n2n_corr}). In other words, a high scatter cross-section is typically coupled with a low multiplicity cross-section. This inclusion of cross-channel correlation is one of the key advantages of TMC over more traditional uncertainty propagation (UP) methods. 
+The elastic scattering data shown in figure~\ref{fig:tendl_nel} and table~\ref{table:nel} are instead positively skewed, with high value tails for each isotope, with the most pronounced tail being $^{208}$Pb. A greater elastic scattering cross-section will result in an increased likelihood of downscattering neutrons to lower energies. The softer spectrum will increase triton production in $^{6}$Li as the cross-section increases with decreasing energy, i.e. $\sigma_{n,t}(E) \propto \frac{1}{E}$. However, the elastic scattering cross-section is anti-correlated with the n,2n cross-section in the TENDL data (see figure \ref{fig:pb_el_n2n_corr}). In other words, a high scatter cross-section is typically coupled with a low multiplicity cross-section. This inclusion of cross-channel correlation is one of the key advantages of TMC over more traditional uncertainty propagation (UP) methods. 
 
 % This compensating effect decreases the overall uncertainty where individual perturbations on a single channel would result in an unrealistic, larger uncertainty. 
 
@@ -386,7 +386,7 @@ There exist several variants on the DEMO future fusion reactor concept. It is ty
 	\label{fig:demo_mcnp}
 \end{figure}
 
-An 11.25\degree \ toroidal sector of the 2014 DEMO HCLL MCNP model was modified to tally triton production per source particle (TBR). MCNP6.1 \cite{Goorley2013} was used for particle transport. The particle count for each simulation was set to $3\times10^{6}$ giving a relative standard deviation, RSD on TBR of $\approx 0.002$ for each simulation. This is negligible compared to the total (nuclear data \& statistics) accumulated RSD and so the variance of the observable is assumed to be entirely due to variance in the nuclear data. While other TMC analyses have attempted to limit to the statistical variation to only around half of the total variance and then subtract this from the observable variance, known as `Fast TMC', the original TMC technique of minimising the statistical variance is used here. 
+An 11.25\degree \ toroidal sector of the 2014 DEMO HCLL MCNP model was modified to tally triton production per source particle (TBR). MCNP6.1 \cite{Goorley2012} was used for particle transport. The particle count for each simulation was set to $3\times10^{6}$ giving a relative standard deviation, RSD on TBR of $\approx 0.002$ for each simulation. This is negligible compared to the total (nuclear data \& statistics) accumulated RSD and so the variance of the observable is assumed to be entirely due to variance in the nuclear data. While other TMC analyses have attempted to limit to the statistical variation to only around half of the total variance and then subtract this from the observable variance, known as `Fast TMC', the original TMC technique of minimising the statistical variance is used here. 
 
 Whilst the Pb nuclear data for sampling was from TENDL-2015, FENDL3.1b data was used for the neutron transport of other elements present in the reactor model. A series of simple Bash and Python scripts were used to sample different \textsuperscript{206}Pb, \textsuperscript{207}Pb \& \textsuperscript{208}Pb TENDL-2015 ACE files for the radiation transport runs, before creating and submitting jobs en masse to the local cluster at the Culham Centre for Fusion Energy. Records of the input ND and tally data were kept, identified by a unique string.
 
@@ -397,7 +397,7 @@ Python scripts were used to plot TBR convergence as a function of simulation cou
 
 \begin{figure}[H]
 %  \figuretitle{}
-	\includegraphics[width=\textwidth]{hcll_convergence_1559}
+	\includegraphics[width=0.8\textwidth]{hcll_convergence_1559}
 	\caption{The simple mean and standard deviation of the TBR results is presented as a function of the number of simulations.}
 	\label{fig:convergence}
 \end{figure}
@@ -418,65 +418,97 @@ Equation~\ref{eq:skewed_normal} is the fit function plotted in figure~\ref{fig:t
 
 \begin{figure}[H]
 %  \figuretitle{}
-	\includegraphics[width=\textwidth]{hcll_hist_1559}
-	\caption{Histogram of 1559 TBR values computed with the TMC methodology. The fit is a skew-normal.}
+  \centering
+	\includegraphics[width=0.8\textwidth]{hcll_hist_1559}
+	\caption{Histogram of 1559 TBR values computed with the TMC methodology. The fit is a skew-normal distribution as described by equations~\ref{eq:normal} and \ref{eq:skewed_normal}. The standard deviation is 1.2\% of the mean value and represents the variation from TENDL2015 lead nuclear data (specifically $^{206,207,208}$Pb). Note that 5.8\% of the distribution is less than unity.}
 	\label{fig:tbr_distribution}
 \end{figure}
 
-Figure \ref{fig:tbr_n2n} shows the expected correlation between the n,2n cross-sections used in a given simulation and the TBR attained in that simulation. The n,2n cross-section is positively correlated with the TBR value as expected. There is less of a relationship between scattering and TBR.
+Figure~\ref{fig:tbr_n2n} shows the correlation between the n,2n cross-sections used in a given simulation and the TBR attained in that simulation. The nuclide-wise cross-sections were obtained with the Inter utility for a reaction energy of 14 MeV. As the cross-sections for each of the three lead isotopes were varied in every simulation, so the cross-sections plotted here are the elemental average values, that is, weighted by the natural abundance of each Pb isotope. A linear least squares fit has been applied to the data shown in figure~\ref{fig:tbr_n2n} and the resulting relationship plotted in blue. As the cross-section for neutron multiplying reactions of the form $^{A}$Pb(n,2n)$^{A-1}$Pb increases, so does the neutron flux available for the subsequent generation of tritium in the breeding blanket. As these reactions are endothermic, with an energy threshold relatively close to that of the D-T neutron creation energy, front loading a breeding blanket with neutron multiplying material is beneficial to TBR.
 
 \begin{figure}[H]
 %  \figuretitle{}
   \centering
-	\includegraphics[width=\textwidth]{pb_tbr_n2n_el_corr}
-	\caption{Above are scatter plots of average cross-sections for the n,2n (left) and elastic (right) channels against resulting TBR value. As the cross-sections for each of the three lead isotopes were varied in every simulation, so the cross-sections plotted here are the elemental average values denoted as $\overline{\sigma}_{n,2n}$ or $\overline{\sigma}_{n,n'}$, i.e. all three varied Pb isotopes contribute, weighted by their relative natural abundances. The 14 MeV cross-sections were obtained with the Inter utility and a shell script. A linear least squares fit has been applied and the resulting line plotted in blue.}
+	\includegraphics[width=0.7\textwidth]{TBR_n,2n}
+	\caption{Shown here are the $^{208}$Pb(n,2n)$^{207}$Pb cross-sections at 14 MeV, from the files used as input ND for the TMC simulation. They are plotted against the resulting TBR value from each simulation. There is a reasonably strong positive correlation, with increasing n,2n cross-sections resulting in an increased TBR.}
 	\label{fig:tbr_n2n}
 \end{figure}
 
-In figure~\ref{fig:tbr_n2n} we have plotted relationships between the cross-section values and the simulated TBR result, but it is possible to go one step further back in the TMC process and analyse for correlations between fundamental nuclear parameters and the observable of interest. Shown as figure~\ref{fig:pb208_rvadjust} is the relationship between one optical model parameter $r_{V}$, as applied to the generation of \textsuperscript{208}Pb data, to the resulting TBR values. The data have relatively little obvious relationship. A linear least squares fit is shown, with a positive slope of $m=0.058$. The r-squared value is very low at 0.117. This implies, as can be seen visually, that a great deal of variance in the data is left unexplained by the fit. However, this study has varied several nuclear parameters and nuclides simultaneously--were fewer inputs varied the relationship shown in figure~\ref{fig:pb208_rvadjust} might be clearer. 
-
-\begin{figure}[H]
-%  \figuretitle{}
-	\includegraphics[width=\textwidth]{Pb208_rvadjust}
-	\caption{}
-	\label{fig:pb208_rvadjust}
-\end{figure}
-
-Performing a least-squares fit on all the varied nuclear parameters against the simulated TBR results, we can estimate which parameters TBR is most sensitive to. For \textsuperscript{208}Pb this is shown as figure~\ref{fig:pb208_param_correl}, with the ordinate displaying the slope of the fit line. The parameters have been normalised to their mean value so their absolute values do not bias the resulting line gradients. The TBR(parameter) correlations can be computed for \textsuperscript{206}Pb and \textsuperscript{207}Pb also, these are shown as figures~\ref{fig:pb206_param_correl} and \ref{fig:pb207_param_correl}. It can be seen that the sampled variation in the $r_{V}$ parameter for \textsuperscript{207}Pb and \textsuperscript{208}Pb results in the most change in simulated TBRs. The gradient is positive, with an increase value of $r_{V}$ resulting in a higher TBR. As this parameter is a component in the optical model, it acts to alter nuclear reaction behaviour in the high energy region, where the nuclear level density is high. The most important parameter for \textsuperscript{206}Pb's contribution to TBR uncertainty is $v_{1}$, another parameter in the optical model (see figure~\ref{fig:pb206_param_correl}). This relationship is an inverse one, with an increase in $v_{1}$ weakly correlated with a decrease in TBR. 
+The relationship between n,2n cross-section and TBR shown in figure~\ref{fig:tbr_n2n} is relatively strong, with a linear fit achieving an $r^{2}=0.43$, explaining 43\% of the total variance in TBR. Elastic scattering (shown in figure~\ref{fig:tbr_elastic}) is more weakly correlated, with a very low $r^{2}=0.02$. Figures~\ref{fig:tbr_n2n} and \ref{fig:tbr_elastic} plot relationships between the cross-section values and the simulated TBR result, but these cross-sections are only intermediate data in the TMC process. However it is possible to go one step further back and analyse for correlations between fundamental nuclear parameters and the observable of interest, TBR. 
 
 \begin{figure}[H]
 %  \figuretitle{}
   \centering
-	\includegraphics[width=0.8\textwidth]{Pb208_param_correl}
-	\caption{}
-	\label{fig:pb208_param_correl}
+	\includegraphics[width=0.7\textwidth]{TBR_Elastic}
+	\caption{Shown here are the $^{208}$Pb(n,el)$^{208}$Pb cross-sections at 14 MeV, from the files used as input ND for the TMC simulation. They are plotted against the resulting TBR value from each simulation. There is a weak correlation, with a minor downward trend in TBR for increasing elastic cross-section.}
+	\label{fig:tbr_elastic}
 \end{figure}
+
+The optical model is a nuclear model which aims to describe the interaction between an incident nucleon and a target nucleus. Rather than trying to solve particle behaviour \textit{ab initio}, this approach uses a complex potential energy function or simply `potential', $\mathcal{U}$ to represent nucleon-nucleus interactions. This potential energy function is a kind of description of the strong nuclear force, as a nucleon far from the nucleus, outside of the range of this force will experience no interaction. Closer, where the separation distance $r$ becomes similar to the nuclear radius $R$ and the particle may fall into the nucleus' potential well. Solving the Schr\"odinger equation with a given potential generates predictions for basic observables such as elastic scattering angular distributions and possibly the reaction and total cross-sections \cite{Hodgson1971}. 
+
+The optical model's name is due to an analogous case where a light wave is part refracted and part absorbed in a material of complex refractive index. The imaginary part of the complex refractive index is responsible for the absorbtion of light. In the nuclear case, the imaginary part of the nuclear potential represents all the non-elastic behaviour. An optical model potential (OMP) contains parameters and can be fit to experimental data. In this case the optical model is known as phenomological. In part because of the wealth of experimental nuclear physics data now available, there has been a great advance in the capabilities and generality of the optical model since its first iteration by \citeauthor{Fernbach1949} in 1949. Fits to experimental data can be global, determining parameter values which best fit a wide range of energies and nuclei, or local, where a fit is determined for a sole nucleus. These local fits produce more accurate results but clearly have worse predictive power for other situations outside of their fit parameters.
+
+The T6 system was used to generate the TENDL2015 data used for this work. The nuclear reaction program within this suite, TALYS, employs the optical model specified by \citeauthor{Koning2003}. The potential $\mathcal{U}$ has contributions from the terms in equation~\ref{eq:talys_omp}. 
+
+\begin{equation}
+  \mathcal{U}(r,E) = - \mathcal{V}_{V}(r,E) - i\mathcal{W}_{V}(r,E) - i\mathcal{W}_{D}(r,E) + \mathcal{V}_{SO}(r,E) + i\mathcal{W}_{SO}(r,E)
+  \label{eq:talys_omp}
+\end{equation}
+
+Where $\mathcal{V}_{V,SO}$ and $\mathcal{W}_{V,D,SO}$ are the real and imaginary components of the volume (V), surface (D), and spin-orbit (SO) potentials respectively. Each of these terms is separated into an energy dependent well-depth and an energy-independent radius dependent component\footnote{See §4.1.1 in \cite{TALYS2017} for more detail}. The general form of the radius dependent part for all the potentials is a Woods-Saxon shape \cite{Woods1954} as shown in equation~\ref{eq:woods-saxon}.
+
+\begin{equation}
+  \label{eq:woods-saxon}
+  f(r,R,a) = \left(1 + e^{\frac{r-R}{a}}\right)^{-1}
+\end{equation}
+
+Where $r$ is the separation, $a$ a `diffuseness' parameter and $R$ the nuclear radius. $r_{V}$ is equivalent to the nuclear radius parameter $R$ in equation~\ref{eq:woods-saxon} for the $\mathcal{V}_{V}$ and $\mathcal{W}_{V}$ terms of the OMP shown as equation~\ref{eq:talys_omp}. The distribution of $r_{V}$ values that were sampled in the creation of $^{207}$Pb data for this study is shown as figure~\ref{fig:pb207_rvadjust_hist}. It is unimodal, non-normally distributed and positively skewed. 
 
 \begin{figure}[H]
 %  \figuretitle{}
   \centering
-	\includegraphics[width=0.8\textwidth]{Pb206_param_correl}
-	\caption{}
-	\label{fig:pb206_param_correl}
+	\includegraphics[width=0.8\textwidth]{rvadjust_param_Pb207_histogram}
+	\caption{This figure shows the distribution of nuclear radius, or $r_{V}$ values sampled in the creation of $^{207}$Pb cross-section data for this TMC work. $r_{V}$ is a geometry parameter in optical model potentials. The distribution is slightly positively skewed. The data here have been normalised by their mean to centre the distribution on unity and allow for easier comparison between parameters of different scale.}
+	\label{fig:pb207_rvadjust_hist}
 \end{figure}
+
+Shown as figure~\ref{fig:pb207_rvadjust} is the relationship between $r_{V}$ as shown in figure~\ref{fig:pb207_rvadjust_hist}, as applied to the generation of \textsuperscript{207}Pb data, to the resulting TBR values. The data in figure~\ref{fig:pb207_rvadjust} have a weak relationship. A linear least squares fit is shown, with a positive slope of $m=0.06$. The $r^{2}$ value is very low at 0.01. This implies, as can be seen visually, that a great deal of variance in the data is left unexplained by the fit. However, this study has varied several nuclear parameters and nuclides simultaneously--were fewer inputs varied the relationship shown in figure~\ref{fig:pb207_rvadjust} might be clearer. 
+
+\begin{figure}[H]
+%  \figuretitle{}
+  \centering
+	\includegraphics[width=0.7\textwidth]{Pb207_rvadjust}
+	\caption{Scatter plot of the $r_{V}$ nuclear radius parameter against simulated TBR. The $r_{V}$ values have been normalised to the mean of their distrubtion, centering the distribution on unity. The data has been fit with a linear relationship, with the fit data shown in the plot. A minor positive correlation is registered.}
+	\label{fig:pb207_rvadjust}
+\end{figure}
+
+Performing a least-squares fit on all the varied nuclear parameters against the simulated TBR results, we can estimate which parameters TBR is most sensitive to. One could take the slope of the linear best fit line as the sensitivity, however as many of the correlations here are very poor, the slope $m$ is multiplied by the $r^{2}$ value of the fit, to handicap parameters with worse fits to TBR data. For \textsuperscript{207}Pb the parameter correlation bar chart is shown as figure~\ref{fig:pb207_param_correl}, with the ordinate displaying the $m \cdot r^{2}$ of the fit line. Prior to fitting, the parameters were normalised to their mean value so their absolute values do not bias the resulting line gradients. It can be seen that the sampled variation in the $r_{V}$ parameter for \textsuperscript{207}Pb results in the most change in simulated TBRs. The gradient is positive, with an increase value of the nuclear radius $r_{V}$ resulting in a higher TBR. The most important parameter for \textsuperscript{206}Pb's contribution to TBR uncertainty is $v_{1}$, a multiplicative factor in the energy dependent part of $\mathcal{V}_{V}$, the real volume potential. This relationship is an inverse one, with an increase in $v_{1}$ weakly correlated with a decrease in TBR. $^{208}$Pb is most affected by $d_{1}$, a multiplicative parameter in the energy dependent component of $\mathcal{W}_{D}$, the imaginary surface potential. Better constraining these parameters might act to reduce uncertainty in future lead based blanket analyses. This could be achieved with more experimental data or advances in model theory.
+
+% Pb208 = d1, Pb206 = v1 and Pb207 = rv are most important parameters
 
 \begin{figure}[H]
 %  \figuretitle{}
   \centering
 	\includegraphics[width=0.8\textwidth]{Pb207_param_correl}
-	\caption{}
+	\caption{This bar chart shows the relationship between various nuclear parameters and TBR simulation data. The abscissa shows a variety of model parameters, the vast majority from optical model potentials. The ordinate values for each parameter are measures of the correlation between sampled parameter data and the TBR. The correlation measure is the slope multiplied by r-squared value of a linear fit to each dataset, the latter acting to relegate parameters which explain very little of the TBR variance. The parameter data was normalised to its mean before fitting, so that parameter absolute values did not bias the results. The majority of parameters studied have little correlation with TBR, leaving a few optical model parameters such as $r_{V}$ and $d_{1}$.}
 	\label{fig:pb207_param_correl}
 \end{figure}
 
-The distribution of the $r_{V}$ input parameter as sampled for the TBR simulations is shown as figure~\ref{fig:pb208_rvadjust}. It is not normally distributed, but rather positively skewed. It is unimodal. 
-
-\begin{figure}[H]
-%  \figuretitle{}
-  \centering
-	\includegraphics[width=0.8\textwidth]{rvadjust_param_Pb208_histogram}
-	\caption{}
-	\label{fig:pb208_rvadjust_hist}
-\end{figure}
+% \begin{figure}[H]
+% %  \figuretitle{}
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{Pb206_param_correl}
+%   \caption{}
+%   \label{fig:pb206_param_correl}
+% \end{figure}
+%
+% \begin{figure}[H]
+% %  \figuretitle{}
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{Pb207_param_correl}
+%   \caption{}
+%   \label{fig:pb207_param_correl}
+% \end{figure}
 
 %%%%% WARNING ---->
 % Even energy dependent adjustment of the geometry is possible as a last resort to fit data, using the rvadjustF, etc. keywords.
@@ -487,7 +519,7 @@ Uncertainty propagation in Monte-Carlo type radiation transport problems has oft
 
 TBR uncertainty has been computed with the TMC technique, investigating the contribution of uncertain nuclear data from the three major lead isotopes. The standard deviation is 1.2\% of the mean TBR. However, note that 5.8\% of the distribution is less than unity. While the average value may appear to be feasible, it should be stressed that there is a non-negligible probability of a value below a required limit. The TBR values are relatively low as this particular model has not been optimised for TBR and any practical design should have a TBR $\approx 1.1$ \cite{Fischer2015}, but in future design studies engineers should be aware of the probability of non-compliant operational parameters. 
 
-The TENDL-2015 nuclear data investigated in section \ref{subsec:data}, which is not necessarily Gaussian in shape, has yielded a TBR distribution with a small but finite negative skewness, an extended low-value tail. It is not possible to deduce this shape with more simplified approaches to uncertainty propagation such as linear perturbation theory. Decreasing the uncertainty in the aforementioned important optical model parameters, $r_{V}$ for \textsuperscript{207}Pb and \textsuperscript{208}Pb and $v_{1}$ for \textsuperscript{206}Pb, would potentially act to reduce the uncertainty in future TBR calculations.
+The TENDL-2015 nuclear data investigated in section \ref{subsec:data}, which is not necessarily Gaussian in shape, has yielded a TBR distribution with a small but finite negative skewness, an extended low-value tail. It is not possible to deduce this shape with more simplified approaches to uncertainty propagation such as linear perturbation theory. Decreasing the uncertainty in the aforementioned important optical model parameters, $v_{1}$ for \textsuperscript{206}Pb, $r_{V}$ for \textsuperscript{207}Pb and $d_{1}$ for \textsuperscript{208}Pb, would potentially act to reduce the uncertainty in future TBR analyses.
 
 Future work on TBR in HCLL could include the effect of other nuclides and elements which TBR is sensitive to including iron and oxygen as well as a completely correlated uncertainty propagation method employing lithium if data for light nuclides becomes available.
 
