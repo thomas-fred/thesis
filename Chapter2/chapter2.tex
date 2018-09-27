@@ -156,7 +156,7 @@ The ideal group structure should contain enough bins in the low energy region to
 %\lambda_{D(e)}=\sqrt{ \frac{ \varepsilon_0 k_B T_{(e)}}{e^2 n_\infty}}
 %\end{equation}
 
-\subsection{Shut Down Dose Rate (SDDR)}
+\subsection{Shut Down Dose Rate}
 The calculation of $\phi_{\gamma}(x,y,z,E,t)$ where $t$ is some time after cessation of plasma operation comprises three main steps:
 \begin{enumerate}
   \item Neutron transport---as previously, compute the neutron flux during plasma operation, $\phi_{n}(x,y,z,E)$, recording the neutron flux binned by energy over a spatial mesh. Finer meshes will converge on true behaviour, with coarse meshes over or under-estimating fluxes depending on local geometry and flux gradients \footnote{Using a mesh which conforms to the geometry, such as an unstructured mesh, has been shown to give significant improvements, especially for small features \cite{Eade2015}.}.
@@ -168,7 +168,7 @@ The calculation of $\phi_{\gamma}(x,y,z,E,t)$ where $t$ is some time after cessa
 The shut-down dose rate is calculated for the following scenario: it assumes a worker is inside the bioshield at ITER during a shutdown, stood 30cm from the inner surface of a 150cm thick wall with a steel mass fraction of 4.5\% the total wall mass. Reinforcing bar forms a mesh of squares 20cm in width and height at the front and back of the wall, 5cm from the surfaces. 
 
 \subsubsection{Materials}
-For analysis of the SDDR, where small impurities can have large contributions to the dose rate, the steel composition was refined \cite{Barabash16}. ITER limits for Co and Ni were imposed, 0.01\%wt and 0.05\%wt respectively. The resulting composition for steel is shown as table~\ref{tab:sddr_steel} in appendix~\ref{app:materials}.
+For analysis of the Shut Down Dose Rate (SDDR), where small impurities can have large contributions to the dose rate, the steel composition was refined \cite{Barabash16}. ITER limits for Co and Ni were imposed, 0.01\%wt and 0.05\%wt respectively. The resulting composition for steel is shown as table~\ref{tab:sddr_steel} in appendix~\ref{app:materials}.
 
 \subsubsection{Computation}
 As for before, radiation transport was conducted with MCNP6 v1.0. Neutron spectra were tallied on a mesh in the shield models. These spectra were used as input to the MCR2S activation linker code \cite{Davis2010a}. This program uses these spectra and a corresponding irradiation scenario to compute material changes within the meshed model. These new materials and decay information can be used to generate a photon source from the activated nuclides. The final steps in the calculation are to perform photon transport calculations from the activated wall to a target. The generation of photon sources and transport of emitted $\gamma$-rays must be computed for each decay time step of interest.
@@ -249,7 +249,7 @@ The effect of the steel mass fraction has also been investigated. It was found t
 % \end{figure}
 
 \FloatBarrier
-\subsection{Shut Down Dose Rate (SDDR)}
+\subsection{Shut Down Dose Rate}
 \label{subsec:sddr}
 After operation of a tokamak, repairs and maintenance are often necessary. This section explores the shut-down dose due to be received from the wall itself. It assumes a worker is inside the bioshield at ITER during a shutdown, stood 30cm from the inner surface of a 150cm thick wall with a steel mass fraction of 4.5\% the total wall mass. Reinforcing bar forms a mesh of squares 20cm in width and height at the front and back of the wall, 5cm from the surfaces. Dose rates due to neutron activation in the reinforced concrete shielding have been calculated for when the reinforced conrete is homogenised and when it is modelled faithfully.
 
