@@ -220,6 +220,44 @@ Compton scattering is a mid-energy range photon-matter interaction between photo
 \subsubsection{Pair production}
 Pair production is the general term for the creation of a particle and its antiparticle from an electrically neutral boson. In the context of photon interactions it is typically understood as the creation of an electron and positron from an energetic photon i.e., $\gamma \rightarrow e^- + e^+$. The photon is destroyed in the interaction. The particles are created from the incoming photon energy, which therefore must be at least equal to the rest mass of the particle pair, $2 \times 0.511 \mathrm{MeV} = 1.022 \mathrm{MeV}$. The process is the dominant high-energy photon-matter interaction. 
 
+\section{Radiation transport methods}
+\label{sec:radiation_transport}
+Finding the distribution of particle flux as a function of position, energy, time and angle is the essential step in computing nuclear responses such as reaction rates, volumetric heating, etc. This flux and its contributing and detracting terms can be represented by the Boltzmann transport equation, an integro-differential form of which is shown as equation~\ref{eq:boltzmann}.
+
+\begin{multline}
+  \label{eq:boltzmann}
+  \left[ \bm{\Omega} \cdot \nabla + \sigma_{t}(\bm{r},\bm{\Omega},E) \right] \phi(\bm{r},\bm{\Omega},E) = \\ \int_{0}^{\infty} \int_{4 \pi} \kappa (\bm{r}, \bm{\Omega} \leftarrow \bm{\Omega^{\prime}}, E \leftarrow E^{\prime}) \phi(\bm{r},\bm{\Omega^{\prime}},E^{\prime},t) d\bm{\Omega^{\prime}} dE^{\prime} + q(\bm{r},\bm{\Omega},E)
+\end{multline}
+
+Where $\bm{r}$ is the spatial distribution of neutrons, $\bm{\Omega}$ the angular distributions of the neutrons and $E$ the energy of the neutrons. $\phi$ is the angular neutron flux density. $\kappa$ represents reactions where neutrons are scattered from $E^{\prime}$ and $\bm{\Omega^{\prime}}$ in energy and angle to new values, $E$ and $\bm{\Omega}$. $\sigma_{t}$ is responsible for the loss of neutrons and $q$ is a source term for neutrons \cite{Hanus2014}. Equation~\ref{eq:boltzmann} is essentially a balance equation, conserving neutrons. It is difficult to solve for any real system because of the number of dimensions involved is large. There are essentially two methods for finding the flux distribution:
+
+\begin{itemize}
+  \item Deterministic methods which numerically solve a version of the Boltzmann transport equation.
+  \item Stochastic methods which run a large number of particle experiments to deduce the ensemble behaviours.
+\end{itemize}
+
+Deterministic methods are suited to solving simple geometries, perhaps 1D or 2D problems. They are often used for fission reactor problems, where a chain of different methods are used to solve for the flux distribution. These trade progressively larger physical scale for a simpler version of the physics, moving from the Boltzmann equation in the form above to a more simplified diffusion version. 
+
+Complicated 3D geometries are best suited to the stochastic method, where millions or billions of source particles are individually simulated. Their individual lifespans sample first from a source distribution, $q$, of the neutron phase space $(\bm{r},\bm{\Omega},E)$ and commence travelling through the problem. Random numbers are generated to sample from distributions which represent the physical behaviour of particles within materials. For example, the particle might scatter multiple times, drawing from distributions to determine the new scatter $E^{\prime}$ and $\bm{\Omega^{\prime}}$, sampling distributions to determine the path length before another interaction. This method does not solve equation~\ref{eq:boltzmann}, but rather samples to estimate a behaviour. As a result, results of interest must be explicitly `tallied'.
+
+% Boltzmann equation and intro
+% Brief overview, don't spend too long
+% Sampling not solving the Boltzmann equation, more involved description of MC
+
+\section{Material inventory methods}
+\nomenclature[z]{SDDR}{Shut-Down Dose Rate}
+Tracking the nuclide inventory of a nuclear system is essential to determining its changing behaviour over time. This is especially true if the neutron flux is intense or particularly energetic (as is the case for fusion reactor concepts). Activation of previously stable nuclides into radioactive ones leads to a Shut-Down Dose Rate (SDDR) due to decay $\gamma$ photons. Transmutation of elements from one to another can have substantial effects on the mechanical properties of materials. The transmutation of W into Ta, Re and Os in fusion reactor first walls is a particularly acute example. A pure W part will be transmuted such that it is >6\% other elements by the end of its 5 year design life \cite{Gilbert2011}. This can lead to embrittlement and other degradations. In order to simulate these effects and design more suitable reactor materials, one must be able to track the nuclide inventory as a function of time. This can be done with a series of Bateman equations, as demonstrated in equation~\ref{eq:bateman}.
+
+\begin{equation}
+  \label{eq:bateman}
+  \frac{dN_{i}}{dt} = -N_{i}(\lambda_{i} + \sigma_{i}\phi) + \Sigma_{j \neq i}N_{j}(\lambda_{ij} + \sigma_{ij}\phi)
+\end{equation}
+
+Where $\phi$ is the incident particle flux. $N_{i}$, $\lambda_{i}$ and $\sigma_{i}$ are the number density, decay constant and cross-section for reactions with nuclide $i$. $\sigma_{ij}$ is a cross-section for producing $i$ from $j$, and $\lambda_{ij}$ a decay constant for decay from $j$ to $i$. $N_{j}$ is the number density of nuclide $j$. Equation~\ref{eq:bateman} shows the balance of nuclei for a particular nuclide. Assembling a coupled system of these equations, with one for every nuclide, it is in theory possible to analytically solve for the nuclide inventories at any time. In practice, this is too difficult and numerical methods for the solution of the coupled differential equations are instead used. 
+% Bateman equation and its solution
+% pg 11-12 of below may be helpful
+% https://fispact.ukaea.uk/wp-content/uploads/2016/06/FISPACT-II-introchapter1.pdf  
+
 \section{Nuclear data}
 Nuclear data (ND) is the general term for nuclear physics quantified and recorded for later retrieval. The behaviour of nuclei, in particular when under bombardment by nucleons and light nuclei can be probed by a variety of experiments. These typically utilise monoenergetic beams of particles and arrays of detectors to determine reaction likelihood (cross-section) and information on the reaction products (emitted energy \& angle). These experiments are then repeated through the energy spectrum, from meV to the MeV range. Once experimental nuclear interaction findings are generated, they are typically submitted to and stored in the EXFOR database. This is a publically queryable dataset of experiments to date. While the EXFOR dataset covers many nuclides, reaction channels and energies, this parameter space is very large and expensive to explore with nuclear physics experiments. In some instances, for example with short-lived radioisotopes such as metastables, it is not possible to peform the appropriate experiment. In this case, any exant experimental data is augmented with information derived from theoretical nuclear physics models. These data, from experiment and theory are used to develop or `evaluate' a bundle of nuclear data typically grouped by incident projectile and target nuclide. The evaluated files include likelihoods of interaction for various reactants (cross-sections) but also reaction product energy spectra, angular distributions, decay data, uncertainty information and more. There is a globally standard format known as Evaluated Nuclear Data File (ENDF) \nomenclature[z]{ENDF}{Evaluated Nuclear Data File} which specifies the scope, layout and precision of these files. The current version of the ENDF format is ENDF-6 \cite{Herman2010}. As well as the reaction information listed above and detailed below, the files also contain information on contributing experiments and modifications which occurred during data evaluation. There are a series of different nuclear data libraries which constitute different attempts to capture and record the nuclear behaviour of a variety of nuclides. These may be general purpose (e.g. JENDL \cite{shibata2011}, \nomenclature[z]{JENDL}{Japanese Evaluated Nuclear Data Library} TENDL \cite{Rochman2016} \nomenclature[z]{TENDL}{TALYS-based Evalulated Nuclear Data Library} and the confusingly named ENDF/B \cite{brown2018}\nomenclature[z]{ENDF/B}{Evalulated Nuclear Data File B}) or more specialist (e.g. EAF\cite{packer2011} \nomenclature[z]{EAF}{European Activation File}). Many countries with nuclear programmes have developed their own nuclear data libraries over time. 
 
@@ -307,21 +345,6 @@ Unstable nuclei decay, that is, change by the emission of particles or by intern
 % ENDF-6 formats §29.1 very useful as overview material
 % \cite{Rullhusen2006} may be helpful too!
 Without information on uncertainty, data may be worse than just wrong, it may be falsely reassuring. The practical utility of some ND is in part determined by its uncertainty, whether its quoted value is likely to be near the true value. For uncertainties to be quoted with engineering results, uncertainty must first be quantified within the inputs (ND). Then, ND uncertainties can be propagated by various methods through to quantities of interest such as powers, neutron multiplication factors or material temperatues. The uncertainty data is a description of the experimental variance on certain data points, say, a cross-section for a given reaction channel and energy, but also with covariance information. These covariance data describe how correlated pairs of mean value data are. These correlations often arise from systematic measurement errors in nuclear physics experiments, where data for a whole energy range might be biased similarly in some way. The files containing variance and covariance information are colloquially known simply (and a little confusingly) as `covariances' or `covariance files'. Until recently, uncertainty information was only released in nuclear data library documentation or accompanying references. The modern ENDF-6 standard groups variance and covariance information together with the mean value data \cite{ENDF-6}. 
-
-\section{Radiation transport methods}
-\label{sec:radiation_transport}
-% Boltzmann equation and intro
-\subsection{Deterministic methods}
-\label{subsec:deterministic}
-% Brief overview, don't spend too long
-\subsection{Stochastic methods}
-\label{subsec:monte_carlo}
-% Sampling not solving the Boltzmann equation, more involved description of MC
-
-\section{Material activation-transmutation methods}
-% Bateman equation and its solution
-% pg 11-12 of below may be helpful
-% https://fispact.ukaea.uk/wp-content/uploads/2016/06/FISPACT-II-introchapter1.pdf  
 
 \section{Sources of uncertainty in fusion neutronics}
 The sources of uncertainty in fusion neutronics are many and varied. Currently envisioned fusion reactors such as ITER rank as some of the most complex machines ever. Their multitude of components, diversity of materials and range of temporal and spatial scales make simulating their operation challenging. This complexity requires immense computational resources to model with a high fidelity. It is not currently possible to model any engineering system \textit{ab initio}, solving the Schr{\"o}dinger equation for each nucleon. Instead, approximations at each distance and time scale are made and fidelity traded off against simulation time. Examples of various modelling approximations commonly employed in fusion neutronics analyses follow below. These practices enable the solution of otherwise insoluble problems.  
