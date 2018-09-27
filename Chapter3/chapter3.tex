@@ -493,7 +493,7 @@ A set of neutron spectra from the LTIS assembly are as shown in figure \ref{fig:
 
 Figure \ref{fig:tungsten-182} shows a comparison of collapsed cross-sections for $^{182}$W. The abscissa lists each group structure tested. A pair of data points exist for each group structure, one with the use of self-shielding factors (shielded) and one without (unshielded). The abscissa order is a sorted such that the unshielded values decrease from left to right. The left ordinate indicates the absolute cross-section value in barns, while the right ordinate gives the cross-section as a percentage change over the point-wise (reference) value, i.e. +100\% means the multi-group calculation has over-estimated the cross-section and therefore reaction rate by a factor of 2.
 
-As would be expected, in a simple, unshielded case having more groups and therefore a larger number of groups per energy decade tends to give multi-group results closer to the reference point-wise result. Flux depressions are better resolved with narrower groups and therefore the reaction rate resulting from resonances is not overestimated to the same degree. However, the 650 optimised group, and even the 280 optimised group perform better than the 709 group in the unshielded regime. Their narrow groups are targeted where most useful, around the resonances which were poorly described by a equal logarithmically spaced group structure.
+As would be expected, in a simple, unshielded case having more groups and therefore a larger number of groups per energy decade tends to give multi-group results closer to the reference point-wise result. The 709 group persistent performs better than the 175 group, for instance. Flux depressions are better resolved with narrower groups and therefore the reaction rate resulting from resonances is not overestimated to the same degree. However, the 650 optimised group, and even the 280 optimised group perform better than the 709 group in the unshielded regime. Their narrow groups are targeted where most useful, around the resonances which were poorly described by a equal logarithmically spaced group structure. The optimisation process has, to some degree, worked. This optimisation was for 44 nuclides of 9 elements and yet has still conferred an advantage.
 
 \begin{figure}[H]
   \centering
@@ -502,7 +502,7 @@ As would be expected, in a simple, unshielded case having more groups and theref
   \label{fig:tungsten-182}
 \end{figure}
 
-With regards to individual groups, the 175 group used unshielded performs very poorly, overestimating the reaction rate by at least a factor of 3 in all cases. The 650 optimised group is always within 50\% of the point-wise result and is the best performing group.
+With regards to individual groups, the 175 group used unshielded performs very poorly, overestimating the reaction rate by at least a factor of 3 in all cases. This group should be used with caution. As explored in chapter~\ref{chap:homogenisation}, it rarely suitable for heavily thermalised spectra because of its very poor resolution in the thermal energy region. However, this is not the cause of its inadequacy here as the spectrum is still very hard, having penetrated only the thin LTIS to interact with the test foils. The 650 optimised group is always within 50\% of the point-wise result and is the best performing group. As might be expected the shielded results show far less variation between groups. 280, 315, 650 \& 709 demonstrate largely similar behaviour when used in conjunction with self-shielding factors. The shielded results reinforce the utility of self-shielding factors. When possible, their usage can dramatically improve performance for multi-group calculations. 175 does again over-estimate, between 0\% and 120\% depending on the nuclide.
 
 \begin{figure}[H]
   \centering
@@ -510,8 +510,6 @@ With regards to individual groups, the 175 group used unshielded performs very p
   \caption{Comparison of different calculation methods for radiative capture in $^{186}$W under JET neutron irradiation.}
   \label{fig:tungsten-186}
 \end{figure}
-
-As might be expected the shielded results show far less variation between groups. 280, 315, 650 \& 709 demonstrate largely similar behaviour when used in conjunction with self-shielding factors. 175 does again over-estimate, between 0\% and 120\% depending on the nuclide.
 
 % \begin{figure}[H]
 %   \centering
