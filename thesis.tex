@@ -113,23 +113,21 @@
 
 \maketitle
 
-\include{Dedication/dedication}
-\include{Declaration/declaration}
-\include{Acknowledgement/acknowledgement}
 \include{Abstract/abstract}
+\tableofcontents
+\listoffigures
+\listoftables
+\include{Acknowledgement/acknowledgement}
+%\include{Dedication/dedication}
+\include{Declaration/declaration}
 
 % *********************** Adding TOC and List of Figures ***********************
 
-\tableofcontents
 
-\listoffigures
-
-\listoftables
 
 % \printnomenclature[space] space can be set as 2em between symbol and description
 %\printnomenclature[3em]
 
-\printnomenclature
 
 % ******************************** Main Matter *********************************
 \mainmatter
@@ -152,6 +150,7 @@
 % ********************************** Bibliography ******************************
 \begin{spacing}{0.9}
 
+\printnomenclature
 % To use the conventional natbib style referencing
 % Bibliography style previews: http://nodonn.tipido.net/bibstyle.php
 % Reference styles: http://sites.stat.psu.edu/~surajit/present/bib.htm
