@@ -132,7 +132,7 @@ Using these tools and a set of input parameters, reaction likelihoods and outcom
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{t6_flow.png}
-  \caption{Nuclear data generation flowchart for the T6 software package. Figure from \cite{Koning2013}.}
+  \caption[Nuclear data generation in T6 package.]{Nuclear data generation flowchart for the T6 software package. Figure from \cite{Koning2013}.}
   \label{fig:t6_overview}
 \end{figure}
 
@@ -195,7 +195,7 @@ The general TMC process is diagrammatically outlined in figure~\ref{fig:tmc_over
 %  \figuretitle{}
   \centering
   \includegraphics[width=0.8\textwidth]{tmc_overview.png}
-  \caption{Schematic overview of the TMC process. 1) Uncertainties in fundamental nuclear parameters estimated. 2) Many sets of ND generated with T6 software, sampling from fundamental parameters. 3) Nuclear system is simulated many times with generated ND, value of observable is added to PDF, eventually converging on an observable with a mean value and characteristic distribution. Figure from \cite{Koning2008}.}
+  \caption[Total Monte Carlo process schematic.]{Schematic overview of the TMC process. 1) Uncertainties in fundamental nuclear parameters estimated. 2) Many sets of ND generated with T6 software, sampling from fundamental parameters. 3) Nuclear system is simulated many times with generated ND, value of observable is added to PDF, eventually converging on an observable with a mean value and characteristic distribution. Figure from \cite{Koning2008}.}
   \label{fig:tmc_overview}
 \end{figure}
 
@@ -283,7 +283,7 @@ As discussed in section~\ref{subsubsec:tmc}, traditionally cross-section uncerta
     RUSFOND 2010 & 14.0 & 2.18 & - \\
     \bottomrule
   \end{tabularx}
-  \caption{Cross-section values for the n,2n reaction channel, $\sigma_{n,2n}$ around 14 MeV for various experiments and libraries. The experimental results were retrieved from the online EXFOR database \cite{exfor2017}. The ENDF utility code Inter \cite{Dunford2002} was used to extract the values for each library. The uncertainties, $\Delta\sigma_{n,2n}$ are presented as percentages above and below the reported value.}
+  \caption[Cross-section and uncertainty data for the $^{208}$Pb(n,2n)$^{207}$Pb reaction.]{Cross-section values for the n,2n reaction channel, $\sigma_{n,2n}$ around 14 MeV for various experiments and libraries. The experimental results were retrieved from the online EXFOR database \cite{exfor2017}. The ENDF utility code Inter \cite{Dunford2002} was used to extract the values for each library. The uncertainties, $\Delta\sigma_{n,2n}$ are presented as percentages above and below the reported value.}
   \label{tab:lead_by_lib}
 \end{table}
 
@@ -310,7 +310,7 @@ It is instructive to inspect the nuclear data used as input for this TMC simulat
 %  \figuretitle{}
   \centering
   \makebox[\textwidth][c]{\includegraphics[width=1.1\textwidth]{pb208_n2n_tendl_exfor}}
-  \caption{Shown here are $^{208}$Pb(n,2n)$^{207}$Pb cross-sections as a function of energy. The plot shows the TENDL `random' data extracted from processed ACE files. Additionally, the few available experimental results in EXFOR are plotted for comparison. The relative paucity of experimental data is one reason for the relatively large uncertainty on this particular reaction channel.}
+  \caption[Cross-section and uncertainty data for the $^{208}$Pb(n,2n)$^{207}$Pb reaction.]{Shown here are $^{208}$Pb(n,2n)$^{207}$Pb cross-sections as a function of energy. The plot shows the TENDL `random' data extracted from processed ACE files. Additionally, the few available experimental results in EXFOR are plotted for comparison. The relative paucity of experimental data is one reason for the relatively large uncertainty on this particular reaction channel.}
   \label{fig:tendl_lead}
 \end{figure}
 
@@ -328,7 +328,7 @@ In an unmoderated fusion neutron spectrum the dominant reaction channels for Pb 
     Pb208 & 2.17 & 9.7\% & -0.120 \\
     \bottomrule
   \end{tabular}
-  \caption{TENDL2015 `random' Pb n,2n neutron multiplicity channel cross-section distribution statistics, also shown in figure~\ref{fig:tendl_n2n}.}
+  \caption[Statistical moments of $^{208}$Pb(n,2n)$^{207}$Pb data in TENDL2015.]{TENDL2015 `random' Pb n,2n neutron multiplicity channel cross-section distribution statistics, also shown in figure~\ref{fig:tendl_n2n}.}
   \label{table:n2n}
 \end{table}
 
@@ -337,7 +337,7 @@ Figure~\ref{fig:tendl_n2n} and table~\ref{table:n2n} show the distributions of T
 \begin{figure}[H]
 %  \figuretitle{}
 	\includegraphics[width=\textwidth]{pb_tendl_n2n_hist}
-	\caption{Shown are histograms of $\sigma_{n,2n}$ at 14 MeV for the three major Pb isotopes. The histogram contains all 300 available files each Pb nuclide. It can be seen that while $^{206,208}$Pb are approximately symmetrical with skewness values close to zero, $^{207}$Pb has a skewness of -0.868 indicating a low-value tail. This may or may not be representative of the underlying distribution.}
+	\caption[Histograms of $^{208}$Pb(n,2n)$^{207}$Pb data in TENDL2015.]{Shown are histograms of $\sigma_{n,2n}$ at 14 MeV for the three major Pb isotopes. The histogram contains all 300 available files each Pb nuclide. It can be seen that while $^{206,208}$Pb are approximately symmetrical with skewness values close to zero, $^{207}$Pb has a skewness of -0.868 indicating a low-value tail. This may or may not be representative of the underlying distribution.}
 	\label{fig:tendl_n2n}
 \end{figure}
 
@@ -353,14 +353,14 @@ Figure~\ref{fig:tendl_n2n} and table~\ref{table:n2n} show the distributions of T
     Pb208 & 2.81 & 8.1\% & 1.185 \\
     \bottomrule
   \end{tabular}
-  \caption{TENDL2015 `random' Pb elastic scattering cross-section distribution statistics, also shown as figure~\ref{fig:tendl_nel}.}
+  \caption[Statistical moments of $^{208}$Pb(n,el)$^{208}$Pb data in TENDL2015.]{TENDL2015 `random' Pb elastic scattering cross-section distribution statistics, also shown as figure~\ref{fig:tendl_nel}.}
   \label{table:nel}
 \end{table}
 
 \begin{figure}[H]
 %  \figuretitle{}
   \includegraphics[width=\textwidth]{pb_tendl_nel_hist}
-  \caption{The elastic scattering cross-sections for lead at 14MeV are all positively skewed, with $^{208}$Pb having a skewness value of 1.185.}
+  \caption[Histograms of $^{208}$Pb(n,el)$^{208}$Pb data in TENDL2015.]{The elastic scattering cross-sections for lead at 14MeV are all positively skewed, with $^{208}$Pb having a skewness value of 1.185.}
   \label{fig:tendl_nel}
 \end{figure}
 
@@ -371,7 +371,7 @@ The elastic scattering data shown in figure~\ref{fig:tendl_nel} and table~\ref{t
 \begin{figure}[H]
 %  \figuretitle{}
 	\includegraphics[width=\textwidth]{pb_el_n2n_corr}
-  \caption{Shown here are scatter plots of the relationship between the scattering and n,2n cross-sections in the TENDL data. The two channels are clearly anti-correlated. A least squares fit has been applied and the resulting best-fit linear relationship plotted.}
+  \caption[Correlation between elastic and (n,2n) channels in Pb.]{Shown here are scatter plots of the relationship between the scattering and n,2n cross-sections in the TENDL data. The two channels are clearly anti-correlated. A least squares fit has been applied and the resulting best-fit linear relationship plotted.}
 	\label{fig:pb_el_n2n_corr}
 \end{figure}
 
@@ -382,7 +382,7 @@ There exist several variants on the DEMO future fusion reactor concept. It is ty
 \begin{figure}[H]
   \centering
 	\includegraphics[width=0.5\textwidth]{demo_mcnp}
-	\caption{A poloidal slice through the 2014 DEMO HCLL radiation transport model used for this study. Magnets are marked in yellow, the divertor is fuscia and the blanket in red. The blanket sectors are constructed using the MCNP `universe' feature for repeating geometry and do not conform perfectly to the vacuum vessel shape. The three large voids above, below and to the right of the plasma chamber are access ports--extraction routes for blanket and divertor sectors in need of replacement. As noted previously, the distance from the left of this figure to the centre of the plasma chamber is approximately 9m.}
+	\caption[Poloidal slice through DEMO HCLL MCNP model.]{A poloidal slice through the 2014 DEMO HCLL radiation transport model used for this study. Magnets are marked in yellow, the divertor is fuscia and the blanket in red. The blanket sectors are constructed using the MCNP `universe' feature for repeating geometry and do not conform perfectly to the vacuum vessel shape. The three large voids above, below and to the right of the plasma chamber are access ports--extraction routes for blanket and divertor sectors in need of replacement. As noted previously, the distance from the left of this figure to the centre of the plasma chamber is approximately 9m.}
 	\label{fig:demo_mcnp}
 \end{figure}
 
@@ -399,7 +399,7 @@ Python scripts were used to plot TBR convergence as a function of simulation cou
 %  \figuretitle{}
   \centering
 	\includegraphics[width=0.8\textwidth]{hcll_convergence_1559}
-	\caption{The simple mean and standard deviation of the TBR results is presented as a function of the number of simulations.}
+	\caption[Convergence of TBR distribution as a function of simulation count.]{The simple mean and standard deviation of the TBR results is presented as a function of the number of simulations.}
 	\label{fig:convergence}
 \end{figure}
 
@@ -421,7 +421,7 @@ Equation~\ref{eq:skewed_normal} is the fit function plotted in figure~\ref{fig:t
 %  \figuretitle{}
   \centering
 	\includegraphics[width=0.8\textwidth]{hcll_hist_1559}
-	\caption{Histogram of 1559 TBR values computed with the TMC methodology. The fit is a skew-normal distribution as described by equations~\ref{eq:normal} and \ref{eq:skewed_normal}. The standard deviation is 1.2\% of the mean value and represents the variation from TENDL2015 lead nuclear data (specifically $^{206,207,208}$Pb). Note that 5.8\% of the distribution is less than unity.}
+	\caption[DEMO HCLL TBR distribution due to lead nuclear data.]{Histogram of 1559 TBR values computed with the TMC methodology. The fit is a skew-normal distribution as described by equations~\ref{eq:normal} and \ref{eq:skewed_normal}. The standard deviation is 1.2\% of the mean value and represents the variation from TENDL2015 lead nuclear data (specifically $^{206,207,208}$Pb). Note that 5.8\% of the distribution is less than unity.}
 	\label{fig:tbr_distribution}
 \end{figure}
 
@@ -431,7 +431,7 @@ Figure~\ref{fig:tbr_n2n} shows the correlation between the n,2n cross-sections u
 %  \figuretitle{}
   \centering
 	\includegraphics[width=0.7\textwidth]{TBR_n,2n}
-	\caption{Shown here are the $^{208}$Pb(n,2n)$^{207}$Pb cross-sections at 14 MeV, from the files used as input ND for the TMC simulation. They are plotted against the resulting TBR value from each simulation. There is a reasonably strong positive correlation, with increasing n,2n cross-sections resulting in an increased TBR.}
+	\caption[Correlation between $^{208}$Pb(n,2n)$^{207}$Pb cross-sections and TBR.]{Shown here are the $^{208}$Pb(n,2n)$^{207}$Pb cross-sections at 14 MeV, from the files used as input ND for the TMC simulation. They are plotted against the resulting TBR value from each simulation. There is a reasonably strong positive correlation, with increasing n,2n cross-sections resulting in an increased TBR.}
 	\label{fig:tbr_n2n}
 \end{figure}
 
@@ -441,7 +441,7 @@ The relationship between n,2n cross-section and TBR shown in figure~\ref{fig:tbr
 %  \figuretitle{}
   \centering
 	\includegraphics[width=0.7\textwidth]{TBR_Elastic}
-	\caption{Shown here are the $^{208}$Pb(n,el)$^{208}$Pb cross-sections at 14 MeV, from the files used as input ND for the TMC simulation. They are plotted against the resulting TBR value from each simulation. There is a weak correlation, with a minor downward trend in TBR for increasing elastic cross-section.}
+	\caption[Correlation between $^{208}$Pb(n,el)$^{208}$Pb cross-sections and TBR.]{Shown here are the $^{208}$Pb(n,el)$^{208}$Pb cross-sections at 14 MeV, from the files used as input ND for the TMC simulation. They are plotted against the resulting TBR value from each simulation. There is a weak correlation, with a minor downward trend in TBR for increasing elastic cross-section.}
 	\label{fig:tbr_elastic}
 \end{figure}
 
@@ -469,7 +469,7 @@ Where $r$ is the separation, $a$ a `diffuseness' parameter and $R$ the nuclear r
 %  \figuretitle{}
   \centering
 	\includegraphics[width=0.8\textwidth]{rvadjust_param_Pb207_histogram}
-	\caption{This figure shows the distribution of nuclear radius, or $r_{V}$ values sampled in the creation of $^{207}$Pb cross-section data for this TMC work. $r_{V}$ is a geometry parameter in optical model potentials. The distribution is slightly positively skewed. The data here have been normalised by their mean to centre the distribution on unity and allow for easier comparison between parameters of different scale.}
+	\caption[$r_{V}$ nuclear parameter distribution for $^{207}$Pb.]{This figure shows the distribution of nuclear radius, or $r_{V}$ values sampled in the creation of $^{207}$Pb cross-section data for this TMC work. $r_{V}$ is a geometry parameter in optical model potentials. The distribution is slightly positively skewed. The data here have been normalised by their mean to centre the distribution on unity and allow for easier comparison between parameters of different scale.}
 	\label{fig:pb207_rvadjust_hist}
 \end{figure}
 
@@ -479,7 +479,7 @@ Shown as figure~\ref{fig:pb207_rvadjust} is the relationship between $r_{V}$ as 
 %  \figuretitle{}
   \centering
 	\includegraphics[width=0.7\textwidth]{Pb207_rvadjust}
-	\caption{Scatter plot of the $r_{V}$ nuclear radius parameter against simulated TBR. The $r_{V}$ values have been normalised to the mean of their distribution, centring the distribution on unity. The data has been fit with a linear relationship, with the fit data shown in the plot. A minor positive correlation is registered.}
+	\caption[TBR as a function of $r_{V}$ for $^{207}$Pb.]{Scatter plot of the $r_{V}$ nuclear radius parameter against simulated TBR. The $r_{V}$ values have been normalised to the mean of their distribution, centring the distribution on unity. The data has been fit with a linear relationship, with the fit data shown in the plot. A minor positive correlation is registered.}
 	\label{fig:pb207_rvadjust}
 \end{figure}
 
@@ -491,7 +491,7 @@ Performing a least-squares fit on all the varied nuclear parameters against the 
 %  \figuretitle{}
   \centering
 	\includegraphics[width=0.8\textwidth]{Pb207_param_correl}
-	\caption{This bar chart shows the relationship between various nuclear parameters and TBR simulation data. The abscissa shows a variety of model parameters, the vast majority from optical model potentials. The ordinate values for each parameter are measures of the correlation between sampled parameter data and the TBR. The correlation measure is the slope multiplied by r-squared value of a linear fit to each dataset, the latter acting to relegate parameters which explain very little of the TBR variance. The parameter data was normalised to its mean before fitting, so that parameter absolute values did not bias the results. The majority of parameters studied have little correlation with TBR, leaving a few optical model parameters such as $r_{V}$ and $d_{1}$.}
+	\caption[Strength of correlation between $^{207}$Pb nuclear parameters and TBR.]{This bar chart shows the relationship between various nuclear parameters and TBR simulation data. The abscissa shows a variety of model parameters, the vast majority from optical model potentials. The ordinate values for each parameter are measures of the correlation between sampled parameter data and the TBR. The correlation measure is the slope multiplied by r-squared value of a linear fit to each dataset, the latter acting to relegate parameters which explain very little of the TBR variance. The parameter data was normalised to its mean before fitting, so that parameter absolute values did not bias the results. The majority of parameters studied have little correlation with TBR, leaving a few optical model parameters such as $r_{V}$ and $d_{1}$.}
 	\label{fig:pb207_param_correl}
 \end{figure}
 
