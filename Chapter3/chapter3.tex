@@ -53,7 +53,7 @@ The likelihood of interaction between an incident particle and a nucleus is a a 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\linewidth]{gendf_convergence}
-  \caption{This figure shows the results from a series of calculations with increasingly fine energy discretisations, or group structures. The bins for all groups are equally log-spaced. The calculation is to determine the (n,$\gamma$) reaction rate in a shell of \textsuperscript{186}W due to some incident neutron flux. The dependent variable is the \% change on a point-wise (true) value calculated with MCNP.}
+  \caption[Reaction rate convergence as a function of energy bin count.]{This figure shows the results from a series of calculations with increasingly fine energy discretisations, or group structures. The bins for all groups are equally log-spaced. The calculation is to determine the (n,$\gamma$) reaction rate in a shell of \textsuperscript{186}W due to some incident neutron flux. The dependent variable is the \% change on a point-wise (true) value calculated with MCNP.}
   \label{fig:gendf_convergence}
 \end{figure}
 
@@ -72,7 +72,7 @@ To undertake this study, a set of scripts were written to parse resonance parame
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{resonance_energy_atomic_mass}
-  \caption{This scatter plot shows the energy of resonances as a function of atomic mass, for the majority of resonances recorded in the ENDF/B-VII.1 nuclear data library. The data are coloured by density, with blue as lowest density, green medium and yellow highest. The density has been calculated in \{log\textsubscript{10}(E), A\} space with a Kernel Density Estimator (KDE) approach. The first resonance for each nuclide is marked by a red cross for ease of identification.}
+  \caption[Nuclear resonance energies as a function of atomic mass.]{This scatter plot shows the energy of resonances as a function of atomic mass, for the majority of resonances recorded in the ENDF/B-VII.1 nuclear data library. The data are coloured by density, with blue as lowest density, green medium and yellow highest. The density has been calculated in \{log\textsubscript{10}(E), A\} space with a Kernel Density Estimator (KDE) approach. The first resonance for each nuclide is marked by a red cross for ease of identification.}
   \label{fig:res_energy_mass}
 \end{figure}
 
@@ -97,7 +97,7 @@ RIs give an indication of the resonance's contribution to reaction rate. Computi
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{largest_res_energy_scatter}
-  \caption{The energy of the largest resonances for ENDF/V-BII.1 as a function of atomic mass. The `largest' is determined by the RI as defined in equation~\ref{eq:res_integral}. Two datasets are shown, RI calculated using widths for neutron emission, $\Gamma_{n}$ in blue and for gamma emission, $\Gamma_{\gamma}$ in green.}
+  \caption[Energies of the largest resonances as a function of atomic mass.]{The energy of the largest resonances for ENDF/V-BII.1 as a function of atomic mass. The `largest' is determined by the RI as defined in equation~\ref{eq:res_integral}. Two datasets are shown, RI calculated using widths for neutron emission, $\Gamma_{n}$ in blue and for gamma emission, $\Gamma_{\gamma}$ in green.}
   \label{fig:largest_res_energy_scatter}
 \end{figure}
 
@@ -106,7 +106,7 @@ It is instructive to inspect the correlations between various parameters recorde
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{res_correlation}
-  \caption{This correlation matrix is assembled from the resonance parameter data contained within the ENDF/B-VII.1 nuclear data library. It is constructed from the covariance matrix, showing how pairs of variables vary together, but normalised such that a meaningful comparison between relationships can be undertaken. The normalisation is given here \cite{numpy2018}. $A$ is atomic mass, $E_{r}$ resonance centre-of-mass energy, $l$ neutron orbital angular momentum, $J$ the total angular momentum, $\Gamma_{t}$ the total width, $\Gamma_{f}$ the fission partial width, $\Gamma_{n}$ the neutron emission partial width, $\Gamma_{\gamma}$ the $\gamma$-ray emission partial width, $\int R_{n}(E)$ the resonance integral for $\Gamma_{n}$ and $\int R_{\gamma}(E)$ the resonance integral for $\Gamma_{\gamma}$.}
+  \caption[Correlation matrix of various resonance parameters.]{This correlation matrix is assembled from the resonance parameter data contained within the ENDF/B-VII.1 nuclear data library. It is constructed from the covariance matrix, showing how pairs of variables vary together, but normalised such that a meaningful comparison between relationships can be undertaken. The normalisation is given here \cite{numpy2018}. $A$ is atomic mass, $E_{r}$ resonance centre-of-mass energy, $l$ neutron orbital angular momentum, $J$ the total angular momentum, $\Gamma_{t}$ the total width, $\Gamma_{f}$ the fission partial width, $\Gamma_{n}$ the neutron emission partial width, $\Gamma_{\gamma}$ the $\gamma$-ray emission partial width, $\int R_{n}(E)$ the resonance integral for $\Gamma_{n}$ and $\int R_{\gamma}(E)$ the resonance integral for $\Gamma_{\gamma}$.}
   \label{fig:res_correlation}
 \end{figure}
 
@@ -208,7 +208,7 @@ Figure~\ref{fig:W-183_shielding} shows cross-sections from several tungsten isto
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{W-183_shielding}
-  \caption{This figure shows cross-sections and computed self-shielding factors for \textsuperscript{183}W in elemental tungsten. The upper panel shows the total cross-section, $\sigma_{t}(E)$, for the major constituent isotopes of tungsten. The interaction data is processed from ENDF-B/VII.1 and was obtained from \citeauthor{Shimwell2018}'s online cross-section plotting service \cite{Shimwell2018}. The lower panel shows total self-shielding factors computed for group-wise \textsuperscript{183}W data using the FISPACT-II code \cite{sublet2017a}. The group structure employed is a relatively fine 2,048 group with equal log\textsubscript{10} spacing. Note how \textsuperscript{183}W resonances are only shielded when the have a greater cross-section than other nuclides in the mixture (natural tungsten).}
+  \caption[Self-shielding of $^{183}$W in elemental W.]{This figure shows cross-sections and computed self-shielding factors for \textsuperscript{183}W in elemental tungsten. The upper panel shows the total cross-section, $\sigma_{t}(E)$, for the major constituent isotopes of tungsten. The interaction data is processed from ENDF-B/VII.1 and was obtained from \citeauthor{Shimwell2018}'s online cross-section plotting service \cite{Shimwell2018}. The lower panel shows total self-shielding factors computed for group-wise \textsuperscript{183}W data using the FISPACT-II code \cite{sublet2017a}. The group structure employed is a relatively fine 2,048 group with equal log\textsubscript{10} spacing. Note how \textsuperscript{183}W resonances are only shielded when the have a greater cross-section than other nuclides in the mixture (natural tungsten).}
   \label{fig:W-183_shielding}
 \end{figure}
 
@@ -226,7 +226,7 @@ An example application of group-wise self-shielding factors is shown in figure~\
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{W183_gamma}
-  \caption{Shown here are the unshielded and shielded \textsuperscript{183}W(n,$\gamma$)\textsuperscript{184}W reaction rates and the associated macro-partial self-shielding factors for this reaction channel as a function of energy. The neutron spectrum in this example is a constant function of energy and so the reaction rates are a simple renormalisation of the cross-section. The material is elemental tungsten.}
+  \caption[Unshielded and shielded reaction rates for $^{183}$W(n,$\gamma$)$^{184}$W.]{Shown here are the unshielded and shielded \textsuperscript{183}W(n,$\gamma$)\textsuperscript{184}W reaction rates and the associated macro-partial self-shielding factors for this reaction channel as a function of energy. The neutron spectrum in this example is a constant function of energy and so the reaction rates are a simple renormalisation of the cross-section. The material is elemental tungsten.}
   \label{fig:W183_gamma}
 \end{figure}
 
@@ -317,7 +317,7 @@ The differences between discrete elements of the cumulative distribution provide
 \begin{figure}
   \centering
   \includegraphics[width=0.8\linewidth]{W186_gamma}
-  \caption{Shown in the upper plot is a $^{186}$W radiative capture reaction rate, both unshielded and shielded. The incident particle spectrum in this case is a power function of energy, i.e. $\phi(E) = E^{m}$ where $m$ is some constant, in this case 0. The second plot shows the calculated self-shielding factors as a function of energy for this reaction, given an elemental W material composition. The third plot is the cumulative self-shielding distribution, $C(E_{g})$ from equation~\ref{eq:c}. The fourth and final plot is of, $D(E_{g})$, from equation~\ref{eq:d}.}
+  \caption[Step-wise functions for calculating the effective self-shielding distribution.]{Shown in the upper plot is a $^{186}$W radiative capture reaction rate, both unshielded and shielded. The incident particle spectrum in this case is a power function of energy, i.e. $\phi(E) = E^{m}$ where $m$ is some constant, in this case 0. The second plot shows the calculated self-shielding factors as a function of energy for this reaction, given an elemental W material composition. The third plot is the cumulative self-shielding distribution, $C(E_{g})$ from equation~\ref{eq:c}. The fourth and final plot is of, $D(E_{g})$, from equation~\ref{eq:d}.}
   \label{fig:w_cross_section}
 \end{figure}
 
@@ -347,7 +347,7 @@ An example bin density distribution and the associated new group structure bin b
 \begin{figure}
   \centering
   \includegraphics[width=0.8\linewidth]{nbins-280_bpd-10}
-  \caption{This plot shows the bin density, $\rho(E)$ distribution as per equation~\ref{eq:offset}. This is the summed effective self-shielding distributions for all nuclides of interest, plus some constant to give a minimum bins per decade outside of the resonant region. The 280 log-spaced bin boundaries for this distribution constitute the original group structure. An optimised 280 bin group structure is determined by rebinning the $\rho(E)$ distribution and is shown by the green lines. There are a minimum of 10 bins per decade.}
+  \caption[Bin density distribution in energy for a particular optimisation.]{This plot shows the bin density, $\rho(E)$ distribution as per equation~\ref{eq:offset}. This is the summed effective self-shielding distributions for all nuclides of interest, plus some constant to give a minimum bins per decade outside of the resonant region. The 280 log-spaced bin boundaries for this distribution constitute the original group structure. An optimised 280 bin group structure is determined by rebinning the $\rho(E)$ distribution and is shown by the green lines. There are a minimum of 10 bins per decade.}
   \label{fig:optimised_bounds}
 \end{figure}
 
@@ -394,7 +394,7 @@ To explore the benefits of group structure optimisation by the methods outlined 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\linewidth]{conv_mcnp}
-  \caption{A 2D slice of a simple MCNP test geometry, a series of concentric shells of material. These shells are steel, water and tungsten from inside to outside. There is a 14 MeV point source located in the centre.}
+  \caption[Slice of MCNP test geometry.]{A 2D slice of a simple MCNP test geometry, a series of concentric shells of material. These shells are steel, water and tungsten from inside to outside. There is a 14 MeV point source located in the centre.}
   \label{fig:conv_mcnp}
 \end{figure}
 
@@ -411,7 +411,7 @@ In this work, the LTIS MCNP model \cite{lengar2017} was integrated into a refere
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{jet_mcnp_inset}
-  \caption{The figure shows a plan view of the JET tokamak in Oxfordshire, UK and the location of the LTIS foil holder. The main panel is approximately 12m across, displaying the major radius, R = 3m of JET. The ports for each octant are visible as openings in the purple vessel. The LTIS foil holder is located in the lower left, in octant 8. It is shown at greater magnification in the inset panels. This figure is assembled from various MCNP plotter views.}
+  \caption[Toroidal slice of JET MCNP geometry, inset showing LTIS foil holder.]{The figure shows a plan view of the JET tokamak in Oxfordshire, UK and the location of the LTIS foil holder. The main panel is approximately 12m across, displaying the major radius, R = 3m of JET. The ports for each octant are visible as openings in the purple vessel. The LTIS foil holder is located in the lower left, in octant 8. It is shown at greater magnification in the inset panels. This figure is assembled from various MCNP plotter views.}
   \label{fig:jet_mcnp}
 \end{figure}
 
@@ -431,7 +431,7 @@ The reaction channels chosen for study are listed in table \ref{tab:reactions}. 
     $^{186}\mathrm{W}(n,\gamma)^{187}\mathrm{W}$   & 18.8       & $1.21\times10^{5}$      \\ 
     \bottomrule
   \end{tabu}
-  \caption{Shown above are the reactions simulated in this study. E$_\mathrm{first\ res.}$ indicates the energy of the first resonant peak in the interaction cross-section. E$_\mathrm{URR}$ defines the end of the resolved resonance range (RRR) and the start of the unresolved resonance range (URR) where experimental energy resolution is insufficient to resolve individual resonances.}
+  \caption[Reaction rates calculated as demonstration.]{Shown above are the reactions simulated in this study. E$_\mathrm{first\ res.}$ indicates the energy of the first resonant peak in the interaction cross-section. E$_\mathrm{URR}$ defines the end of the resolved resonance range (RRR) and the start of the unresolved resonance range (URR) where experimental energy resolution is insufficient to resolve individual resonances.}
   \label{tab:reactions}
 \end{table}
 
@@ -450,7 +450,7 @@ A variety of $(n,\gamma)$ effective cross-sections are calculated for nuclides i
     709 & $10^{-5}$ & $1.00 \times 10^{9}$ & 50      & CCFE \\
     \bottomrule
   \end{tabu}
-  \caption{Comparison of group structures tested, noting their bin counts, n$_\mathrm{bins}$, the energy range over which they are defined and the bins per decade, bpd$_\mathrm{res}$ they employ in the resonant region.}
+  \caption[Comparison of various group structures.]{Comparison of group structures tested, noting their bin counts, n$_\mathrm{bins}$, the energy range over which they are defined and the bins per decade, bpd$_\mathrm{res}$ they employ in the resonant region.}
   \label{tab:groups}
 \end{table}
 
@@ -459,7 +459,7 @@ The spectrum used as input to the optimisation process is pictured in figure~\re
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{spectrum}
-  \caption{The approximate neutron spectrum in the steel of the LTIS foil holder. This spectrum was obtained a short initial MCNP run. Statistical uncertainty from MCNP sampling is shown as light blue shading around the dark blue mean value. The slowing-down region between 1 eV and 100 keV has been fitted with the following relationship: $\phi(E) = E^{0.192} + 10^{-6.88}$.}
+  \caption[Neutron spectrum used as input for optimisation.]{The approximate neutron spectrum in the steel of the LTIS foil holder. This spectrum was obtained a short initial MCNP run. Statistical uncertainty from MCNP sampling is shown as light blue shading around the dark blue mean value. The slowing-down region between 1 eV and 100 keV has been fitted with the following relationship: $\phi(E) = E^{0.192} + 10^{-6.88}$.}
   \label{fig:opt_spectrum}
 \end{figure}
 
@@ -474,7 +474,7 @@ For the first study 12 group structures were tested against a point-wise referen
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\linewidth]{W186_lin_log}
-  \caption{This figure shows the results from the convergence study in tungsten. The two panels both show the same information, that is the percentage error between the collapsed multi-group cross-section and the point-wise result. The upper panel ordinate axis is log-scaled to show the breadth of results. For $\%\Delta < 0.05$, some of the shielded data was returned as marginally negative and so could not be displayed on the log-scaled plot. The lower panel adopts a linear-scaling. This panel also has a secondary axis to display the one-group cross-section values in barns and a dashed line to indicate the point-wise reference value. The bin count for the group structures is the abscissa axis for both panels. Blue markers indicate an energy group with a simple log-spaced arrangement while red markers indicate the group has been optimised for representing tungsten data. Crosses are unshielded results, while circles are shielded.}
+  \caption[$^{186}$W(n,$\gamma$)$^{187}$W collapsed corss-sections for log-spaced and optimised group structures.]{This figure shows the results from the convergence study in tungsten. The two panels both show the same information, that is the percentage error between the collapsed multi-group cross-section and the point-wise result. The upper panel ordinate axis is log-scaled to show the breadth of results. For $\%\Delta < 0.05$, some of the shielded data was returned as marginally negative and so could not be displayed on the log-scaled plot. The lower panel adopts a linear-scaling. This panel also has a secondary axis to display the one-group cross-section values in barns and a dashed line to indicate the point-wise reference value. The bin count for the group structures is the abscissa axis for both panels. Blue markers indicate an energy group with a simple log-spaced arrangement while red markers indicate the group has been optimised for representing tungsten data. Crosses are unshielded results, while circles are shielded.}
   \label{fig:W186_convergence}
 \end{figure}
 
@@ -488,14 +488,14 @@ A set of neutron spectra from the LTIS assembly are as shown in figure \ref{fig:
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{W186_spectra_diff_groups.eps}
-  \caption{Typical DT neutron spectrum within the LTIS activation foil holder. The fluence of each bin has been divided by the lethargy width for that bin, $\Delta U$. The 14.1 MeV neutron emission peak from the DT plasma is clearly visible, along with a typical slowing-down spectrum, filled with flux depressions. The spectrum is generally `hard', with little thermalisation as a consequence the foil's proximity to the plasma. The same neutrons have been binned according to various group structures, from 175 to 709 groups as listed in table~\ref{tab:groups}.}
+  \caption[Neutron spectrum in LTIS foil holder.]{Typical DT neutron spectrum within the LTIS activation foil holder. The fluence of each bin has been divided by the lethargy width for that bin, $\Delta U$. The 14.1 MeV neutron emission peak from the DT plasma is clearly visible, along with a typical slowing-down spectrum, filled with flux depressions. The spectrum is generally `hard', with little thermalisation as a consequence the foil's proximity to the plasma. The same neutrons have been binned according to various group structures, from 175 to 709 groups as listed in table~\ref{tab:groups}.}
   \label{fig:spectrum}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{w_spectrum_detail}
-  \caption{Magnified section of spectrum showing how progressively finer group structures resolve flux depressions in a neutron spectrum. The flux depression corresponding to the \textsuperscript{186}W 18 eV resonance is clearly visible, along with a variety of other resonances from \textsuperscript{186} and other W isotopes.}
+  \caption[Magnified view of neutron spectrum in LTIS foil holder.]{Magnified section of spectrum showing how progressively finer group structures resolve flux depressions in a neutron spectrum. The flux depression corresponding to the \textsuperscript{186}W 18 eV resonance is clearly visible, along with a variety of other resonances from \textsuperscript{186} and other W isotopes.}
   \label{fig:spectrum_detail}
 \end{figure}
 

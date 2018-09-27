@@ -78,7 +78,7 @@ Material compositions, wall widths, rebar arrangements and steel fractions have 
 \begin{figure}[h]
   \figuretitle{Homogenising reinforced concrete}
   \includegraphics[width=\textwidth]{wall_diagram}
-  \caption{The two modelling approaches considered in this investigation. a) Heterogeneous, where the steel reinforcing bar and stirrups are explicitly modelled. b) Homogeneous, where the mass of rebar is 'smeared' through the concrete. The new homogenised material has a greater density than plain concrete, conserving mass.}
+  \caption[Spatial homogenisation in reinforced concrete.]{The two modelling approaches considered in this investigation. a) Heterogeneous, where the steel reinforcing bar and stirrups are explicitly modelled. b) Homogeneous, where the mass of rebar is 'smeared' through the concrete. The new homogenised material has a greater density than plain concrete, conserving mass.}
   \label{fig:wall_diagram}
 \end{figure}
 
@@ -100,7 +100,7 @@ No particle direction information was available, so it was assumed that all part
 \begin{figure}[H]
   \figuretitle{ICRP74 flux to dose factors}
   \includegraphics[width=\textwidth]{icrp74}
-  \caption{The flux to dose conversion factors for neutron and photon exposure.}
+  \caption[ICRP74 flux to dose conversion factors.]{The flux to dose conversion factors for neutron and photon exposure.}
   \label{fig:icrp74}
 \end{figure}
 
@@ -113,7 +113,7 @@ The neutron source spectrum was obtained in previous work by \citeauthor{Jakhar1
 \begin{figure}[H]
   \figuretitle{Neutron source spectrum}
   \includegraphics[width=\textwidth]{src_spectra}
-  \caption{Neutron spectra for incident radiation. This spectra was tallied at back of the ITER Neutral Beam assembly.}
+  \caption[ITER bioshield incident neutron spectrum.]{Neutron spectra for incident radiation. This spectra was tallied at back of the ITER Neutral Beam assembly.}
   \label{fig:src_spectra}
 \end{figure}
 
@@ -130,7 +130,7 @@ The Tokamak Cooling Water System (TCWS) will move large quantities of water thro
     \textsuperscript{17}N & 4.14 & $\beta \rightarrow n$ & 0.383 [35], 1.171 [53] \\
     \bottomrule
   \end{tabu}
-  \caption{The type, energy and likelihood of decay from activated N isotopes in the ITER water cooling system.}
+  \caption[$\gamma$ radiation sources from the ITER water cooling system.]{The type, energy and likelihood of decay from activated N isotopes in the ITER water cooling system.}
   \label{tab:nitrogen_decay}
 \end{table}
 
@@ -146,7 +146,7 @@ Converging results on a coarse energy grid or `group structure' requires fewer s
 
 \begin{figure}[H]
   \includegraphics[width=\textwidth]{shield_flux_by_group.png}
-  \caption{This figure shows the same transmitted flux, as simulated by MCNP, binned in a variety of group structures. While the region down to approximately 1 eV is resolved broadly similarly, the VITAMIN-J 175 group structure has insufficient bins to resolve a Maxwellian distribution of thermal neutrons in the low-energy region.}
+  \caption[Group structure comparison.]{This figure shows the same transmitted flux, as simulated by MCNP, binned in a variety of group structures. While the region down to approximately 1 eV is resolved broadly similarly, the VITAMIN-J 175 group structure has insufficient bins to resolve a Maxwellian distribution of thermal neutrons in the low-energy region.}
   \label{fig:neutron_group_comparison}
 \end{figure}
 
@@ -195,7 +195,7 @@ As neutrons from the ITER plasma are incident upon the shielding wall, they adva
   \centering
   \figuretitle{Neutron path length in concrete}
   \includegraphics[width=0.7\textwidth]{mfp}
-  \caption{The path lengths of neutrons in pure concrete are shown as a histogram. There is a wide distribution with a mean of approximately 2cm. This figure was compiled from MCNP ptrac data.}
+  \caption[Neutron path length histogram.]{The path lengths of neutrons in pure concrete are shown as a histogram. There is a wide distribution with a mean of approximately 2cm. This figure was compiled from MCNP ptrac data.}
   \label{fig:mfp}
 \end{figure}
 
@@ -205,7 +205,7 @@ The transmitted, or `leakage' neutron spectra for a thick (2.1m) concrete wall i
   \centering
   \figuretitle{Transmitted neutron spectra}
   \includegraphics[width=0.9\textwidth]{transmitted_neutron_spectra}
-  \caption{The neutron spectra leaving the shield for the heterogeneous and homogeneously modelled cases. This example is for the thickest wall simulated, at 2.1m thickness. The rebar is 41mm in diameter at 200mm spacing, resulting in a steel mass fraction of 4.45\% of the shield total. Note the substantially reduced thermal flux in the homogeneous simulation. The spectrum has been binned with the TRIPOLI 315 group structure.}
+  \caption[Comparison of spectra in heterogeneous and homogeneous approaches.]{The neutron spectra leaving the shield for the heterogeneous and homogeneously modelled cases. This example is for the thickest wall simulated, at 2.1m thickness. The rebar is 41mm in diameter at 200mm spacing, resulting in a steel mass fraction of 4.45\% of the shield total. Note the substantially reduced thermal flux in the homogeneous simulation. The spectrum has been binned with the TRIPOLI 315 group structure.}
   \label{fig:trans_neutron_spec}
 \end{figure}
 
@@ -215,7 +215,7 @@ The reduced transmitted homogeneous thermal flux in figure~\ref{fig:trans_neutro
   \centering
   \figuretitle{Radiative capture probability}
   \includegraphics[width=0.8\textwidth]{n_rad_capture}
-  \caption{The nuclear properties of steel and concrete are substantially different. Shown here is the cross-section for $(n,\gamma)$ in both materials. At thermal energies steel has a material radiative capture cross-section two orders of magnitude greater than concrete.}
+  \caption[Radiative capture cross-sections in concrete and steel.]{The nuclear properties of steel and concrete are substantially different. Shown here is the cross-section for $(n,\gamma)$ in both materials. At thermal energies steel has a material radiative capture cross-section two orders of magnitude greater than concrete.}
   \label{fig:n_rad_capture}
 \end{figure}
 
@@ -225,7 +225,7 @@ Plotting the ratio of the leakage neutron spectra as figure~\ref{fig:relative_ne
   \centering
   \figuretitle{Relative neutron spectra}
   \includegraphics[width=0.8\textwidth]{25HB200_800_relative_n_spectra}
-  \caption{The homogeneous flux decreases are readily visible in this figure, principally in the thermal region, but also in the 1 keV -- 1 MeV range. The ratio is of the two spectra from figure~\ref{fig:trans_neutron_spec}. MCNP statistical errors have been combined in quadrature and are plotted as the light shading surrounding the mean value.}
+  \caption[Ratio of transmitted spectra.]{The homogeneous flux decreases are readily visible in this figure, principally in the thermal region, but also in the 1 keV -- 1 MeV range. The ratio is of the two spectra from figure~\ref{fig:trans_neutron_spec}. MCNP statistical errors have been combined in quadrature and are plotted as the light shading surrounding the mean value.}
   \label{fig:relative_neutron_spectra}
 \end{figure}
 
@@ -234,7 +234,7 @@ Figure~\ref{fig:dose_discrepancy} shows how the received dose discrepancy (as re
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{wall_thickness}
-  \caption{This figure shows the relationship between the wall thickness and the difference between the homogeneous and heterogeneously modelled walls. The quantity plotted is the energy integrated dose for each case, for neutrons and prompt photons. Error bars due to radiation transport statistics are shown but may not be visible on this scale. The discrepancy between modelling approaches is a function of the wall thickness, greater for neutrons than photons.}
+  \caption[Homogeneous error as function of wall thickness.]{This figure shows the relationship between the wall thickness and the difference between the homogeneous and heterogeneously modelled walls. The quantity plotted is the energy integrated dose for each case, for neutrons and prompt photons. Error bars due to radiation transport statistics are shown but may not be visible on this scale. The discrepancy between modelling approaches is a function of the wall thickness, greater for neutrons than photons.}
   \label{fig:dose_discrepancy}
 \end{figure}
 
@@ -258,7 +258,7 @@ The effect of the spatial homogenisation modelling approximation generally acts 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{sddr}
-  \caption{This figure displays total $\phi_{\gamma}$ received at a distance of 30cm from the activated wall. The upper panel displays the absolute values in the heterogeneous and homogeneous modelling approaches, as a function of time since last irradiation. There are 16 time steps, for which the activation and subsequent photon transport has been carried out. The lower panel displays the ratio between the approaches, i.e. homogeneous values normalised by the heterogeneous values. One can see that the homogeneous approximation artificially increases the SDDR by $\approx 10\%$ at most time steps, bar those around an hour.}
+  \caption[Shut-down dose rate as a function of time.]{This figure displays total $\phi_{\gamma}$ received at a distance of 30cm from the activated wall. The upper panel displays the absolute values in the heterogeneous and homogeneous modelling approaches, as a function of time since last irradiation. There are 16 time steps, for which the activation and subsequent photon transport has been carried out. The lower panel displays the ratio between the approaches, i.e. homogeneous values normalised by the heterogeneous values. One can see that the homogeneous approximation artificially increases the SDDR by $\approx 10\%$ at most time steps, bar those around an hour.}
   \label{fig:sddr}
 \end{figure}
 
@@ -268,7 +268,7 @@ The complex behaviour displayed in figure~\ref{fig:sddr} is a result of the many
   \centering
   \figuretitle{Contact dose rate by material}
   \includegraphics[width=0.8\textwidth]{contact_dose_by_mat}
-  \caption{This plot shows an estimate for the specific contact dose rate due to steel and concrete irradiated under the ITER SA-2 scenario. The total specific dose rate is given by the line plots, with an uncertainty band from EAF-2010 data included as the grey shading. Nuclides which contribute a significant fraction of the dose are shown with their abscissa value as their half-life, $t_{\frac{1}{2}}$ and their ordinate as their contribution to the specific dose rate. The specific dose rate behaviour is quite complex; the material with the highest specific activity changes three times in the simulation period due to various decays.}
+  \caption[Contact dose rates as a function of time for concrete and steel.]{This plot shows an estimate for the specific contact dose rate due to steel and concrete irradiated under the ITER SA-2 scenario. The total specific dose rate is given by the line plots, with an uncertainty band from EAF-2010 data included as the grey shading. Nuclides which contribute a significant fraction of the dose are shown with their abscissa value as their half-life, $t_{\frac{1}{2}}$ and their ordinate as their contribution to the specific dose rate. The specific dose rate behaviour is quite complex; the material with the highest specific activity changes three times in the simulation period due to various decays.}
   \label{fig:contact_dose}
 \end{figure}
 
@@ -277,7 +277,7 @@ From figure~\ref{fig:contact_dose} it is clear that the two materials have quite
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{sddr_nrg.pdf}
-  \caption{This figure displays the ratio of homogeneous and heterogeneous $\phi_{\gamma}$ for a series of cooling times and all photon emission energies. Time since last irradiation is given in seconds on the abscissa, while the ordinate is photon emission energy in MeV. The grey circles indicate simulation data, i.e. flux ratios for a particular photon energy group at a particular cooling timestep. These data have been interpolated with the Clough Tocher method to generate the heatmap shown. A diverging colourmap helps identify where spatial homogenisation is overestimating dose (blue) and where it underestimates (red).}
+  \caption[Heatmap of homogeneous error in SDDR as a function of emitted $\gamma$ energy and cooling time.]{This figure displays the ratio of homogeneous and heterogeneous $\phi_{\gamma}$ for a series of cooling times and all photon emission energies. Time since last irradiation is given in seconds on the abscissa, while the ordinate is photon emission energy in MeV. The grey circles indicate simulation data, i.e. flux ratios for a particular photon energy group at a particular cooling timestep. These data have been interpolated with the Clough Tocher method to generate the heatmap shown. A diverging colourmap helps identify where spatial homogenisation is overestimating dose (blue) and where it underestimates (red).}
   \label{fig:sddr_nrg}
 \end{figure}
 
