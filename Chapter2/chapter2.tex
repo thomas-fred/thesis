@@ -61,7 +61,7 @@ Determining the dose to personnel beyond a wall requires knowledge of the radiat
 \subsubsection{Model geometry}
 The heterogeneous, realistic wall is constructed of a large concrete block, with two meshes of rebar, one buried below each face. The distance from wall exterior to rebar is known as the cover depth. Connecting the two meshes are a small number of narrow gauge `stirrup' bars. The homogeneous model is the same external dimensions and total mass as the heterogeneous one, but without an internal steel structure and with homogenised materials.
 
-A Python program has been written to take wall thickness, cover depth and other parameters as input variables to construct a corresponding MCNP model. This model utilises lattices to construct the repeated features of the reinforced concrete wall. The concrete block dimensions are $(x, y, z) = (10, y, 10)$ where $y$ is the wall thickness. Embedded within the block are the major two meshes of steel reinforcement. These meshes are always constructed with 200mm spaced rebar extending in both the x and z directions \cite{Perez2014}. The meshes are buried a small cover depth from the two $y$-perpendicular surfaces of the wall. Tying the two meshes together are some thinner `stirrup' bars extending in the y direction, with $\approx 4m^{-2}$ of wall face \cite{Perez2014}. A particular level of reinforcement may be referred to as 16HB200, i.e. 16mm diameter rebar, at 200mm spacing.
+A Python program has been written to take wall thickness, cover depth and other parameters as input variables to construct a corresponding MCNP model. This model utilises lattices to construct the repeated features of the reinforced concrete wall. The concrete block dimensions are $(x, y, z) = (10, y, 10)$ where $y$ is the wall thickness. Embedded within the block are the major two meshes of steel reinforcement. These meshes are always constructed with 200mm spaced rebar extending in both the x and z directions \cite{Perez14}. The meshes are buried a small cover depth from the two $y$-perpendicular surfaces of the wall. Tying the two meshes together are some thinner `stirrup' bars extending in the y direction, with $\approx 4m^{-2}$ of wall face \cite{Perez14}. A particular level of reinforcement may be referred to as 16HB200, i.e. 16mm diameter rebar, at 200mm spacing.
 
 Simulations were run for the following wall thicknesses: 30, 50, 80, 120 \& 210 cm. For each case, the fraction of total wall mass as steel was kept constant at 4.45\%. This was achieved by increasing the rebar diameter, noting the relationship shown in equation~\ref{eq:rebar}. 
 
@@ -70,7 +70,7 @@ Simulations were run for the following wall thicknesses: 30, 50, 80, 120 \& 210 
   \frac{d^{2}_{r}}{t_{w}} \propto f_{s}
 \end{equation}
 
-That is, the rebar diameter, $d_{r}$ squared divided by the wall thickness, $t_{w}$ is proportional to the steel fraction, $f_{s}$. The value of 4.45\% was chosen as this is a typical value computed from the description of reinforcement and dimensions in \cite{Perez2014}. 
+That is, the rebar diameter, $d_{r}$ squared divided by the wall thickness, $t_{w}$ is proportional to the steel fraction, $f_{s}$. The value of 4.45\% was chosen as this is a typical value computed from the description of reinforcement and dimensions in \cite{Perez14}. 
 
 Material compositions, wall widths, rebar arrangements and steel fractions have been determined from ITER drawings and specifications for concrete walls in the tokamak building. The work has been conducted with a moderated ITER DT fusion neutron source spectrum. The results should give a good idea of the implications of the homogeneous modelling approximation at ITER but also more generally given the standard civil engineering design of the reinforced concrete walls.
 
@@ -215,7 +215,7 @@ The reduced transmitted homogeneous thermal flux in figure~\ref{fig:trans_neutro
   \centering
   \figuretitle{Radiative capture probability}
   \includegraphics[width=0.8\textwidth]{n_rad_capture}
-  \caption[Radiative capture cross-sections in concrete and steel.]{The nuclear properties of steel and concrete are substantially different. Shown here is the cross-section for $(n,\gamma)$ in both materials. At thermal energies steel has a material radiative capture cross-section two orders of magnitude greater than concrete.}
+  \caption[Radiative capture cross-sections in concrete and steel.]{The nuclear properties of steel and concrete are substantially different. Shown here is the cross-section for $(n,\gamma)$ in both materials. This has been computed with MCNP6 \cite{Goorley2012}, by performing an number density weighted sum of all the constituent nuclides for each material. At thermal energies steel has a material radiative capture cross-section two orders of magnitude greater than concrete.}
   \label{fig:n_rad_capture}
 \end{figure}
 

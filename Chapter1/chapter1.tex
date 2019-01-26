@@ -52,7 +52,7 @@ Two reactions in lithium produce the majority of tritium in the blanket and are 
 \end{split}
 \end{equation}
 
-There are other reactions for creating tritons. For instance, the tritium decay product, $^{3}\mathrm{He}$ has a large thermal cross-section for (n,p) and can be transmuted back to tritium this way. There is also a small chance of neutron capture leading to tritium production in $^{10}\mathrm{B}$.
+There are other reactions for creating tritons. For instance, the tritium decay product, $^{3}\mathrm{He}$ has a large thermal cross-section for (n,p) and can be transmuted back to tritium this way. $^{10}\mathrm{B}$ is also present in steels and other materials in small quantities and may undergo neutron capture, producing tritium as a result.
 
 \begin{equation}
 \begin{split}
@@ -147,7 +147,7 @@ In an ideal case, this observed uncertainty would all be due to the variations i
   \sigma_{observed}^{2} = \sigma_{A}^{2} 
 \end{equation}
 
-Indeed this is the case for deterministic methods. With Monte Carlo methods however, answers are inherently uncertain. Rather than solving an equation to find the exact flux and associated reaction rates at every point, the system behaviour is sampled by virtual particles (see section~\ref{subsec:monte_carlo} in chapter~\ref{chap:introduction}). Monte Carlo methods depend on the Law of Large Numbers (LLN), using a large number of simulated particles to converge on some mean behaviour. Far fewer particles populate the simulation than the real system. Short of an infinite number of `source' particles, there is always an associated uncertainty. 
+Indeed this is the case for deterministic methods. With Monte Carlo methods however, answers are inherently uncertain. Rather than solving an equation to find the exact flux and associated reaction rates at every point, the system behaviour is sampled by virtual particles (see section~\ref{sec:radiation_transport} in chapter~\ref{chap:introduction}). Monte Carlo methods depend on the Law of Large Numbers (LLN), using a large number of simulated particles to converge on some mean behaviour. Far fewer particles populate the simulation than the real system. Short of an infinite number of `source' particles, there is always an associated uncertainty. 
 
 Therefore, in this work the observed uncertainty, $\sigma_{observed,i}$ from a simulation $i$ is composed of two components: uncertainty from the simulation method, the standard deviation $\sigma_{stat.,i}$ and uncertainty from the nuclear data, the standard deviation being $\sigma_{A,i}$. So long as these are independent, their variances sum to give the total variance, as in equation~\ref{eq:variance_sum}.
 
@@ -283,7 +283,7 @@ As discussed in section~\ref{subsubsec:tmc}, traditionally cross-section uncerta
     RUSFOND 2010 & 14.0 & 2.18 & - \\
     \bottomrule
   \end{tabularx}
-  \caption[Cross-section and uncertainty data for the $^{208}$Pb(n,2n)$^{207}$Pb reaction.]{Cross-section values for the n,2n reaction channel, $\sigma_{n,2n}$ around 14 MeV for various experiments and libraries. The experimental results were retrieved from the online EXFOR database \cite{exfor2017}. The ENDF utility code Inter \cite{Dunford2002} was used to extract the values for each library. The uncertainties, $\Delta\sigma_{n,2n}$ are presented as percentages above and below the reported value.}
+  \caption[Cross-section and uncertainty data for the $^{208}$Pb(n,2n)$^{207}$Pb reaction.]{Cross-section values for the n,2n reaction channel, $\sigma_{n,2n}$ on $^{208}$Pb, around 14 MeV for various experiments and libraries. The experimental results were retrieved from the online EXFOR database \cite{exfor2017}. The ENDF utility code Inter \cite{Dunford2002} was used to extract the values for each library. The uncertainties, $\Delta\sigma_{n,2n}$ are presented as percentages above and below the reported value.}
   \label{tab:lead_by_lib}
 \end{table}
 
