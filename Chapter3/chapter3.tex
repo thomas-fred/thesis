@@ -336,7 +336,7 @@ An example bin density distribution and the associated new group structure bin b
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.8\linewidth]{nbins-280_bpd-10}
+  \includegraphics[width=\linewidth]{nbins-280_bpd-15}
   \caption[Bin density distribution in energy for a particular optimisation.]{This plot shows the bin density, $\rho(E)$ distribution as per equation~\ref{eq:offset}. This is the summed effective self-shielding distributions for all nuclides of interest, plus some constant to give a minimum bins per decade outside of the resonant region.}
   \label{fig:optimised_bounds}
 \end{figure}
@@ -390,7 +390,7 @@ To explore the benefits of group structure optimisation by the methods outlined 
   \label{fig:conv_mcnp}
 \end{figure}
 
-Tallies sample the neutron spectrum in a variety of energy group structures within the outermost, tungsten shell. These are for six bin counts, $n_\mathrm{bins} = [64,128,256,512,1024,2048]$, each with a logarithmically spaced and an optimised version, giving 12 group structures in total. The group structures were optimised for all naturally occurring tungsten isotopes, with a flat spectrum. In addition to the multi-group tallies, there is also a single point-wise Monte Carlo estimator in the MCNP model, sampling the reaction rate of \textsuperscript{186}W(n,$\gamma$)\textsuperscript{187}W.
+Tallies sample the neutron spectrum in a variety of energy group structures within the outermost, tungsten shell. These are for six bin counts, $n_\mathrm{bins} = [64,128,256,512,1024,2048]$, each with a logarithmically spaced and an optimised version, giving 12 group structures in total. The group structures were optimised for all naturally occurring tungsten isotopes, with a flat spectrum. In addition to the multi-group tallies, there is also a single point-wise Monte Carlo estimator in the MCNP model, sampling the reaction rate of $^{186}$W(n,$\gamma$)$^{187}$W.
 
 \subsubsection{JET activation foils}
 \label{subsubsec:jet}
@@ -446,7 +446,9 @@ A variety of $(n,\gamma)$ effective cross-sections are calculated for nuclides i
   \label{tab:groups}
 \end{table}
 
-The spectrum used as input to the optimisation process is pictured in figure~\ref{fig:opt_spectrum}. This spectrum was sampled from a short initial run of the problem, determining roughly what shape the slowing-down region has in this problem. The exponent of the fitted relationship $\phi(E) = E^{0.192}$ is used to characterise the spectrum as input to FISPACT-II for calculating self-shielding factors prior to group structure optimisation. It effectively acts as a weighting function, determining whether lower or higher energy resonances will contribute most to the reaction rate (and so where reaction rate errors would be most problematic).
+The spectrum used as input to the optimisation process is pictured in figure~\ref{fig:opt_spectrum}. Here the flux is shown in neutrons per source neutron per lethargy interval, $\Delta U$. Lethargy, $U$, can be defined as $ln(\frac{E_{0}}{E})$ where $E_{0}$ and $E$ are the starting and current energy, respectively. The lethargy interval $\Delta U$ is $U_{2} - U_{1} = ln(\frac{E_{1}}{E_{2}})$. Dividing each flux bin by its lethargy width allows easier comparison of flux values across a wide energy range.
+
+The spectrum was sampled from a short initial run of the problem, determining roughly what shape the slowing-down region has in this problem. The exponent of the fitted relationship $\phi(E) = E^{0.192}$ is used to characterise the spectrum as input to FISPACT-II for calculating self-shielding factors prior to group structure optimisation. It effectively acts as a weighting function, determining whether lower or higher energy resonances will contribute most to the reaction rate (and so where reaction rate errors would be most problematic).
 
 \begin{figure}[H]
   \centering
@@ -470,7 +472,7 @@ For the first study 12 group structures were tested against a point-wise referen
   \label{fig:W186_convergence}
 \end{figure}
 
-Figure~\ref{fig:W186_convergence} shows that increasing the bin count of a group structure will provide a more accurate description of spectral and cross-section information, as we have already seen at the start of this chapter in figure~\ref{fig:gendf_convergence}. We can also see in figure~\ref{fig:W186_convergence} that the multi-group computed results which were closest to the point-wise estimate were those which employed self-shielding factors in the calculation. For shielded results, by 512 groups the error to point-wise was $< 1\%$ whether the groups were optimised or log-spaced. This is a relatively small error, as the uncertainty on the $^{186}$(n,$\gamma$)$^{187}$ reaction is $\geq 5\%$ at all energies in the TENDL2017 ND library. The next most significant factor was the optimisation process. Here we see an improvement in performance in both the unshielded and shielded cases, however the difference is most stark for unshielded results, where with 64 groups, the error was reduced from 130\% to 25\%. For a finer group, 2048, the error was reduced from 10.6\% to 7.34\% for unshielded results.
+Figure~\ref{fig:W186_convergence} shows that increasing the bin count of a group structure will provide a more accurate description of spectral and cross-section information, as we have already seen at the start of this chapter in figure~\ref{fig:gendf_convergence}. We can also see in figure~\ref{fig:W186_convergence} that the multi-group computed results which were closest to the point-wise estimate were those which employed self-shielding factors in the calculation. For shielded results, by 512 groups the error to point-wise was $< 1\%$ whether the groups were optimised or log-spaced. This is a relatively small error, as the uncertainty on the $^{186}$W(n,$\gamma$)$^{187}$W reaction is $\geq 5\%$ at all energies in the TENDL2017 ND library. The next most significant factor was the optimisation process. Here we see an improvement in performance in both the unshielded and shielded cases, however the difference is most stark for unshielded results, where with 64 groups, the error was reduced from 130\% to 25\%. For a finer group, 2048, the error was reduced from 10.6\% to 7.34\% for unshielded results.
 
 \subsection{JET activation foils}
 %%To generate self-shielding factors using FISPACT we require a spectrum. The spectrum shape guess was $\phi(E) = E^{0.192}$, or slightly harder than `flat' (see figure \ref{fig:spectrum} for an indication of the spectrum). 

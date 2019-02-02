@@ -403,7 +403,13 @@ Python scripts were used to plot TBR convergence as a function of simulation cou
 	\label{fig:convergence}
 \end{figure}
 
-The TMC simulation can be seen to converge in figure~\ref{fig:convergence} at approximately 400 MCNP runs. $\mu(400) \approx 1.02$ and $\sigma(400) \approx 1.14$. The mean TBR value is 1.0193 whilst the median is 1.0200, with a one sigma standard deviation of 0.012 or 1.164\% of the mean value. The TBR distribution is shown as figure~\ref{fig:tbr_distribution}. The shape is somewhat Gaussian (see equation~\ref{eq:normal}) although it is fitted significantly better with the addition of a skewness parameter, $\gamma$ to give the `skew-normal distribution' as per equation~\ref{eq:skewed_normal}. 
+The TMC simulation can be seen to converge in figure~\ref{fig:convergence} at approximately 400 MCNP runs. $\mu(400) \approx 1.02$ and $\sigma(400) \approx 1.14$. The mean TBR value is 1.0193 whilst the median is 1.0200, with a one sigma standard deviation of 0.012 or 1.164\% of the mean value. 
+
+The TBR distribution is shown as figure~\ref{fig:tbr_distribution}. Any results greater than 6$\sigma$ from the mean TBR were deemed false and discarded before analysis. This filter rejected one simulation result, where the sampled TBR value was exceptionally far from the mean value: $0.826 \approx \mu - 15\sigma$. This simulation used an erroneous \textsuperscript{207}Pb ACE file, created with unrealistic parameters. 
+
+The shape of the distribution appears somewhat Gaussian (see equation~\ref{eq:normal}) although with an extended low-value tail. The Shapiro-Wilk test was employed to test if the TBR population have indeed been sampled from a normal distribution \cite{Shapiro1965}. Formally, a null hypothesis, $H_{0}$, that the underlying distribution is normally distributed was proposed and rejected as the computed p-value for this sample was 0.003, less than the conventional threshold for acceptance (known as $\alpha$) of 0.05\footnote{$\alpha = 0.05$ implies there is a 5\% chance the null hypothesis is incorrectly rejected and is a common value for this statistical test.}.
+
+The disitribution is fitted well with the addition of a skewness parameter, $\gamma$ to give the `skew-normal distribution' as per equation~\ref{eq:skewed_normal}. 
 
 \begin{equation}
   \label{eq:normal}
@@ -415,7 +421,7 @@ The TMC simulation can be seen to converge in figure~\ref{fig:convergence} at ap
   g(x) = f(x) \left[1 + \mathrm{erf} \left( \frac{\gamma(x - \xi)}{\omega \sqrt{2}} \right) \right]
 \end{equation}
 
-Equation~\ref{eq:skewed_normal} is the fit function plotted in figure~\ref{fig:tbr_distribution}. $\xi$ is the location parameter, $\omega$ the shape and $\gamma$ the skewness. If the data were symmetric, $\gamma = 0$. For these data, $\gamma = -1.432$, indicating the low-value TBR tail is longer than the high-value tail. One simulation result is omitted, where the TBR was exceptionally far from the mean value: $0.826 \approx \mu - 15\sigma$. This simulation used an erroneous \textsuperscript{207}Pb ACE file, created with unrealistic parameters.
+Equation~\ref{eq:skewed_normal} is the fit function plotted in figure~\ref{fig:tbr_distribution}. $\xi$ is the location parameter, $\omega$ the shape and $\gamma$ the skewness. If the data were symmetric, $\gamma = 0$. For these data, $\gamma = -1.432$, indicating the low-value TBR tail is longer than the high-value tail. 
 
 \begin{figure}[H]
 %  \figuretitle{}
