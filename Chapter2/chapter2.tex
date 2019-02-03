@@ -22,7 +22,7 @@
 %     Interpolated (time, E, ratio) heatmap
 
 \section{Outline}
-This chapter looks to determine the impact of a nuclear analysis modelling approximation known as spatial homogenisation--where complex geometries of differing materials are combined to form a homogeneous volume with a new material mixture. An introduction to radiation shielding is given. Then, undertaking a study for and of relevance to ITER, the effect of spatial homogenisation on the attenuation properties of reinforced concrete walls is investigated. A comparative method is described and subsequently the impact of spatial homogenisation on the shut-down dose rate to workers is also analysed. The effects of spatial homogenisation have at most a 22\% underestimate for on-load doses in the cases modelled here. The shut-down dose rates are slightly overestimated by spatial homogenisation.
+This chapter looks to determine the impact of a nuclear analysis modelling approximation known as spatial homogenisation--where complex geometries of differing materials are combined to form a homogeneous volume with a new material mixture. An introduction to radiation shielding is given. Then, undertaking a study for and of relevance to ITER, the effect of spatial homogenisation on the attenuation properties of reinforced concrete walls is investigated. A comparative method is described and subsequently the impact of spatial homogenisation on the shut-down dose rate to workers is also analysed. The effects of spatial homogenisation have at most a 22\% underestimate for on-load doses in the cases modelled here. The shut-down dose rates on the inside face of the wall are slightly overestimated by spatial homogenisation. As a prelude to chapter~\ref{chap:group_structure}, the importance of appropriately binning the energy domain is also explored.  
 
 %INTRODUCTION
 \section{Introduction}
@@ -30,7 +30,7 @@ The ITER nuclear fusion experiment will begin DT operation in the 2030s. At 500M
 
 Designing a complex device such as a superconducting tokamak to operate in this radiation environment is a particularly challenging aspect of the ITER project. Care must be taken both to shield sensitive components like semiconductor devices from Single Event Effects (SEE) and to prevent excessive nuclear heating in large systems like the superconducting coils. The high flux and fluence of high energy neutrons means activation in areas like the Neutral Beam (NB) cells and in the Tokamak Cooling Water System (TCWS) will be significant. And of course, gamma from these activated components, and the prompt radiation of a thermonuclear plasma must be shielded against to protect the workforce operating and maintaining the plant.
 
-Quantifying the absorbed dose to radiation sensitive components, or the equivalent dose to personnel requires crafting a computer model of the problem and typically making a series of assumptions and simplifications in the process. For reinforced concrete radiation shields, this often entails either homogenising the rebar with the concrete, or even neglecting the presence of rebar entirely. This process introduces systematic error into the reported solution of the problem. So, in addition to uncertainties from cross-section, secondary particle and decay data as explored in chapter~\ref{chap:tmc}, modelling approximations play a role in thickening the fog of misunderstanding. 
+Quantifying the absorbed dose to radiation sensitive components, or the equivalent dose to personnel requires crafting a computer model of the problem and typically making a series of assumptions and simplifications in the process. For reinforced concrete radiation shields, this often entails either homogenising the rebar with the concrete, or even neglecting the presence of rebar entirely. This process introduces systematic error into the reported solution of the problem. So, in addition to uncertainties from cross-section and secondary particle data as explored in chapter~\ref{chap:tmc}, modelling approximations play a role in thickening the fog of misunderstanding. 
 
 \subsection{Radiation shielding}
 A fusion reactor harbours many different radiation fields. A variety of particles, across the energy spectrum, are present at one time or another. In order to preserve biological life and to extend the operable life of components, radiation shielding is employed to attenuate radiation fields, reducing their intensity by many orders of magnitude.
@@ -98,9 +98,9 @@ No particle direction information was available, so it was assumed that all part
 
 % column span figure
 \begin{figure}[H]
-  \figuretitle{ICRP74 flux to dose factors}
+  \figuretitle{ICRP74 fluence to dose factors}
   \includegraphics[width=\textwidth]{icrp74}
-  \caption[ICRP74 flux to dose conversion factors.]{The flux to dose conversion factors for neutron and photon exposure.}
+  \caption[ICRP74 fluence to dose conversion factors.]{The fluence to dose conversion factors for neutron and photon exposure.}
   \label{fig:icrp74}
 \end{figure}
 
