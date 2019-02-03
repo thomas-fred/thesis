@@ -125,9 +125,9 @@ A disadvantage of perturbation theory methods is that they embody a linear relat
 \label{subsubsec:tmc}
 Koning and Rochman developed a new, integrated method of uncertainty propagation in the late 2000s \cite{Koning2008}. This approach, known as Total Monte Carlo (TMC), relies on repeated sampling of varied nuclear data. Whichever problem is being investigated is simulated multiple times with different data, building a distribution of outcomes. It is a fundamentally different method to the sensitivity / perturbation approach. 
 
-The foundation is a reliable methodology for generating nuclear interaction data. The software package T6 \cite{Koning2005} collects together various frameworks for analysing nuclear interactions such as direct reaction, pre-equilibrium and fission models. 
+The foundation is a reliable methodology for generating nuclear interaction data. The software package T6 \cite{Koning2005} collects together various tools for calculating, formatting and validating nuclear data. Using T6 and a set of input parameters, reaction likelihoods and outcomes can be simulated for a variety of incident particles: neutron, photons, protons, deuterons, tritons helions and alpha-particles and for a range of energies from $10^{-5}\mathrm{eV}$ to $200\mathrm{MeV}$. The interactions in the 1 keV -- 200 MeV incident energy range are computed with the TALYS component of T6. This includes the optical model, level densities, direct reactions, compound reactions, pre-equilibrium reactions and fission reactions \cite{TALYS2017}.
 
-Using these tools and a set of input parameters, reaction likelihoods and outcomes can be simulated for a variety of incident particles: neutron, photons, protons, deuterons, tritons helions and alpha-particles and for a range of energies from $10^{-5}\mathrm{eV}$ to $200\mathrm{MeV}$. The theoretical models require parameters which may be directly experimentally measured, or are estimated through fitting to other, robust experimental data such as total cross-sections, $\sigma_{t}$. The RIPL-3 nuclear parameter database \cite{Capote2009} contains reference values and confidence estimates for many of these parameters. These and other sources have been assimilated and parsed to provide default values for TALYS, with variances. 
+The theoretical models require parameters which may be directly experimentally measured, or are estimated through fitting to other, robust experimental data such as total cross-sections, $\sigma_{t}$. The RIPL-3 nuclear parameter database \cite{Capote2009} contains reference values and confidence estimates for many of these parameters. These and other sources have been assimilated and parsed to provide default values for TALYS, with variances. 
 
 \begin{figure}
   \centering
@@ -140,7 +140,7 @@ A set of nuclear parameters, $\vec{A} = [A_{1},\ldots,A_{n}]$, are used as input
 
 Using the above nuclear physics parameter database and models, it is possible to repeat the nuclear data generation process to create a `library of libraries', implicitly containing amongst their variance the uncertainty in the underlying nuclear physics parameters, $\vec{A}$. This data is now used as input to whichever nuclear system is to be simulated. Numerous simulations are launched, each picking a new set of input data, an evaluation from the library of libraries. Whichever reaction rates or spectral quantities can be tallied for inspection and subsequent analysis. Call the quantity of interest $q$. As the number of simulations, $n$, increases, any histogram of the values of $\vec{q} = [q_{1},\ldots,q_{n}]$ will converge to a probability distribution function of the most likely value and its associated uncertainty, $\sigma_{observed}$. 
 
-In an ideal case, this observed uncertainty would all be due to the variations in nuclear data, as in equation~\ref{eq:det_variance_sum}.
+In an ideal case, this observed uncertainty, $\sigma_{observed}^{2}$, would all be due to the variations in nuclear data, $\sigma_{A}^{2}$, as in equation~\ref{eq:det_variance_sum}.
 
 \begin{equation}
   \label{eq:det_variance_sum}
@@ -441,7 +441,7 @@ Figure~\ref{fig:tbr_n2n} shows the correlation between the n,2n cross-sections u
 	\label{fig:tbr_n2n}
 \end{figure}
 
-The relationship between n,2n cross-section and TBR shown in figure~\ref{fig:tbr_n2n} is relatively strong, with a linear fit achieving an $r^{2}=0.43$, explaining 43\% of the total variance in TBR. Elastic scattering (shown in figure~\ref{fig:tbr_elastic}) is more weakly correlated, with a very low $r^{2}=0.02$. Figures~\ref{fig:tbr_n2n} and \ref{fig:tbr_elastic} plot relationships between the cross-section values and the simulated TBR result, but these cross-sections are only intermediate data in the TMC process. However it is possible to go one step further back and analyse for correlations between fundamental nuclear parameters and the observable of interest, TBR. 
+The relationship between n,2n cross-section and TBR shown in figure~\ref{fig:tbr_n2n} is relatively strong, with a linear fit achieving an $r^{2}=0.42$, explaining 42\% of the total variance in TBR. Elastic scattering (shown in figure~\ref{fig:tbr_elastic}) is more weakly correlated, with a very low $r^{2}=0.02$. Figures~\ref{fig:tbr_n2n} and \ref{fig:tbr_elastic} plot relationships between the cross-section values and the simulated TBR result, but these cross-sections are only intermediate data in the TMC process. However it is possible to go one step further back and analyse for correlations between fundamental nuclear parameters and the observable of interest, TBR. 
 
 \begin{figure}[H]
 %  \figuretitle{}
