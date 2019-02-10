@@ -48,7 +48,7 @@ Nuclear simulations for fusion devices are essential to determine material damag
 
 \subsection{Group structure optimisation}
 % Greatly expand this...
-The likelihood of interaction between an incident particle and a nucleus is a a non-linear function of energy in the resonant energy region. The cross-section, $\sigma(\mathrm{E})$ and the associated reaction rate, RR(E), may vary by several orders of magnitude within a few electron-volts. The number of bins that the energy domain is discretised over has a strong influence on the accuracy of the result. While increasing the number of bins increases the accuracy it also increases the time required to converge an input spectrum and the memory required to record this information\footnote{A concern for simulations with millions of voxels, common in distributed activation-dose calculations.}. Figure~\ref{fig:gendf_convergence} shows a reaction rate converging to the true result as a function of the number of cross-section groups. These results are from a simple model where a 14 MeV point neutron source is located within a series of concentric, spherical shells made of steel, water and tungsten. The tallied reaction rate is radiative capture in \textsuperscript{186} in the outermost, tungsten shell. The neutrons are moderated by the water and the energy spectrum will receive sharp flux depressions from resonant nuclides within the steel material. This flux is then incident upon the tungsten where resonant peaks from the tungsten isotopes will further impinge on the spectrum. Without adequately resolving these depressions, an accurate estimation of the desired reaction rate cannot be made. In this example it can be seen that getting from a 10\% error to $\approx 1\%$ error requires a jump from 256 to more than 8192 bins. Any real problem will have many hundreds of nuclides present, with their nuclear data all discretised the same way, whether for a deterministic radiation transport calculation or an activation-transmutation calculation. Adopting such a fine discretisation for so many nuclides is not feasible given the memory requirements of such a scheme.
+The likelihood of interaction between an incident particle and a nucleus is a a non-linear function of energy in the resonant energy region. The cross-section, $\sigma(\mathrm{E})$ and the associated reaction rate, RR(E), may vary by several orders of magnitude within a few electron-volts. The number of bins that the energy domain is discretised over has a strong influence on the accuracy of the result. While increasing the number of bins increases the accuracy it also increases the time required to converge an input spectrum and the memory required to record this information\footnote{A concern for simulations with millions of voxels, common in distributed activation-dose calculations.}. Figure~\ref{fig:gendf_convergence} shows a reaction rate converging to the true result as a function of the number of cross-section groups. These results are from a simple model where a 14 MeV point neutron source is located within a series of concentric, spherical shells made of steel, water and tungsten. The tallied reaction rate is radiative capture in $^{186}$W in the outermost, tungsten shell. The neutrons are moderated by the water and the energy spectrum will receive sharp flux depressions from resonant nuclides within the steel material. This flux is then incident upon the tungsten where resonant peaks from the tungsten isotopes will further impinge on the spectrum. Without adequately resolving these depressions, an accurate estimation of the desired reaction rate cannot be made. In this example it can be seen that getting from a 10\% error to $\approx 1\%$ error requires a jump from 256 to more than 8192 bins. Any real problem will have many hundreds of nuclides present, with their nuclear data all discretised the same way, whether for a deterministic radiation transport calculation or an activation-transmutation calculation. Adopting such a fine discretisation for so many nuclides is not feasible given the memory requirements of such a scheme.
 
 \begin{figure}[H]
   \centering
@@ -128,79 +128,7 @@ It is instructive to inspect the correlations between various parameters recorde
 \label{subsec:self-shielding}
 The phenomenon of self-shielding is that whereby a particle flux is depleted in certain energy regions through absorption by the containing medium. This then `shields' the rest of the medium from those particle energies and decreases reaction rates. If this reduction in flux is not fed back then reaction rates will be overestimated. This effect is a particular problem where cross-sections and spectra are discretised into group-wise formats, as in deterministic radiation transport and activation-transmutation calculations. If energy groups are too large, flux depressions cannot be resolved.
 
-Introducing \citeauthor{Bondarenko1964}'s self-shielding method exemplifies why a self-shielding treatment is necessary, how one can work and why it might be of interest for optimising group structures. Further detail and context on the below derivations are available in \cite{Dembia2013} \cite{Bell1970}. 
-
-Here we define an energy group, $E = [E_{0}, E_{1}, \dots, E_{G}]$ with $G$ groups. The lowest energy is $E_{0}$ and the highest $E_{G}$. The groups are in ascending energy order, so $E_{g+1} > E_{g}$, with the width of group $g$ given as $\Delta E = E_{g+1} - E_{g}$. To determine reaction rates, i.e. $RR(E) = N\sigma(E)\phi(E)$, where $N$ is the atomic density of the material, $\sigma(E)$ the cross-section and $\phi(E)$ the flux we need both the cross-section and the flux as a function of energy.
-
-The flux for some group, $\phi_{g}$ is given by equation~\ref{eq:group_flux}.
-
-\begin{equation}
-  \label{eq:group_flux}
-  \phi_{g} = \int_{E_{g}}^{E_{g+1}} \phi(E) dE
-\end{equation}
-
-We can define the group cross-section as equation~\ref{eq:group_cross_section}.
-
-\begin{equation}
-  \label{eq:group_cross_section}
-  \sigma_{g} = \frac{\int_{E_{g}}^{E_{g+1}} \sigma(E) \phi(E) dE}{\int_{E_{g}}^{E_{g+1}} \phi(E) dE}
-\end{equation}
-
-$\sigma_{g}$ must be defined in such a way that it accurately reproduces the RR when multiplied by the flux. Unfortunately, equations~\ref{eq:group_flux} and \ref{eq:group_cross_section} require knowledge of $\phi(E)$ within a group, the quantity sought. If $\phi(E)$ were constant, then equation~\ref{eq:group_cross_section} would reduce to $\sigma_{g} = \int_{g}^{g+1} \sigma(E) dE$. While this is sometimes a reasonable assumption, if resonances are present in the group it is not. 
-
-Looking for an expression to substitute for $\phi(E)$ we could first examine the total cross section of the system. Assuming a homogeneous mixture of M nuclides the total macroscopic cross section, $\Sigma_{t}$ is given by equation~\ref{eq:macroscopic_xs} where $N^{m}$ is the number density of nuclide $m$
-
-\begin{equation}
-  \label{eq:macroscopic_xs}
-  \Sigma_{t}(E) = \sum_{m}^{M} N^{m} \sigma_{t}^{m}(E)
-\end{equation}
-
-The product of the energy varying flux, $\phi(E)$ and total macroscopic cross-section, $\Sigma_{t}(E)$ is the `collision density', $\phi(E) \Sigma_{t}(E) = S(E)$, or expressed equivalently as equation~\ref{eq:collision_density}.
-
-\begin{equation}
-  \label{eq:collision_density}
-  \phi(E) = \frac{S(E)}{\Sigma_{t}(E)}
-\end{equation}
-
-If we let $S(E)$ be some smooth function, say a Maxwell-Boltzmann distribution or a 1/E particle slowing down spectrum, equation~\ref{eq:collision_density} shows us how the total cross-section impinges on the flux. A resonance within $\Sigma_{t}(E)$ causes $\phi(E)$ to drop, a flux depression. Substituting equation~\ref{eq:collision_density} into equation~\ref{eq:group_cross_section} gives the following:
-
-\begin{equation}
-  \label{eq:group_xs_s}
-  \sigma_{g}^{m} = \frac{\int_{E_{g}}^{E_{g+1}} \sigma(E)^{m} \frac{S(E)}{\Sigma_{t}(E)} dE}{\int_{E_{g}}^{E_{g+1}} \frac{S(E)}{\Sigma_{t}(E)} dE}
-\end{equation}
-
-Equation~\ref{eq:group_xs_s} gives $\sigma_{g}^{m}$, the group cross-section for nuclide $m$, and can be used to generate all group cross-sections of interest for the problem if an appropriate $S(E)$ can be assumed. The macroscopic cross-sections on the right hand side of equation~\ref{eq:group_xs_s} are both total cross sections as any interaction will lower the flux. In the limiting case where the energy group width narrows to 0, $S(E)$ becomes constant, i.e. $\lim_{\Delta E \to 0} S(E) = k$ and $S(E)$ cancels from equation~\ref{eq:group_xs_s}. When energy group structures have a high bin density, they are reducing their reliance on this $S(E)$ function assumption.
-
-The background cross-section is a concept introduced by \citeauthor{Bondarenko1964} \cite{Bondarenko1964}. Cross-sections may belong to two mutually exclusive categories, they are either the cross-section of interest, or belong to a set `background' cross-sections which, if of sufficient magnitude act to depress the particle flux and shield the cross-section of interest. The macroscopic cross-section, $\Sigma_{t}(E)$ of equation~\ref{eq:macroscopic_xs} is then written as in equation~\ref{eq:background_xs}.
-
-\begin{equation}
-  \label{eq:background_xs}
-  \Sigma_{t}(E) = N^{m} \sigma_{t}^{m}(E) + \sum_{n \neq m}^{M} N^{n} \sigma_{t}^{n}(E)
-\end{equation}
-
-We can factor out the number density for our nuclide of interest, $m$, to give equation~\ref{eq:background_factored}. 
-
-\begin{equation}
-  \label{eq:background_factored}
-  \Sigma_{t}(E) = N^{m} (\sigma_{t}^{m}(E) + \sigma_{0}^{m}(E))
-\end{equation}
-
-Here $\sigma_{0}^{m}(E)$ is not a cross-section of nuclide $m$ in the normal sense, but all the cross-sections that contribute to its `background'. It is defined as equation~\ref{eq:background_xs_def}.
-
-\begin{equation}
-  \label{eq:background_xs_def}
-  \sigma_{0}^{m}(E) = \frac{1}{N^{m}} \sum_{n \neq m}^{M} N^{n} \sigma_{t}^{n}(E)
-\end{equation}
-
-We can combine equations~\ref{eq:group_xs_s}, \ref{eq:background_factored} and \ref{eq:background_xs_def} to give equation~\ref{eq:group_xs_background}, where energy dependence is omitted for readability. One can see that the group cross-section for a given nuclide, $\sigma_{g}^{m}$, is a function of the background cross-section.
-
-\begin{equation}
-  \label{eq:group_xs_background}
-  %\sigma_{g}^{m} = \frac{\int_{E_{g}}^{E_{g+1}} \sigma^{m}(E) \frac{S(E)}{\sigma_{t}^{m}(E) + \sigma_{0}^{m}(E)} dE}{\int_{E_{g}}^{E_{g+1}} \frac{S(E)}{\sigma_{t}^{m}(E) + \sigma_{0}^{m}(E)} dE}
-  \sigma_{g}^{m} = \frac{\int_{E_{g}}^{E_{g+1}} \sigma^{m} \frac{S}{\sigma_{t}^{m} + \sigma_{0}^{m}} dE}{\int_{E_{g}}^{E_{g+1}} \frac{S}{\sigma_{t}^{m} + \sigma_{0}^{m}} dE}
-\end{equation}
-
-If the background cross-section and the point-wise cross-section to be grouped are known, one can compute the $\sigma_{g}^{m}$, the shielded cross-section and go on to accurately compute reaction rates and other responses of interest. It is convenient to define a number which is the ratio of the unshielded and shielded cross-sections. This `self-shielding factor', or SSF, is of the range [0,1] where 1 indicates there is no self-shielding occurring, so any reaction rates are the simple multiplication of particle flux and unmodified cross-section. For values closer to 0, the cross-section is revised down, reducing the reaction rate. 
+It is convenient to define a number which is the ratio of the unshielded and shielded cross-sections. This `self-shielding factor', or SSF, is of the range [0,1] where 1 indicates there is no self-shielding occurring, so any reaction rates are the simple multiplication of particle flux and unmodified cross-section. For values closer to 0, the cross-section is revised down, reducing the reaction rate. Further detail and context on computing self-shielding factors is available in \cite{Dembia2013} and \cite{Bell1970}. 
 
 Figure~\ref{fig:W-183_shielding} shows cross-sections from several tungsten isotopes, \textsuperscript{182}W, \textsuperscript{183}W, \textsuperscript{184}W and \textsuperscript{186}W which together account for 99.88\% of the atomic mass of natural W. When computing the self-shielding factors for \textsuperscript{183}W in a material of natural W, it can be seen that areas without a significant background cross-section such as $140 < E [eV] < 160$, the self-shielding factors make a greater change to the unshielded cross-section. However, some resonances from different isotopes overlap in energy. Where there is a large resonance from an isotope other than nuclide in question, it elevates the background cross-section, $\sigma_{0}$, and absorbs particles in this energy region. An example of this behaviour is the \textsuperscript{183}W resonance at 220 eV, which is overshadowed by resonances in \textsuperscript{182,186}W and so does not significantly self-shield. The self-shielding factor for this energy bin is correspondingly close to unity.
 
@@ -279,35 +207,39 @@ FISPACT can take an arbitrary particle spectrum as input. For the simulations de
 Accurate nuclear simulations require cross-section data which preserve the true reaction rates even when discretised. An energy-dependent function of the reaction rate accuracy could be used to indicate where a higher-fidelity representation of the resonance would be useful. If this action could be performed for a variety of cases (materials, common spectra), this function could be used to target group structure bin density, reducing future errors. The process could perhaps be performed iteratively to converge on an ideal group structure. The group structure could be very specific (for a certain reaction channel and spectrum) or relatively general (for the whole table of nuclides, in a typical slowing down spectrum).
 
 \subsubsection{Towards an ideal bin density function}
-To assemble a distribution for bin density we define several piece-wise functions for identifying where, in the energy domain, self-shielding factor modifications are important and to indicate where resolution should be concentrated. 
+To assemble a distribution for bin density we define several piece-wise functions. These identify where in the energy domain self-shielding factor modifications are important. This, in turn, indicates where group structure resolution should be concentrated to converge on point-wise precision of representation.
 
 Equation~\ref{eq:s} describes the cumulative differences between reaction rates for an energy group as defined in section~\ref{subsec:self-shielding}. 
 
 \begin{equation}
   \label{eq:s}
-  S(E_{g}) = \sum_{i=0}^{g} (\mathrm{RR}(E_{i}) - \mathrm{RR}(E_{i})\mathrm{SSF}(E_{i}))
+  S(E_{g}) = \sum_{i=0}^{g} (\mathrm{RR}(E_{i}) - \mathrm{RR}(E_{i})\mathrm{SSF}(E_{i})) \; \mathrm{for} \; g = 0, 1, ..., G
 \end{equation}
 
-$S(E_{g})$ is the sum of differences between shielded and unshielded reaction rates from the start of the resolved resonance region to the $g$-th group. The cumulative, effective self-shielding distribution, $C(E_{g})$ as shown in equation~\ref{eq:c} and is normalised to start at 1 for $g=0$ and reduce through the shielded energy region to $\overline{\mathrm{SSF}}$.
+$S(E_{g})$ is the sum of differences between shielded and unshielded reaction rates from the start of the resolved resonance region to the $g$-th group. Repeating this procedure for all groups up to the final, $G$, assembles the cumulative difference between unshielded and shielded reaction rates. $S(E_{G})$ is the last value of the cumulative sum and hence the total sum.
+
+The cumulative, effective self-shielding distribution, $C(E_{g})$ is shown by equation~\ref{eq:c} and is normalised to start at 1 for $g=0$ and reduce through the shielded energy region to $\overline{\mathrm{SSF}}$. This normalisation achieved through the division of $S(E_{g})$ by its maximum value $S(E_{G})$ and multiplication by the factor of $1-\overline{\mathrm{SSF}}$. The normalisation means that effective self-shielding distributions from multiple nuclides can be compared in a way which is agnostic to the absolute values of individual cross-sections.
 
 \begin{equation}
   \label{eq:c}
   C(E_{g}) = 1 - \left( \left(1-\overline{\mathrm{SSF}}\right) \frac{S(E_{g})} {S(E_{G})}\right)
 \end{equation}
 
-This function, $C(E)$, gives a dimensionless measure of the importance of self-shielding modifications to interaction data. It allows comparison between nuclides of different cross-section values, as it is scaled between unity and the nuclide's $\overline{\mathrm{SSF}}$. Discontinuities in $C(E)$ show regions with large effective self-shielding. An example of a cumulative SSF distribution is shown in figure~\ref{fig:w_cross_section}. 
+This function, $C(E)$, gives a dimensionless measure of the importance of self-shielding modifications to interaction data. It allows comparison between nuclides of different cross-section values, as it is scaled between unity and the nuclide's $\overline{\mathrm{SSF}}$. Discontinuities in $C(E)$ show regions with large effective self-shielding. An example of a cumulative SSF distribution is shown in magenta in figure~\ref{fig:w_cross_section}. 
 
 \begin{equation}
   \label{eq:d}
   D(E_{g}) = C(E_{g}) - C(E_{g-1})
 \end{equation}
 
-The differences between discrete elements of the cumulative distribution provide an effective self-shielding distribution, $D(E_{g})$. Equation~\ref{eq:d} shows this, identifying the relative contributions from each bin to the overall self-shielding effect. It is shown as the effective self-shielding distribution in figure~\ref{fig:w_cross_section}. As such, $D(E_{g})$ indicates where the the group structure requires enhanced resolution in an improved group structure. 
+The differences between discrete elements of the cumulative distribution provide an effective self-shielding distribution, $D(E_{g})$. Equation~\ref{eq:d} shows this, identifying the relative contributions from each bin to the overall self-shielding effect. It is shown as the effective self-shielding distribution in red in figure~\ref{fig:w_cross_section}. In this example, the nuclide $^{186}$W, the effective self-shielding distribution is almost entirely located within two bins, around the first resonance. Despite the significant gap between shielded and unshielded reaction rates between 100 eV and 10 keV, this higher energy region does not contribute to a dip in $C(E_{g})$ or an associated rise in $D(E_{g})$ as the reaction rate values here are at least an order of magnitude less than those of the first resonance. 
+
+$D(E_{g})$ can be thought of recording where the input group structure poorly represented the reaction rate. Consequently, $D(E_{g})$ indicates where the group structure requires enhanced resolution. 
 
 \begin{figure}
   \centering
   \includegraphics[width=0.8\linewidth]{W186_gamma}
-  \caption[Step-wise functions for calculating the effective self-shielding distribution.]{Shown in the upper plot is a $^{186}$W radiative capture reaction rate, both unshielded and shielded. The incident particle spectrum in this case is a power function of energy, i.e. $\phi(E) = E^{m}$ where $m$ is some constant, in this case 0. The second plot shows the calculated self-shielding factors as a function of energy for this reaction, given an elemental W material composition. The third plot is the cumulative self-shielding distribution, $C(E_{g})$ from equation~\ref{eq:c}. The fourth and final plot is of, $D(E_{g})$, from equation~\ref{eq:d}.}
+  \caption[Step-wise functions for calculating the effective self-shielding distribution.]{Shown in the upper plot is a $^{186}$W radiative capture reaction rate, both unshielded and shielded. The incident particle spectrum in this case is a power function of energy, i.e. $\phi(E) = E^{m}$ where $m$ is some constant, in this case 0. The second plot shows the calculated self-shielding factors as a function of energy for this reaction, given an elemental W material composition. The third plot is the cumulative self-shielding distribution, $C(E_{g})$ from equation~\ref{eq:c}. The fourth and final plot is of, $D(E_{g})$, from equation~\ref{eq:d}. All of these quantities are for $^{186}$W only.}
   \label{fig:w_cross_section}
 \end{figure}
 
@@ -315,24 +247,24 @@ This process of computing $D(E_{g})$ can be repeated for a set of nuclides, $n =
 
 \begin{equation}
   \label{eq:b}
-  b = \frac{\Delta E(E) \sum_{0}^{n=N}D_{n}(E) }{\frac{n_{bins}}{bpd_{min}} - d}
+  b = \frac{\int_{g=0}^{g=G} ( \Delta E(E_{g}) \cdot \sum_{0}^{n=N}D_{n}(E_{g}) ) dE}{\frac{n_{bins}}{bpd_{min}} - d}
 \end{equation}
 
-The minimum bins per decade, $\mathrm{bpd}_{min}$ must be specified. Where $d$ is the number of decades described by the group structure, $n_{bins}$ is the total number of bins required of the new group structure and $\Delta E(E)$ is an array of the input group bin widths.
+The minimum bins per decade, $\mathrm{bpd}_{min}$ must be specified. Where $d$ is the number of decades described by the group structure, $n_{bins}$ is the total number of bins required of the new group structure and $\Delta E(E)$ is an array of the input group bin widths. The multiplication of $\Delta E(E)$ and $\sum_{0}^{n=N}D_{n}(E)$ is a scalar product, integrated over the energy domain.
 
 \begin{equation}
   \label{eq:offset}
   \rho(E) = b + \sum_{0}^{n=N}D_{n}(E)
 \end{equation}
 
-$\rho(E)$ is an array of proposed local bin densities, on the input group structure. This is then re-binned into equal areas as per equation \ref{eq:equal} to determine the new, optimised group structure.
+$\rho(E)$ is an array of proposed local bin densities, on the input group structure. This is then re-binned into equal `areas' in $\rho, E$ space, each with the value $k$ as shown in equation \ref{eq:equal}. Here the right hand side shows the total energy-integrated value of the bin density distribution $\int \rho(E) dE$, divided by the number of desired bins to give $k$. Working from the starting energy, with $k$ and $\rho(E)$ it is now possible to determine the new, optimised group bounds and thus the group structure.
 
 \begin{equation}
   \label{eq:equal}
-  \int_{g=i-1}^{g=i} \rho(E_{g})dE = \frac{1}{n_\mathrm{bins}}\int_{g=0}^{g=N}\rho(E_{g})dE 
+  k = \frac{1}{n_\mathrm{bins}}\int_{g=0}^{g=G}\rho(E_{g})dE 
 \end{equation} 
 
-An example bin density distribution and the associated new group structure bin bounds are shown in figure~\ref{fig:optimised_bounds}. One can see a greater density of new bin boundaries (green) where the distribution (red) is peaked.
+An example bin density distribution and the associated new group structure bin bounds are shown in figure~\ref{fig:optimised_bounds}. One can see a greater density of new bin boundaries (green) where the distribution (red) is peaked. This figure can be thought of as a nuclide-wise sum of effective self-shielding distributions, an example of which is the bottom panel of \ref{fig:w_cross_section}.
 
 \begin{figure}
   \centering
