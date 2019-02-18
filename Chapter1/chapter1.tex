@@ -407,9 +407,9 @@ The TMC simulation can be seen to converge in figure~\ref{fig:convergence} at ap
 
 The TBR distribution is shown as figure~\ref{fig:tbr_distribution}. Any results greater than 6$\sigma$ from the mean TBR were deemed false and discarded before analysis. This filter rejected one simulation result, where the sampled TBR value was exceptionally far from the mean value: $0.826 \approx \mu - 15\sigma$. This simulation used an erroneous \textsuperscript{207}Pb ACE file, created with unrealistic parameters. 
 
-The shape of the distribution appears somewhat Gaussian (see equation~\ref{eq:normal}) although with an extended low-value tail. The Shapiro-Wilk test was employed to test if the TBR population have indeed been sampled from a normal distribution \cite{Shapiro1965}. Formally, a null hypothesis, $H_{0}$, that the underlying distribution is normally distributed was proposed and rejected as the computed p-value for this sample was 0.003, less than the conventional threshold for acceptance (known as $\alpha$) of 0.05\footnote{$\alpha = 0.05$ implies there is a 5\% chance the null hypothesis is incorrectly rejected and is a common value for this statistical test.}.
+The shape of the distribution appears somewhat Gaussian (see equation~\ref{eq:normal}) although with an extended low-value tail. The Shapiro-Wilk test was employed to test if the TBR population have indeed been sampled from a normal distribution \cite{Shapiro1965}. Formally, a null hypothesis, $H_{0}$, that the underlying distribution is normally distributed was proposed. This hypothesis was rejected as the computed p-value for the sample population was 0.003, less than the conventional threshold for acceptance (known as $\alpha$) of 0.05\footnote{$\alpha = 0.05$ implies there is a 5\% chance the null hypothesis is incorrectly rejected and is a common value for this statistical test.}.
 
-The disitribution is fitted well with the addition of a skewness parameter, $\gamma$ to give the `skew-normal distribution' as per equation~\ref{eq:skewed_normal}. 
+The distribution is fitted well with the addition of a skewness parameter, $\gamma$ to give the `skew-normal distribution' as per equation~\ref{eq:skewed_normal}. 
 
 \begin{equation}
   \label{eq:normal}
@@ -481,6 +481,8 @@ Where $r$ is the separation, $a$ a `diffuseness' parameter and $R$ the nuclear r
 
 Shown as figure~\ref{fig:pb207_rvadjust} is the relationship between $r_{V}$ as shown in figure~\ref{fig:pb207_rvadjust_hist}, as applied to the generation of \textsuperscript{207}Pb data, to the resulting TBR values. The data in figure~\ref{fig:pb207_rvadjust} have a weak relationship. A linear least squares fit is shown, with a positive slope of $m=0.06$. The $r^{2}$ value is very low at 0.01. This implies, as can be seen visually, that a great deal of variance in the data is left unexplained by the fit. However, this study has varied several nuclear parameters and nuclides simultaneously--were fewer inputs varied the relationship shown in figure~\ref{fig:pb207_rvadjust} might be clearer. 
 
+Figure~\ref{fig:pb207_d1adjust} shows TBR data plotted against the values of nuclear parameter $d_{1}$ used in the simulation input data. This parameter has the highest correlation coefficient, $r^{2}$ of any parameter for $^{207}$Pb.
+
 \begin{figure}[H]
 %  \figuretitle{}
   \centering
@@ -489,15 +491,21 @@ Shown as figure~\ref{fig:pb207_rvadjust} is the relationship between $r_{V}$ as 
 	\label{fig:pb207_rvadjust}
 \end{figure}
 
-Performing a least-squares fit on all the varied nuclear parameters against the simulated TBR results, we can estimate which parameters TBR is most sensitive to. One could take the slope of the linear best fit line as the sensitivity, however as many of the correlations here are very poor, the slope $m$ is multiplied by the $r^{2}$ value of the fit, to handicap parameters with worse fits to TBR data. For \textsuperscript{207}Pb the parameter correlation bar chart is shown as figure~\ref{fig:pb207_param_correl}, with the ordinate displaying the $m \cdot r^{2}$ of the fit line. Prior to fitting, the parameters were normalised to their mean value so their absolute values do not bias the resulting line gradients. It can be seen that the sampled variation in the $r_{V}$ parameter for \textsuperscript{207}Pb results in the most change in simulated TBRs. The gradient is positive, with an increase value of the nuclear radius $r_{V}$ resulting in a higher TBR. The most important parameter for \textsuperscript{206}Pb's contribution to TBR uncertainty is $v_{1}$, a multiplicative factor in the energy dependent part of $\mathcal{V}_{V}$, the real volume potential. This relationship is an inverse one, with an increase in $v_{1}$ weakly correlated with a decrease in TBR. $^{208}$Pb is most affected by $d_{1}$, a multiplicative parameter in the energy dependent component of $\mathcal{W}_{D}$, the imaginary surface potential. Better constraining these parameters might act to reduce uncertainty in future lead based blanket analyses. This could be achieved with more experimental data or advances in model theory.
+\begin{figure}[H]
+%  \figuretitle{}
+  \centering
+	\includegraphics[width=0.7\textwidth]{Pb207_d1adjust}
+	\caption[TBR as a function of $d_{1}$ for $^{207}$Pb.]{Scatter plot of the $d_{1}$ parameter against simulated TBR. The $d_{1}$ values have been normalised to the mean of their distribution, centring the distribution on unity. The data has been fit with a linear relationship, with the fit data shown in the plot. A positive correlation is registered.}
+	\label{fig:pb207_d1adjust}
+\end{figure}
 
-% Pb208 = d1, Pb206 = v1 and Pb207 = rv are most important parameters
+Performing a least-squares fit on all the varied nuclear parameters against the simulated TBR results, we can estimate which parameters TBR is most correlated with. For \textsuperscript{207}Pb the parameter correlation bar chart is shown as figure~\ref{fig:pb207_param_correl}, with the ordinate displaying the $r^{2}$ of the linear regression. Prior to fitting, the parameters were normalised to their mean value. It can be seen that the sampled variation in the $d_{1,3}, w_{2}, r_{V}$ and $a_{v}$ parameters for \textsuperscript{207}Pb result in the most change in simulated TBRs. The parameter most strongly correlated with TBR for $^{206}$Pb and $^{208}$Pb is $d_{1}$, a multiplicative parameter in the energy dependent component of $\mathcal{W}_{D}$, the imaginary surface potential. Better constraining these parameters might act to reduce uncertainty in future lead based blanket analyses. This could be achieved with more experimental data or advances in model theory.
 
 \begin{figure}[H]
 %  \figuretitle{}
   \centering
 	\includegraphics[width=0.8\textwidth]{Pb207_param_correl}
-	\caption[Strength of correlation between $^{207}$Pb nuclear parameters and TBR.]{This bar chart shows the relationship between various nuclear parameters and TBR simulation data. The abscissa shows a variety of model parameters, the vast majority from optical model potentials. The ordinate values for each parameter are measures of the correlation between sampled parameter data and the TBR. The correlation measure is the slope multiplied by r-squared value of a linear fit to each dataset, the latter acting to relegate parameters which explain very little of the TBR variance. The parameter data was normalised to its mean before fitting, so that parameter absolute values did not bias the results. The majority of parameters studied have little correlation with TBR, leaving a few optical model parameters such as $r_{V}$ and $d_{1}$.}
+	\caption[Strength of correlation between $^{207}$Pb nuclear parameters and TBR.]{This bar chart shows the relationship between various nuclear parameters and TBR simulation data. The abscissa shows a variety of model parameters, the vast majority from optical model potentials. The ordinate values for each parameter are measures of the correlation between sampled parameter data and the TBR. The correlation measure is the r-squared value of a linear fit to each dataset. The parameter data was normalised to its mean before fitting. The majority of parameters studied have little correlation with TBR, leaving a few optical model parameters such as $r_{V}$ and $d_{1}$.}
 	\label{fig:pb207_param_correl}
 \end{figure}
 
@@ -524,7 +532,7 @@ Performing a least-squares fit on all the varied nuclear parameters against the 
 \section{Conclusion}
 TBR uncertainty has been computed with the TMC technique, investigating the contribution of uncertain nuclear data from the three major lead isotopes. The standard deviation is 1.2\% of the mean TBR. However, note that 5.8\% of the distribution is less than unity. While the average value may appear to be feasible, it should be stressed that there is a non-negligible probability of a value below a required limit. The TBR values are relatively low as this particular model has not been optimised for TBR and any practical design should have a TBR $\approx 1.1$ \cite{Fischer2015}, but in future design studies engineers should be aware of the probability of non-compliant operational parameters. 
 
-The TENDL-2015 nuclear data investigated in section \ref{subsec:data}, which is not necessarily Gaussian in shape, has yielded a TBR distribution with a small but finite negative skewness, an extended low-value tail. Decreasing the uncertainty in the aforementioned important optical model parameters, $v_{1}$ for \textsuperscript{206}Pb, $r_{V}$ for \textsuperscript{207}Pb and $d_{1}$ for \textsuperscript{208}Pb, would potentially act to reduce the uncertainty in future TBR analyses.
+The TENDL-2015 nuclear data investigated in section \ref{subsec:data}, which is not necessarily Gaussian in shape, has yielded a TBR distribution with a small but finite negative skewness, an extended low-value tail. Decreasing the uncertainty in the aforementioned important optical model parameters, such as $d_{1}$ for Pb, would potentially act to reduce the uncertainty in future TBR analyses.
 
 Uncertainty propagation in Monte-Carlo type radiation transport problems has often previously been computed using linear perturbation theory approaches. Unfortunately these are only applicable for small changes in the input data. They are also unable to reproduce probability distributions of the integral quantity of interest \cite{Rising2012}. Whilst figure \ref{fig:tbr_distribution} shows a TBR distribution that is only slightly skewed, that is not to say other fusion quantities will not be. Koning \& Rochman have demonstrated that fast and accelerator driven fission systems can have significantly skewed $k_{\mathrm{eff}}$ values, well described by an Extreme Value Fit (EVD) \cite{Koning2008}.
 
