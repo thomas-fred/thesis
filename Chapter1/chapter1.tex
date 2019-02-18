@@ -121,8 +121,10 @@ A disadvantage of perturbation theory methods is that they embody a linear relat
 \nomenclature[z]{TSUNAMI-3D}{Tools for Sensitivty and Uncertainty Analysis Methodology Implementation in three Dimensions}
 
 \FloatBarrier
-\subsubsection{Total Monte Carlo}
+\subsubsection{Sampling}
 \label{subsubsec:tmc}
+A variety of sampling based techniques for propagating nuclear data uncertainty are available.
+
 Koning and Rochman developed a new, integrated method of uncertainty propagation in the late 2000s \cite{Koning2008}. This approach, known as Total Monte Carlo (TMC), relies on repeated sampling of varied nuclear data. Whichever problem is being investigated is simulated multiple times with different data, building a distribution of outcomes. It is a fundamentally different method to the sensitivity / perturbation approach. 
 
 The foundation is a reliable methodology for generating nuclear interaction data. The software package T6 \cite{Koning2005} collects together various tools for calculating, formatting and validating nuclear data. Using T6 and a set of input parameters, reaction likelihoods and outcomes can be simulated for a variety of incident particles: neutron, photons, protons, deuterons, tritons helions and alpha-particles and for a range of energies from $10^{-5}\mathrm{eV}$ to $200\mathrm{MeV}$. The interactions in the 1 keV -- 200 MeV incident energy range are computed with the TALYS component of T6. This includes the optical model, level densities, direct reactions, compound reactions, pre-equilibrium reactions and fission reactions \cite{TALYS2017}.
@@ -199,9 +201,11 @@ The general TMC process is diagrammatically outlined in figure~\ref{fig:tmc_over
   \label{fig:tmc_overview}
 \end{figure}
 
+Besides TMC, there do exist other sampling based methods. Typically these sample from the uncertainty represented in covariance matrices. For instance, SANDY \cite{Fiorito2017} and NUSS \cite{Zhu2015}. SANDY is a program written in Python which can read ENDF-6 formatted nuclear data files, extract variance-covariance information as random variables and then use these distributions to create a selection of new nuclear data files which embody the underlying uncertainty. NUSS performs a similar function. These methods can of course use whichever covariances are available to generate their perturbed files. As with TMC they rely on repeating the radiation transport part of any calculation multiple times, and so are less appropriate for the most computationally intensive problems.
+
 \FloatBarrier
 \subsubsection{Comparison of methods}
-Sections \ref{subsubsec:pert} and \ref{subsubsec:tmc} have discussed the methods of two uncertainty propagation schemes. It is worth noting the advantages and disadvantages of each, drawing some comparisons between them to elucidate where each method might be most appropriate.
+Sections \ref{subsubsec:pert} and \ref{subsubsec:tmc} have discussed the methods of two broad uncertainty propagation schemes. It is worth noting the advantages and disadvantages of each, drawing some comparisons between them to elucidate where each method might be most appropriate.
 
 The perturbation method, using covariance information and sensitivity profiles, has much experience associated with it. It has been used to estimate uncertainties for $k_\mathrm{eff}$ and other important parameters in fission reactor physics for several decades. By contrast, whilst the idea of repeatedly simulating a system with different inputs is not new, the integrated TMC methodology, with a sophisticated ND generation package, is novel. Published in 2008, it has seen substantially less use in industry than perturbatory approaches. The nuclear industry is often slow to adopt new technology as there can be a significant volume of work required to validate results, especially where their application is safety-critical. Studies in a variety of applications have sought to benchmark and demonstrate TMC, bringing it into wider use \cite{Koning2008}\cite{Rochman2010}\cite{Sjostrand2017}\cite{Koning2012}\cite{Alhassan2014}\cite{Alhassan2015a}\cite{Rochman2011a}. 
 
