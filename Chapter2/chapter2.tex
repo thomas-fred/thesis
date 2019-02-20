@@ -122,19 +122,20 @@ The Tokamak Cooling Water System (TCWS) will move large quantities of water thro
 
 \begin{table}[H]
   \centering
-  \begin{tabu} to \textwidth {X[3] X X X[5]}
+  \begin{tabular}{lll}
+  %\begin{tabu} to \textwidth {X[3] X X X[5]}
     \toprule
-    Activation product  & t$_{\frac{1}{2}}$(s)  & Decay mode  & Energy (MeV) [branching ratio \%] \\
+    Activation product  & t$_{\frac{1}{2}}$(s)  & Decay mode   \\
     \midrule
-    \textsuperscript{16}N & 7.13 & $\beta$               & 6.129 [67], 7.115 [5] \\
-    \textsuperscript{17}N & 4.14 & $\beta \rightarrow n$ & 0.383 [35], 1.171 [53] \\
+    \textsuperscript{16}N & 7.13 & $\beta$               \\
+    \textsuperscript{17}N & 4.14 & $\beta \rightarrow n$ \\
     \bottomrule
-  \end{tabu}
-  \caption[$\gamma$ radiation sources from the ITER water cooling system.]{The type, energy and likelihood of decay from activated N isotopes in the ITER water cooling system.}
+  \end{tabular}
+  \caption[Decay paths for radioactive nitrogen.]{The parent, half-life and principal decay mode from activated nitrogen isotopes in the ITER water cooling system.}
   \label{tab:nitrogen_decay}
 \end{table}
 
-The gamma decay of \textsuperscript{16}N is utilised as a source for several of the simulations presented in section~\ref{subsec:prompt}.
+The nitrogen isotopes listed in table~\ref{tab:nitrogen_decay} decay through $\beta$ and neutron emission to oxygen isotopes, however they may still be in an excited state and so will emit gamma radiation until they achieve their ground state. The gamma decay of \textsuperscript{16}O is utilised as a source for several of the simulations presented in section~\ref{subsec:prompt}.
 
 \subsubsection{Computation}
 \label{subsubsec:rad_tran_comp}
