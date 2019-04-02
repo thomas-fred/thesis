@@ -107,6 +107,16 @@
 \fi
 
 % ******************************** Front Matter ********************************
+\makeatletter
+\renewenvironment{abstract} {
+% Normal abstract in the thesis
+  \cleardoublepage
+  \setsinglecolumn
+  \chapter*{\centering \Large Abstract}
+  \fancyfoot[CO,CE]{\thepage}
+}
+\makeatother
+
 \begin{document}
 
 \frontmatter
