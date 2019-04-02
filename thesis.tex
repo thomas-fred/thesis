@@ -107,15 +107,6 @@
 \fi
 
 % ******************************** Front Matter ********************************
-\makeatletter
-\renewenvironment{abstract} {
-% Normal abstract in the thesis
-  \cleardoublepage
-  \setsinglecolumn
-  \chapter*{\centering \Large Abstract}
-  \fancyfoot[CO,CE]{\thepage}
-}
-\makeatother
 
 \begin{document}
 
@@ -160,7 +151,6 @@
 % ********************************** Bibliography ******************************
 \begin{spacing}{0.9}
 
-\printnomenclature
 % To use the conventional natbib style referencing
 % Bibliography style previews: http://nodonn.tipido.net/bibstyle.php
 % Reference styles: http://sites.stat.psu.edu/~surajit/present/bib.htm
@@ -190,7 +180,12 @@
 
 \end{appendices}
 
+% *************************************** Nomenclature ********************************
+\printnomenclature
+
 % *************************************** Index ********************************
 \printthesisindex % If index is present
 
+
 \end{document}
+

@@ -721,7 +721,7 @@ wish to left align your text}
 	\addcontentsline=\nocontentsline#1{#2}
 	\egroup}
 % Removes pagenumber appearing from TOC
-\addtocontents{toc}{\protect\thispagestyle{empty}}
+\addtocontents{toc}{\protect\thispagestyle{plain}}
 
 
 % ***************************** Header Formatting ******************************
@@ -1113,7 +1113,7 @@ wish to left align your text}
   \cleardoublepage
   \setsinglecolumn
   \chapter*{\centering \Large Abstract}
-  \thispagestyle{empty}
+  \thispagestyle{plain}
 \fi
 }
 
