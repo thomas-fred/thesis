@@ -941,11 +941,7 @@ wish to left align your text}
 
 % Author
 {\usebox{\PHD@author}}
-\vspace*{4em}
-
-% Submission Text
-{\usebox{\PHD@submission}}
-\vspace{.15\PHD@titlepagespacing}
+\vspace*{1em}
 
 % Supervisor
 \ifPHD@supervisor%
@@ -961,6 +957,10 @@ wish to left align your text}
 
 % Department and University
 {\usebox{\PHD@dept}}
+\vspace{.2\PHD@titlepagespacing}
+
+% Submission Text
+{\usebox{\PHD@submission}}
 
 % College and degree date
 \vfill
