@@ -720,7 +720,7 @@ wish to left align your text}
 	\bgroup\let
 	\addcontentsline=\nocontentsline#1{#2}
 	\egroup}
-% Removes pagenumber appearing from TOC
+% pagestyle = plain gives page numbers on TOC pages
 \addtocontents{toc}{\protect\thispagestyle{plain}}
 
 
@@ -1113,6 +1113,7 @@ wish to left align your text}
   \cleardoublepage
   \setsinglecolumn
   \chapter*{\centering \Large Abstract}
+  \addcontentsline{toc}{chapter}{Abstract}
   \thispagestyle{plain}
 \fi
 }
